@@ -1,0 +1,4 @@
+[submodule "manuscripts"]
+	path = manuscripts
+	url = https://github.com/aswanipranjal/grimoirelab-manuscripts
+	branch = master
