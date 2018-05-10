@@ -15,5 +15,6 @@ All the issues and PRs created during the project will be listed out here.
 - [issue #1](https://github.com/chaoss/grimoirelab-manuscripts/issues/50): This issue tackles the problem of adding new code regarding the GMD metrics into CHAOSS.
 - [issue #2](https://github.com/chaoss/grimoirelab/issues/106): This issue is regarding exploring different visualisation techniques to describe the metrics so that the users can unserstand the analysis better.
 [issue #3](https://github.com/chaoss/grimoirelab-manuscripts/issues/49), [issue #4](https://github.com/chaoss/grimoirelab-manuscripts/issues/48) general issues.
+[issue #5](https://github.com/chaoss/grimoirelab/issues/108): This issue is regarding setting up the documentation for GSoC.
 
 You can find out more in this [blog post](https://aswanipranjal.github.io/posts/communitybonding)
