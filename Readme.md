@@ -1,7 +1,7 @@
 # Readme
 ---
 
-The (manuscripts project)[https://github.com/chaoss/grimoire-manuscripts] is part of the grimoirelab toolset and is used to produce Reports based on enriched elasticsearch indices.
+The [manuscripts project](https://github.com/chaoss/grimoirelab-manuscripts) is part of the grimoirelab toolset and is used to produce Reports based on enriched elasticsearch indices.
 
 This repository has been set up to track the status of the work that is being done on the Manuscripts project under Google Summer of Code 18.
 
