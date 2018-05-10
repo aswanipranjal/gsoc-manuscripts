@@ -1,0 +1,144 @@
+ #grimoirelab
+[2018-05-09 15:35:50] → Joined channel #grimoirelab
+[2018-05-09 15:35:50] * Channel mode is +cnt
+[2018-05-09 15:35:50] * Channel timestamp is 1503939731
+[2018-05-09 15:38:48] ⇐ jgbarah quit (~jgb@193.146.57.47): Ping timeout: 256 seconds
+[2018-05-09 15:50:37] → jgbarah joined (~jgb@193.146.57.47)
+[2018-05-09 15:50:56] <jgbarah> Hi, aswanipranjal!
+[2018-05-09 15:51:14] <jgbarah> If you want, we could start...
+[2018-05-09 15:51:58] <jgbarah> (but let's stick to the schedule if you prefer)
+[2018-05-09 16:23:00] ⇐ _acs_ quit (~acs@pct-empresas-204.uc3m.es): Ping timeout: 256 seconds
+[2018-05-09 16:29:18] <aswanipranjal> Hey @jgbarah 
+[2018-05-09 16:29:29] <aswanipranjal> sorry, I was having lunch
+[2018-05-09 16:29:50] → Amaan joined (uid4967@gateway/web/irccloud.com/x-cakotgfaemnhdhww)
+[2018-05-09 16:31:04] <jgbarah> Hi!
+[2018-05-09 16:31:14] <jgbarah> Don't worry. I was just having time ;-)
+[2018-05-09 16:31:19] <jgbarah> How was the week
+[2018-05-09 16:31:25] <aswanipranjal> https://www.irccloud.com/pastebin/IjUwDS3o/
+[2018-05-09 16:32:01] <aswanipranjal> I wasn't able to do much apart from reading the documents about Vega and the structure of manuscripts
+[2018-05-09 16:32:14] <aswanipranjal> i had my exam yesterday 
+[2018-05-09 16:32:18] <aswanipranjal> https://github.com/aswanipranjal/example-notebooks/blob/master/GMD-manuscripts.ipynb
+[2018-05-09 16:32:28] <jgbarah> OK, don't worry.
+[2018-05-09 16:32:38] <aswanipranjal> I have been working on this notebook, which i will be expanding for GMD under manuscripts
+[2018-05-09 16:32:48] <jgbarah> The fun is scheduled to start on Friday ;-)
+[2018-05-09 16:32:54] <aswanipranjal> haha, yes
+[2018-05-09 16:33:41] <jgbarah> OK, thanks for the report.
+[2018-05-09 16:33:56] <jgbarah> Let's talk for a moment about organization of the work for the next weeks.
+[2018-05-09 16:34:12] <aswanipranjal> yeah, sure
+[2018-05-09 16:34:30] <jgbarah> First of all, we need to have a place for your notes on your progress, and what you're learning / producing
+[2018-05-09 16:34:44] <jgbarah> That can be a blog, a repossitory...
+[2018-05-09 16:34:51] <aswanipranjal> I can post the progress on my blog
+[2018-05-09 16:35:09] <aswanipranjal> aswanipranjal.github.io/posts
+[2018-05-09 16:35:14] <jgbarah> If you do so, use an specific tagHowever
+[2018-05-09 16:35:37] <jgbarah> However, I would recommend opening an specific repo in github, and using yekill for this.
+[2018-05-09 16:36:01] <jgbarah> Havign a repo would allow us to have some other stuff (such as those notebooks you're producing now) all together in teh same place
+[2018-05-09 16:36:13] <jgbarah> What do you think about that?
+[2018-05-09 16:36:35] <aswanipranjal> oh, okay. Right now i am adding all the notebooks here: https://github.com/aswanipranjal/example-notebooks
+[2018-05-09 16:37:45] <jgbarah> YEah, I saw. But I see some benefit in maintaining everything together. And that would be easier to link ffrom CHAOSS webpages, too.
+[2018-05-09 16:38:03] <jgbarah> However, if you prefere to keep the saparate blog, that's fine.
+[2018-05-09 16:38:36] <jgbarah> We can have the blog posts (with a common tag) and the GitHub repo for other stuff.
+[2018-05-09 16:39:05] <jgbarah> Please decide on these two options. Any decision you make is ok with me.
+[2018-05-09 16:39:20] <aswanipranjal> Yeah, that sounds better. Hugo (the framework i am using) is quite easy to use and does supports tags.
+[2018-05-09 16:39:51] <aswanipranjal> I'll create another repository with the notebooks and add you as a collaborator
+[2018-05-09 16:40:31] <jgbarah> OK, great
+[2018-05-09 16:40:55] → _acs_ joined (~acs@43.red-83-61-189.dynamicip.rima-tde.net)
+[2018-05-09 16:40:59] <aswanipranjal> I had a question about the issue resolution mertic
+[2018-05-09 16:41:06] <aswanipranjal> how do we calculate the abandoned issues?
+[2018-05-09 16:41:08] <jgbarah> Please, open a document in that repository with the list of tickets thare we open for you, or those where you particiapted
+[2018-05-09 16:41:21] <jgbarah> That way we all can track better the status of the project
+[2018-05-09 16:41:31] <aswanipranjal> Yeah, okay.
+[2018-05-09 16:41:48] <jgbarah> aswanipranjal: wrt your question:
+[2018-05-09 16:42:15] <jgbarah> For abandoned issues, we need a definition of "abandoned". We're going to discuss that in the working group
+[2018-05-09 16:42:31] <aswanipranjal> Ah, okay
+[2018-05-09 16:42:37] <jgbarah> Feel free to open your proposal in the wg repo (as a ticket for now, if it is only a question).
+[2018-05-09 16:43:00] <jgbarah> However, for most issue tracking syystems, there is no such state as "abandoned",
+[2018-05-09 16:43:01] <aswanipranjal> The thing with the Mertics currently is that alot of them don't have concrete definitions.
+[2018-05-09 16:43:20] <jgbarah> so usually what is done is to estimate when a ticket was inactive for too long, to decide it was abandoned
+[2018-05-09 16:43:40] <jgbarah> Yes, that's why we need to wotk on definitions too.
+[2018-05-09 16:43:49] <aswanipranjal> i was thinking that the issues that have not been tended for long can be considered as abandoned.
+[2018-05-09 16:44:11] <jgbarah> Just some more stuff about formalities before we go on with specific stuff, if you don't mind....
+[2018-05-09 16:44:20] <aswanipranjal> also, alot of issues have a `wont fix` tag, so may be they can be considered as abandoned
+[2018-05-09 16:44:23] <aswanipranjal> yeah, sure
+[2018-05-09 16:44:42] <jgbarah> In that document where you'll linnk your issues and prs, please also include genreal inforamtion about the project
+[2018-05-09 16:45:05] <jgbarah> at least: link to the main ticket stating he general purpopse (we may refine it during this week)
+[2018-05-09 16:45:33] <aswanipranjal> yeah, okay
+[2018-05-09 16:45:37] <jgbarah> reference to when these meetings are (Wed, 11:00 UTC, irc channel, etc.)
+[2018-05-09 16:45:55] <jgbarah> link to your data in GSoC
+[2018-05-09 16:46:04] <jgbarah> and any other stuff that you find relevant
+[2018-05-09 16:46:31] <aswanipranjal> I can add all these things to a post related to that PR/issue and link the post to that issue in the document
+[2018-05-09 16:46:32] <jgbarah> The idea is that anyone iin CHAOSS can go to that document, and get an idea of what you're doing, how to track it more in detail if they want, and how to join, if the want
+[2018-05-09 16:46:48] <aswanipranjal> does that sound alright?
+[2018-05-09 16:47:15] ← yreg left (~yreg@unaffiliated/yreg): "Leaving"
+[2018-05-09 16:47:15] <jgbarah> As you may prefer. But a part of this is more like a living document, that's why I thought about a file in the repo. But it coudl also be apinned pos,
+[2018-05-09 16:47:18] <jgbarah> which evolves over time
+[2018-05-09 16:48:36] <aswanipranjal> Alternatively, i can scratch the blog altogether and create a MD file in the repository with all the information about the issues and PRs as small snippets of texts
+[2018-05-09 16:48:55] <aswanipranjal> so that the repo itself can evolve overtime
+[2018-05-09 16:49:04] <jgbarah> And finally, please rememver to send a weekly summary to the grimoirelab and chaoss mailing lists with your preogress.
+[2018-05-09 16:49:43] <jgbarah> It could be a link to a post, And maybe you could write the post before these weekly meertings, so that we all are informed in advance
+[2018-05-09 16:49:57] <aswanipranjal> Okay, i can send weekly summary every Monday about what i did the previous week.
+[2018-05-09 16:50:27] <jgbarah> I would do it on Tuestday or Wed. morning, since the meeting is on Wednesday. So, it will be more recent
+[2018-05-09 16:50:37] <aswanipranjal> okay
+[2018-05-09 16:51:22] <jgbarah> Oh, and I forgot: please, get a dump from our weekly irc meetings, and add it to the repo as well, after the meetings
+[2018-05-09 16:51:50] <aswanipranjal> yes, okay.
+[2018-05-09 16:52:00] <jgbarah> Usually, during the meetings we will review past tickets (And prs, if needed), maybe decide to open new ones, and reflect changes and new stuff in all  of them
+[2018-05-09 16:52:18] <jgbarah> So that all actions from the meeting get refelcted in tickets.
+[2018-05-09 16:52:31] <jgbarah> That's way having lists of tickets will be important ;-)
+[2018-05-09 16:52:43] <aswanipranjal> haha, yes that makes sense
+[2018-05-09 16:53:18] <jgbarah> Good.
+[2018-05-09 16:53:34] <jgbarah> Then, any other question you have now?
+[2018-05-09 16:53:58] <aswanipranjal> can you please look at the repositories and tell me if i am going the right way?
+[2018-05-09 16:54:35] <aswanipranjal> i also created a self contained notebook about the  GMD metrics for the users https://github.com/aswanipranjal/example-notebooks/blob/master/Growth%20Maturity%20and%20Decline.ipynb
+[2018-05-09 16:54:55] <aswanipranjal> so if you can comment on it, i can make the necessary changes
+[2018-05-09 16:55:05] <aswanipranjal> and expand on them if they look alright
+[2018-05-09 16:56:34] <jgbarah> Yes, I find the notebooks reasonable. During this week I will be producing my own, based on yours, for the gmd wg. We can follow on on them later.
+[2018-05-09 16:56:43] <aswanipranjal> I had a question regarding the notebooks too: do we create notebooks for the users to interactively look at the metrics? If so, do we assume that the users will be able to navigate through the notebooks by them selves?
+[2018-05-09 16:57:09] <jgbarah> For now, we need to kinds of notebooks:
+[2018-05-09 16:58:29] <jgbarah> * For the gmd wg, we need notebooks based on Perceval, as those you mmention you did yourself.
+[2018-05-09 16:58:54] <jgbarah> Those are mainly for thinking about the metrics, finding deertails, and then providing a refernce implementation easy to understand.
+[2018-05-09 16:59:12] <jgbarah> People interested in reusing notebooks should fork them
+[2018-05-09 16:59:36] <jgbarah> * For manuscripts, we need notebooks based on current GrimoireLab enriched indexes.
+[2018-05-09 17:00:12] <jgbarah> These are for learning the best wqay of implemnting metrics in Manuuscripts, and very likely will be using libraries such as grimoirelab-ceres,
+[2018-05-09 17:00:18] <jgbarah> or the structure used in Manuscripts.
+[2018-05-09 17:01:04] <jgbarah> But before starting that way, we need to work on https://github.com/chaoss/grimoirelab-manuscripts/issues/50
+[2018-05-09 17:01:37] <jgbarah> Thoso are mainly (for now) for us, to learn and s¡discuss itegration strategies in Manuscrpts
+[2018-05-09 17:01:54] <jgbarah> and maybe at some point we can skip them, and work directly with prs to Manuscriptts
+[2018-05-09 17:02:08] <jgbarah> Is that ok?
+[2018-05-09 17:03:14] <aswanipranjal> yeah, right now i am using notebooks for experimentation and figuring the visualizations
+[2018-05-09 17:03:21] <jgbarah> ok.
+[2018-05-09 17:03:26] <aswanipranjal> later these can be converted into PRs and added to manuscripts
+[2018-05-09 17:03:36] <jgbarah> Any other question that we deal with better here than in issues?
+[2018-05-09 17:04:04] <aswanipranjal> i can't think of any other right now
+[2018-05-09 17:04:31] <jgbarah> ok, then, stuff for the next few days
+[2018-05-09 17:04:45] <jgbarah> I think we need to advance on https://github.com/chaoss/grimoirelab-manuscripts/issues/50
+[2018-05-09 17:04:58] <aswanipranjal> I will email you/post on the mailing lists/create an issue if there is something that i cannot figure out by my self.
+[2018-05-09 17:05:04] <jgbarah> You need to understand the code in Manuscripts, and start proposing how would you intergrate chaoss metrics in it
+[2018-05-09 17:05:34] <jgbarah> SEcond, you can work with the notebooks based on GrimooireLab indexes for each o fthe metrics,
+[2018-05-09 17:05:56] <jgbarah> identifyind wiich ones are clear enough to implement, and which ones still need more definition work.
+[2018-05-09 17:06:36] <jgbarah> You can use one issue for each of the metrics you're working with
+[2018-05-09 17:06:48] <aswanipranjal> You will be talking on the WG about the clarification on some of the metrics right?
+[2018-05-09 17:06:53] <aswanipranjal> okay
+[2018-05-09 17:06:54] <jgbarah> don't start with all of them at the same time, just 4-6 woudl be enough until we're at full speed
+[2018-05-09 17:07:15] <jgbarah> Yes, next meeting of the WG (next week) is going to start with this
+[2018-05-09 17:07:58] <jgbarah> But based on your analysis, we can also start openning issues in the wg repository
+[2018-05-09 17:08:14] <jgbarah> For now, the issues I comment abobve are for the manuscripts repo
+[2018-05-09 17:08:32] <aswanipranjal> Okay, I'll create functions for the metrics i think are self explanatory
+[2018-05-09 17:08:37] <aswanipranjal> okay
+[2018-05-09 17:08:50] <jgbarah> All this, and setting up the infrastructure for blogging, documentgs, etc (please open an issue also for thiis, that one in the grimoirelab repo)
+[2018-05-09 17:09:11] <jgbarah> And I think the rest, we can start taliing in issues...
+[2018-05-09 17:09:15] <jgbarah> OK?
+[2018-05-09 17:09:21] <aswanipranjal> okay
+[2018-05-09 17:10:01] <aswanipranjal> just to clarify: i'll create an issue regarding the reporting of GSoC work in grimoirelab?
+[2018-05-09 17:10:08] <aswanipranjal> yeah, okay.
+[2018-05-09 17:14:43] <jgbarah> Yes, you can name it "Setting up the infrascture for tracking my GSoC project"
+[2018-05-09 17:14:49] <jgbarah> or somethinng like that
+[2018-05-09 17:15:04] <aswanipranjal> okay, sure. Thanks!
+[2018-05-09 17:15:07] <jgbarah> OK the, if you're good with all this, I think we're done for today
+[2018-05-09 17:15:23] <aswanipranjal> Yeah, thank you. I'll get started.
+[2018-05-09 17:15:29] <jgbarah> Thaks a lot, aswanipranjal!!
+[2018-05-09 17:15:48] <jgbarah> Let's talk in issues. Please produce the dump of this session an dinclude it in the repo,
+[2018-05-09 17:16:17] <aswanipranjal> yeah, i'll do that.
+[2018-05-09 17:16:23] <jgbarah> And as soon as you can, produce the first report in the blog, and send the link to the mailing list. Maybe you can produce one tomorrow, and the next one just before the next meeting
+[2018-05-09 17:16:27] <jgbarah> See you!!!
+[2018-05-09 17:16:58] <aswanipranjal> Okay, I'll do one describing what i did, and what i will be doing.
+[2018-05-09 17:17:13] <jgbarah> Great!
+[2018-05-09 17:17:27] <aswanipranjal> Thank you! See you next Wednesday!
