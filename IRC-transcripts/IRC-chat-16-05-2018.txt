@@ -1,0 +1,181 @@
+﻿#grimoirelab
+[2018-05-16 15:29:13] → Joined channel #grimoirelab
+[2018-05-16 15:29:14] * Channel mode is +cnt
+[2018-05-16 15:29:14] * Channel timestamp is 1503939731
+[2018-05-16 16:05:52] → jgbarah joined (~jgb@wifi-76-37.uc3m.es)
+[2018-05-16 16:30:27] <aswanipranjal> Hey @jgbarah 
+[2018-05-16 16:31:28] <jgbarah> Hi, aswanipranjal!!
+[2018-05-16 16:31:31] <jgbarah> Can we start?
+[2018-05-16 16:31:54] <aswanipranjal> yeah, sure!
+[2018-05-16 16:33:07] <jgbarah> OK, first of all, thanks for your work these days.
+[2018-05-16 16:33:19] <jgbarah> I was looking at the notebook, and it is great! Thanks
+[2018-05-16 16:33:25] <aswanipranjal> Ah, thankyou!
+[2018-05-16 16:33:55] <aswanipranjal> https://github.com/aswanipranjal/gsoc-manuscripts/blob/master/GMD-manuscripts.ipynb
+[2018-05-16 16:34:09] <aswanipranjal> i've added some more metrics to the notebook
+[2018-05-16 16:34:15] <jgbarah> Well, let's start by reviewing the documentation you produuced
+[2018-05-16 16:34:27] <aswanipranjal> Okay
+[2018-05-16 16:34:50] <jgbarah> I'm missing a blog entry...
+[2018-05-16 16:35:07] <jgbarah> It would be great if you could prepare one in advance of each of our weekly meetings,
+[2018-05-16 16:35:20] <jgbarah> maybe the day before, so that we can quickly see the summmary
+[2018-05-16 16:35:42] <jgbarah> Maybe you produced it and I missed it?
+[2018-05-16 16:36:06] <aswanipranjal> Oh, I have written the blog for this week. I didn't push it yet so that i could include the transcript of today's meeting in it
+[2018-05-16 16:36:49] <aswanipranjal> I'll remember this for next time!
+[2018-05-16 16:36:50] <jgbarah> OK. If you don't mind, push it like the night before our meeting. If there are last-minute issues, you can always edit it
+[2018-05-16 16:36:53] <jgbarah> Thanks!
+[2018-05-16 16:37:02] <jgbarah> Would you mind pushing it now if you can?
+[2018-05-16 16:37:05] <aswanipranjal> Okay, I'll make a note of it
+[2018-05-16 16:37:07] <aswanipranjal> yeah, sure
+[2018-05-16 16:37:41] <jgbarah> Thanks! Please, let me know when it is online, I wait for it. That way this meeting will be easier ;-)
+[2018-05-16 16:39:11] <jgbarah> Meanwhile some comments on https://github.com/aswanipranjal/gsoc-manuscripts/blob/master/Readme.md
+[2018-05-16 16:39:48] <jgbarah> Please, open a section "Coordination procedures", and include in it
+[2018-05-16 16:40:13] <jgbarah> the current text about the weekly meetings (please, specify they happen in Freenode IRC, so that people know how to join)
+[2018-05-16 16:41:07] <jgbarah> some text mentioning that there will be a weekly blog post with the weekly report
+[2018-05-16 16:42:05] <jgbarah> that after our meetings there will be a message to the mailing list, with links to the dump of the irc text for the meeting, to the blog post,
+[2018-05-16 16:42:14] <jgbarah> and to any other relevant information for that week,
+[2018-05-16 16:42:20] <aswanipranjal> Okay, I'll add it to the repo.
+[2018-05-16 16:42:40] <jgbarah> that progress will be reported in issues and pull requests,
+[2018-05-16 16:42:59] <jgbarah> and anything else about coordination procedures that maybe I'm missing and you remember for our first meeting,
+[2018-05-16 16:43:20] <jgbarah> or new stuff that maybe we dedice during the next weeks...
+[2018-05-16 16:43:47] <jgbarah> (oh, and that we will also use the WG-GMD meetings, every other week, for coordination)
+[2018-05-16 16:44:16] <jgbarah> Then, the section on "Issues and pull requests" is nice.
+[2018-05-16 16:45:03] <jgbarah> but please structure it according to topics. For example: "understanding GMD metrics", and all tickets and prs related to that,
+[2018-05-16 16:45:13] <jgbarah> "overall coordination", and the same,
+[2018-05-16 16:45:47] <jgbarah> we can define topics every week, or you can do that yourself. Those would be a kind of "backlog" of actions to perform,
+[2018-05-16 16:45:57] <jgbarah> each one refined in tickets and pull requests.
+[2018-05-16 16:46:16] <jgbarah> With that, I'm fine with that document.
+[2018-05-16 16:46:25] <jgbarah> Is that ok with you too?
+[2018-05-16 16:47:39] <aswanipranjal> Yeah, that sounds right.
+[2018-05-16 16:47:46] <jgbarah> Good.
+[2018-05-16 16:47:56] <aswanipranjal> I am just pushing the document. Give me one minute.
+[2018-05-16 16:48:01] <jgbarah> ok
+[2018-05-16 16:48:09] <jgbarah> I wait ;-)
+[2018-05-16 16:49:09] <jgbarah> (just to finish the above comments: instead of using issue numbers starting with "#1", use github ids, such as chaoss/grimoirelab-manuscripts#150,
+[2018-05-16 16:49:25] <jgbarah> which usually will trigger GitHub to fill in with the name of the issue)
+[2018-05-16 16:50:36] <jgbarah> See "Issue references within a repository" in https://guides.github.com/features/mastering-markdown/ )
+[2018-05-16 16:51:06] <aswanipranjal> https://aswanipranjal.github.io/posts/week-1/
+[2018-05-16 16:51:46] <jgbarah> Thanks!
+[2018-05-16 16:51:58] <jgbarah> I think we need some more detail, aswanipranjal...
+[2018-05-16 16:52:25] <jgbarah> For the next week, please be a bit more specific, stressing on which tickets you were worked, the problems you found,
+[2018-05-16 16:52:41] <jgbarah> the new knowledge you got, the new stuff you built...
+[2018-05-16 16:53:04] <aswanipranjal> I am sorry. I'll edit the current blog entry and  be more specific.
+[2018-05-16 16:53:27] <jgbarah> For example, for this week, mentioning the issues you were working in, the general infrastructure (repo and all that), a general description of the notebook you prepared...
+[2018-05-16 16:54:03] <aswanipranjal> I have mentioned alot of context in the Notebook it self so I didn't add those things in the blog.
+[2018-05-16 16:54:04] <jgbarah> No worries, but just try to make the post useful for us knowing about your progress, and for your future self to remember what you did, and the problems you had...
+[2018-05-16 16:54:27] <aswanipranjal> Yeah, I'll make more detailed notes
+[2018-05-16 16:54:53] <jgbarah> Yes, there is no need to duplicate info. The post is more like a summary that you would be telling a friend who is interested on what you did during the week,
+[2018-05-16 16:55:00] <jgbarah> along with links to get further info
+[2018-05-16 16:55:31] <jgbarah> That way, I can just read it, and very likely we can skip in these irc meetings having a summary of what you did ;-)
+[2018-05-16 16:56:08] <jgbarah> Well, after the README.md (see comments above) some minor comments about other stuff:
+[2018-05-16 16:56:11] <aswanipranjal> Yeah, that makes sense. I'll remember this for the next time
+[2018-05-16 16:57:11] <jgbarah> Thanks
+[2018-05-16 16:57:18] <jgbarah> OK, about https://github.com/chaoss/grimoirelab-manuscripts/issues/50
+[2018-05-16 16:58:07] <aswanipranjal> I actually created another branch called as GMD-metrics in my fork and I've been updating that fork with the work that i am doing
+[2018-05-16 16:58:10] <jgbarah> let's talk later. I was thinking about this, and I guess the best is that you start designing from scratch in a new notebook
+[2018-05-16 16:58:40] <jgbarah> Yeah, I saw it.
+[2018-05-16 16:58:43] <aswanipranjal> from scratch?
+[2018-05-16 16:58:54] <jgbarah> Well, let's talk now, since we're iin the matter ;-)
+[2018-05-16 16:59:02] <aswanipranjal> haha, yes please
+[2018-05-16 16:59:14] <jgbarah> The fact is that the design of the current Metric class in Manuscripts is too naive
+[2018-05-16 16:59:55] <jgbarah> Right now, it has all the machinery for doing stuff such as aggregations and periods, but specializing it for specific cases is too complex,
+[2018-05-16 17:00:03] <jgbarah> and code reuse is difficult to achhieve.
+[2018-05-16 17:00:16] <jgbarah> As you noticed, when had to rewrite many functions
+[2018-05-16 17:00:25] <jgbarah> (well, or the same functions several times).
+[2018-05-16 17:00:57] <jgbarah> Right now, impolementing a metric is defining a subclass, and redefining methods, maybe in ways that are quite similar, or the same, to other metrics,
+[2018-05-16 17:01:04] <jgbarah> but it is difficult to reuse
+[2018-05-16 17:01:52] <aswanipranjal> So we should generalize them?
+[2018-05-16 17:02:03] <jgbarah> So, the idea would be to use a model similar to the one of elasticsearch_dsl (or sqlarchemy, for that matter, if you are familiar with it)
+[2018-05-16 17:02:17] <jgbarah> Yes, to genralize it.
+[2018-05-16 17:02:56] <jgbarah> For example, imagine that you already have a metric which is eg, counting commits. You implement that with Commit_Count, which is a class
+[2018-05-16 17:03:03] <aswanipranjal> yes
+[2018-05-16 17:03:38] <jgbarah> Then, you could do stuff such as Commit_Count.by_period("weeks").by_organization()
+[2018-05-16 17:04:09] <jgbarah> Which would produce a data strcture (maybe a data frame) with the metric by weeks and by organization
+[2018-05-16 17:04:23] <jgbarah> Do you understand the general idea?
+[2018-05-16 17:04:25] <aswanipranjal> Oh, that sounds good!
+[2018-05-16 17:04:39] <jgbarah> I think so ;-)
+[2018-05-16 17:05:00] <jgbarah> For that, I think that, now that you have a notebook with many metrics,
+[2018-05-16 17:05:02] <aswanipranjal> We have to create such helper functions that can be applied to all the metrics
+[2018-05-16 17:05:45] <jgbarah> you produce a new one which writes raw code for all of them, not using the Manuscripts classes.
+[2018-05-16 17:06:13] <aswanipranjal> new notebook, you mean?
+[2018-05-16 17:06:14] <jgbarah> Buy "raw" I mean using only elasticseach_dsl, to query enriched indexes,
+[2018-05-16 17:06:34] <jgbarah> Yes, a new one, with the same metrics you have in the cuurrent one. And of course results should be the same
+[2018-05-16 17:07:05] <jgbarah> Say, for example, that you are computing "Commit:Count" metric from CHAOSS GMD,
+[2018-05-16 17:07:08] <aswanipranjal> Okay, I get it. The current functions in manuscripts only provide with aggregations and nothing much else
+[2018-05-16 17:07:30] <jgbarah> you would query the git enriched index, and just count.
+[2018-05-16 17:07:49] <jgbarah> Yes, aswanipranjal, the idea is to find out what we need for as many metrics as possible,
+[2018-05-16 17:08:00] <jgbarah> and then try to generalize by designing the classes we need
+[2018-05-16 17:08:28] <jgbarah> because to be composable, those "helper" funcitions should in fact be part of a class hierarchy, or maybe more than one
+[2018-05-16 17:08:54] <aswanipranjal> Okay. But it'll be helpful if we can define the mertics in a better fashion
+[2018-05-16 17:08:55] <jgbarah> (aggregations and filters, for example, could be either two different hierarchies, or two parts of the same).
+[2018-05-16 17:09:14] <jgbarah> aswanipranjal: Yes, that's needed too.
+[2018-05-16 17:09:34] <jgbarah> I saw your comments for some of the metrics commenting how more detail is needed.
+[2018-05-16 17:10:06] <jgbarah> For that, the procedure I think will be better is to open an issue for each of the metrics you feel you need more detail, in the wg-gmd repo,
+[2018-05-16 17:10:22] <aswanipranjal> Ah, okay, i'll do that
+[2018-05-16 17:10:26] <jgbarah> and we all (with Sean and everybody else) start to discuss how to precisely define them
+[2018-05-16 17:10:46] <aswanipranjal> I had a doubt though, We need functionality other than the aggregations, right?
+[2018-05-16 17:10:58] <aswanipranjal> because we already support aggregations
+[2018-05-16 17:11:11] <jgbarah> Yes, I think so.
+[2018-05-16 17:11:17] <jgbarah> For example, filters
+[2018-05-16 17:11:34] <jgbarah> Like "I want to consider only closed issues"
+[2018-05-16 17:11:55] <jgbarah> And for aggregations, we would need to make them more specific,
+[2018-05-16 17:12:01] <aswanipranjal> So we just create one class: Issues and it satisfies both open and closed issues?
+[2018-05-16 17:12:20] <jgbarah> like "aggregation by time period", or "aggregation by organization"
+[2018-05-16 17:12:48] <jgbarah> Not exactly: we create for example Issues and PullRequests,
+[2018-05-16 17:13:22] <jgbarah> and then, we also create a filter class "Filter_Open",
+[2018-05-16 17:14:03] <jgbarah> and then we can have "Issues.FilterOpen" and "PullRerquests.FilterOpen"
+[2018-05-16 17:14:15] <jgbarah> And we can reuse the code for filtering open issues.
+[2018-05-16 17:14:24] <jgbarah> Same, for example, for periods.
+[2018-05-16 17:14:46] <jgbarah> But instead of having that hardcoded in the MetricClass, we have that into a different hierarcy
+[2018-05-16 17:14:58] <jgbarah> Fow knowinng what we need, we woudl need some analysis,
+[2018-05-16 17:15:11] <jgbarah> that's the new notebook you're producing
+[2018-05-16 17:15:41] <jgbarah> From comparing it with the current one you already produced, we  should get a more clear view of what is needed.
+[2018-05-16 17:15:52] <jgbarah> Do you find this path reasonable?
+[2018-05-16 17:15:58] <aswanipranjal> Basically we need to know what all can we do with all the data WRT the metrics, right?
+[2018-05-16 17:16:24] <jgbarah> Right. .So that we know where it makes sense of reuse, and which kind of structures we need for the reuse.
+[2018-05-16 17:16:33] <aswanipranjal> yeah
+[2018-05-16 17:16:39] <jgbarah> OK, good.
+[2018-05-16 17:16:52] <jgbarah> And yet another thing that we need, this one is simple:
+[2018-05-16 17:16:54] <aswanipranjal> Okay, I'll start on a new notebook and see what I can find
+[2018-05-16 17:17:09] <jgbarah> cleanup esquery.py
+[2018-05-16 17:17:27] <aswanipranjal> Okay
+[2018-05-16 17:17:40] <jgbarah> Right now, it should be usinng only elasticsearch_dsl primitives, but there is still code that uses the ES API directly.
+[2018-05-16 17:18:13] <jgbarah> That code should be removed, up to the point that we can get rid of the USE_ELASTIC_DSL variable that you find at the begining of the file
+[2018-05-16 17:18:57] <jgbarah> For this, you could produce an specific pr to manuscripts, with all the changes needed (hopefully only in this file, butu maybe in others if thre is still some use of the old code)
+[2018-05-16 17:19:08] <aswanipranjal> Okay, I'll clean it up. I am familiar with the code now, i think, so I don't think it will be a big problem.
+[2018-05-16 17:19:14] <jgbarah> Great!
+[2018-05-16 17:19:18] <jgbarah> So, in summary:
+[2018-05-16 17:19:21] <aswanipranjal> metrics.py might need some change too
+[2018-05-16 17:19:37] <jgbarah> * Work a bit with README.md and that
+[2018-05-16 17:20:20] <jgbarah> * Open isssues in wg-gmd for discussing on the metrics you feel it's needed (one issue per metric)
+[2018-05-16 17:20:45] <jgbarah> * Produce the new notebook using directly elasticsearch_dsl instead of the Metric hierarchy of classes
+[2018-05-16 17:21:32] <jgbarah> * Start thinkking about the model for "composable" filters, aggregations and all that, based on what we learn from the new notebook
+[2018-05-16 17:22:14] <jgbarah> For each of these items (except for second), you can open a ticket that we can start using for discussing specific istuff.
+[2018-05-16 17:22:34] <jgbarah> For the first one, since it is specific to your work as GSoC, open it in your own repo, please
+[2018-05-16 17:22:46] <jgbarah> But the others, you can open them in the Manuscripts repo
+[2018-05-16 17:22:56] <aswanipranjal> Okay
+[2018-05-16 17:23:09] <jgbarah> Maybe there is some more stuff from last week, but I guess this is most of it...
+[2018-05-16 17:23:18] <jgbarah> Do you think we're missing something?
+[2018-05-16 17:24:08] <aswanipranjal> No, I think we are covered for now.
+[2018-05-16 17:24:20] <jgbarah> BTW, in some hours I expect to push a notebook to the wg-gmd repo with some raw computing of the CommitCount metric, directly ffrom data in Perceval.
+[2018-05-16 17:24:26] <aswanipranjal> I'll start with the README.md and by creating the issues.
+[2018-05-16 17:24:29] <jgbarah> For our meeting tomorrow.
+[2018-05-16 17:24:38] <jgbarah> Thanks a lot, aswanipranjal!
+[2018-05-16 17:24:50] <jgbarah> Then, I think we're done from my side...
+[2018-05-16 17:25:06] <aswanipranjal> have you created some functions that we talked about today in that Notebook?
+[2018-05-16 17:25:13] <jgbarah> If you need to sync on Friday or Monday, let me know, and we can meet here at some time
+[2018-05-16 17:25:28] <jgbarah> otherwise, we meet next Wed.
+[2018-05-16 17:25:58] <jgbarah> No, that notebook is just to define the meaning of the metric. You'll see several options and details,
+[2018-05-16 17:26:02] <jgbarah> for fostering a discussion
+[2018-05-16 17:26:11] <jgbarah> The idea is to do similar stuff with all the metrics
+[2018-05-16 17:26:34] <aswanipranjal> Okay, I'll try to get most of this done by Monday (Not sure of the notebooks as i have to think what all does it need) but I'll update you on monday anyways so that you can tell me if i am missing out something.
+[2018-05-16 17:26:38] <jgbarah> That's the kind of discussion we will have for the issues you open asking for more concrete definition of metrics
+[2018-05-16 17:26:44] <aswanipranjal> Ah, okay!
+[2018-05-16 17:26:49] <jgbarah> Thanks!
+[2018-05-16 17:27:03] <aswanipranjal> Okay! Thank you @jgbarah 
+[2018-05-16 17:27:05] <jgbarah> If you are done by Monday, let me know, and we can briefly sync then
+[2018-05-16 17:27:09] <aswanipranjal> sure!
+[2018-05-16 17:27:14] <jgbarah> Thanks, aswanipranjal! See you soon!
+[2018-05-16 17:27:56] <jgbarah> (please remember to complete the post for last week, and send the links to the log of this meeting and that blog post to the list, when both are ready)
+[2018-05-16 17:28:03] <jgbarah> Bye!
+[2018-05-16 17:29:57] <aswanipranjal> Yeah, okay. Bye!
+[2018-05-16 17:32:16] → _acs_ joined (~acs@43.red-83-61-189.dynamicip.rima-tde.net)
+[2018-05-16 17:34:47] ⇐ jgbarah quit (~jgb@wifi-76-37.uc3m.es): Ping timeout: 276 seconds
