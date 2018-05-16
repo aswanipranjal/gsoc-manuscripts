@@ -29,12 +29,12 @@ These tickets are concerning how to structure the code that is being generated a
 
 ### Understanding GMD metrics and related work:
 What are GMD-metrics? How can we calculate them:
-- [chaoss/grimoirelab-manuscripts/issues/56](https://github.com/chaoss/grimoirelab-manuscripts/issues/56)
-- [chaoss/wg-gmd/issues/1](https://github.com/chaoss/wg-gmd/issues/1)
+- [chaoss/grimoirelab-manuscripts/issues/56](https://github.com/chaoss/grimoirelab-manuscripts/issues/56): The classes in github_issues and github_pr have been implemented using the master class of ITS data source as the parent class. That needs to be changed so that the code can be consistent.
+- [chaoss/wg-gmd/issues/1](https://github.com/chaoss/wg-gmd/issues/1): Some of the metrics in GMD need more descriptions and more elabotration on how to implement them.
 
 ### General enhancements to current Manuscripts structure and functions:
 These issues concern general maintainance and enhancements on manuscripts:
-- [chaoss/grimoirelab-manuscripts/issues/49](https://github.com/chaoss/grimoirelab-manuscripts/issues/49)
+- [x] [chaoss/grimoirelab-manuscripts/issues/49](https://github.com/chaoss/grimoirelab-manuscripts/issues/49): Setting up a menu option for manuscripts when no arguments were provided.
 - [chaoss/grimoirelab-manuscripts/issues/48](https://github.com/chaoss/grimoirelab-manuscripts/issues/48): Manuscripts uses a 01-01-2015 as a date for calculating metrics if a start date is not given. This issue is regarding making that date into a more specific or related one.
 
 ---
