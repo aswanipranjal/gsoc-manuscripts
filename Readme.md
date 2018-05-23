@@ -35,6 +35,7 @@ What are GMD-metrics? How can we calculate them:
 
 ### Enhancing Manuscripts on the basis of the Metrics:
 - [chaoss/grimoirelab-manuscripts/issues/56](https://github.com/chaoss/grimoirelab-manuscripts/issues/56): The classes in github_issues and github_pr have been implemented using the master class of ITS data source as the parent class. That needs to be changed so that the code can be consistent.
+- [chaoss/grimoirelab-manuscripts/issues/59](https://github.com/chaoss/grimoirelab-manuscripts/issues/59): This issue is about updation of the current metrics and creation of new and better functions which provide more functionality to the users.
 
 ### General correction to current Manuscripts structure and functions:
 These issues concern general maintainance and enhancements on manuscripts:
