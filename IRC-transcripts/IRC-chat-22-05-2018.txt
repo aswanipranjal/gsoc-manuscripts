@@ -1,0 +1,224 @@
+﻿#grimoirelab
+[2018-05-23 15:49:11] → Joined channel #grimoirelab
+[2018-05-23 15:49:13] * Channel mode is +cnt
+[2018-05-23 15:49:13] * Channel timestamp is 1503939731
+[2018-05-23 16:16:09] → valcos joined (~valcos@pct-empresas-185.uc3m.es)
+[2018-05-23 16:31:18] → jgbarah joined (~jgb@wifi-87-252.uc3m.es)
+[2018-05-23 16:31:29] <jgbarah> Hi, aswanipranjal!
+[2018-05-23 16:31:42] <jgbarah> Can I  start?
+[2018-05-23 16:31:51] <aswanipranjal> Hey @jgbarah!
+[2018-05-23 16:31:57] <aswanipranjal> yeah sure.
+[2018-05-23 16:32:26] <valcos> Hi aswanipranjal!
+[2018-05-23 16:32:38] <aswanipranjal> Hey @valcos!
+[2018-05-23 16:34:45] <aswanipranjal> I'll start if you guys don't mind : ) I am still working on the notebook to redesign the current functions. 
+[2018-05-23 16:34:47] <aswanipranjal> https://github.com/aswanipranjal/gsoc-manuscripts/blob/master/GMD-metrics-from-scratch.ipynb
+[2018-05-23 16:35:12] <jgbarah> First of all, I saw your blog post
+[2018-05-23 16:35:20] <jgbarah> It was great, thanks a lot
+[2018-05-23 16:35:31] <jgbarah> Following youur structure there:
+[2018-05-23 16:35:49] <aswanipranjal> Haha, thanks! You asked me to elaborate on things, so i did!
+[2018-05-23 16:35:59] <jgbarah> For 1 (cleaning the code in esquery.py)
+[2018-05-23 16:36:15] <jgbarah> You have some comments for your pr. Sorry for not having them there earlier.
+[2018-05-23 16:36:28] <jgbarah> I will try to be more responsive in the future
+[2018-05-23 16:36:29] <aswanipranjal> No problem, I'll take care of them.
+[2018-05-23 16:36:39] <jgbarah> But overall, I gess we're in the right track with that.
+[2018-05-23 16:36:50] <jgbarah> Most of the stuff is writing some tests
+[2018-05-23 16:37:32] <aswanipranjal> Yeah, there was one thing, the function get_aggs returns a JSON formatted string because the functions in metrics.py use that format to query elasticsearch
+[2018-05-23 16:37:33] <jgbarah> ( aswanipranjal said: "You asked me to elaborate on things, so i did!" -> And you did it very well! Thanks )
+[2018-05-23 16:38:00] <aswanipranjal> That is why I've kept it that way in the function.
+[2018-05-23 16:38:04] <jgbarah> aswanipranjal: yes, I know, but i find it more convenient to let metrcis.py use elasticsearch_dsl directly
+[2018-05-23 16:38:16] <jgbarah> But if you want, we can keep that for a second pr,
+[2018-05-23 16:38:52] <jgbarah> that would completely make all the software "es_dsl-aware", and we never use the ES REST API directly
+[2018-05-23 16:39:06] <aswanipranjal> I was thinking that since we are redesigning the functions all together, a lot of code will change eventually and esquery.py file can be removed
+[2018-05-23 16:39:25] <aswanipranjal> and be replaced with the new functions
+[2018-05-23 16:39:32] <jgbarah> That's a channce, but in any case, we're learning about all of that anyway,
+[2018-05-23 16:39:42] <jgbarah> and what is maybe more important, gives us something to compare with
+[2018-05-23 16:40:11] <jgbarah> But I understand your point....
+[2018-05-23 16:40:28] <jgbarah> I would say it this way::
+[2018-05-23 16:40:42] <aswanipranjal> It's not a lot of work, I can do the changes for now.
+[2018-05-23 16:40:54] <jgbarah> 1a. Finish the current pr, with some testing, and the other comments, except for the JSON one that you can forget for this pr
+[2018-05-23 16:41:26] <jgbarah> 1b. Evaluate, and if it is not a lot of work, implement, changes in the rest of manuscripts, including metrics.py, to use *only* es_dsl
+[2018-05-23 16:41:31] <jgbarah> What do you think?
+[2018-05-23 16:41:42] <aswanipranjal> Yeah, that sounds good.
+[2018-05-23 16:41:46] <jgbarah> Great!
+[2018-05-23 16:42:26] <jgbarah> Thenl, let's follow-up with the pr for 1a, and for 1b, please open a new issue starting the goal, and then comment about the effort
+[2018-05-23 16:42:49] <jgbarah> in that issue, once you could do some analysis, and if the effort is not big, start a new pr for that (mentioning the issue).
+[2018-05-23 16:42:57] <jgbarah> Sounds good?
+[2018-05-23 16:44:06] <aswanipranjal> Okay: 1a. complete the current PR without the JSON changes. 1b. Create a new issue regarding the JSON changes and if it is not a lot of effort, make a PR. Got it!
+[2018-05-23 16:45:17] <jgbarah> Great! Thanks
+[2018-05-23 16:45:30] <jgbarah> Let's go with 2, the notebook
+[2018-05-23 16:45:40] <jgbarah> You did exactly what I had envisioned, so great
+[2018-05-23 16:45:55] <jgbarah> Now, how to follow... I see some directions:
+[2018-05-23 16:47:06] <jgbarah> 2a. Would be to extend the same analysis to the rest of metrics?
+[2018-05-23 16:47:26] <jgbarah> I went quickly through the list that you implemented, but I think some are missing. Am I right?
+[2018-05-23 16:48:08] <aswanipranjal> Yeah, I wanted to ask you that: some of the metrics such as first response to PR is not directly available in the enriched index. 
+[2018-05-23 16:48:38] <aswanipranjal> I'll have to add code to p2o.py so that when we run the script, it gets added to the enriched index and then we can calculate that for manuscripts
+[2018-05-23 16:48:43] <jgbarah> Yes, I mean those that are implementable, but are not yet implemented, in case there is any
+[2018-05-23 16:48:55] <aswanipranjal> I can start on implementing them.
+[2018-05-23 16:49:08] <aswanipranjal> I have a general idea of what the metric is about.
+[2018-05-23 16:49:15] <jgbarah> For those that are not, such as first response, yes, the idea would be to start with Gelk and implement those there.
+[2018-05-23 16:49:27] <aswanipranjal> Okay
+[2018-05-23 16:49:32] <jgbarah> Let's put it this way then:
+[2018-05-23 16:50:16] <jgbarah> 2a: implement all GMD metrics that are implementable (are available from the enriched indexes), if some are missing
+[2018-05-23 16:51:11] <jgbarah> 2b: for those that are missing in the enriched index: open an issue in gelk to implement them in the enriched index,
+[2018-05-23 16:51:32] <jgbarah> and based on the disucssion in the issue (if needed), produce a pr for gelk with the implementation
+[2018-05-23 16:51:45] <aswanipranjal> Okay, this sounds good.
+[2018-05-23 16:51:51] <jgbarah> if you feel there is no need for discussion, just state that in the issue, and start with the pr right away.
+[2018-05-23 16:51:54] <jgbarah> Great!
+[2018-05-23 16:52:18] <jgbarah> Then, for 2, another line would be to work on how to aggregate and bucket them
+[2018-05-23 16:52:34] <aswanipranjal> I did open some issues in GMD-WG repo about explanations on some metrics, but there wasn't a response on them
+[2018-05-23 16:52:38] <jgbarah> You have some code, but that's where we need to do a bit more of analysis to take decissions
+[2018-05-23 16:53:09] <jgbarah> > aswanipranjal: I did open some issues in GMD-WG repo -> My fault. I will go through them asap
+[2018-05-23 16:53:48] <aswanipranjal> jgbarah: You have some code, but that's where we need to do a bit more of analysis to take decissions --> yeah, I am still thinking about how to create the new classes
+[2018-05-23 16:53:54] <jgbarah> The main problem is to which extent rely on queries or in stuff done in-memory, eg with Pandas
+[2018-05-23 16:54:37] <jgbarah> For exaample, you can bucket by quarters in the query, or get all the data, and then bucket with Pandas
+[2018-05-23 16:55:06] <jgbarah> I was thinking about implementing some cases both ways, and learn about problems, drawbacks and advantages.
+[2018-05-23 16:55:36] <aswanipranjal> I think we should use the inbuilt elasticsearch queries, because it is of less use to keep all this data in the memory and do analysis on it when elasticsearch already gives us this functionality
+[2018-05-23 16:55:48] <jgbarah> For example, having some methods, such as "by_period", "by_organization", "by_author", and implement them both ways.
+[2018-05-23 16:56:21] <aswanipranjal> I can experiment both the ways and see which ones are better, faster and use less memory
+[2018-05-23 16:56:32] <jgbarah> I agree i general in using ES, but that means we're limited to what ES can do (processing in memory is more powerful in terms of the stuff you can do).
+[2018-05-23 16:56:55] <jgbarah> However, at least for simple reporting, maybe all we need is in ES...
+[2018-05-23 16:57:12] <aswanipranjal> Yeah, for only reporting ES will do.
+[2018-05-23 16:57:26] <jgbarah> OK, just thinking quickly...
+[2018-05-23 16:57:43] <aswanipranjal> If we want to do some extra analysis then we can use pandas. 
+[2018-05-23 16:57:44] <jgbarah> Let's stay with ES only for a while, and if we miss stuff, we can reconsider using Pandas
+[2018-05-23 16:58:03] <aswanipranjal> Okay.
+[2018-05-23 16:58:23] <jgbarah> you could then implement some of the above functionality, so that given a es_dsl query object,
+[2018-05-23 16:58:35] <jgbarah> you can concat to it those functions
+[2018-05-23 16:59:00] <jgbarah> That would allow us to have any metric (wich would be imlmented as a es_dsl object),
+[2018-05-23 16:59:10] <jgbarah> and produce it in any of those ways.
+[2018-05-23 16:59:17] <jgbarah> And then visualize
+[2018-05-23 16:59:24] <jgbarah> What do you think?
+[2018-05-23 17:00:17] <aswanipranjal> That is what i was thinking, create *chainable* objects and functions so that we can just add aggregations and filters to them and get the outputs
+[2018-05-23 17:00:48] <jgbarah> Great!
+[2018-05-23 17:01:19] <jgbarah> Then, let's have for this week 3a: create chainable objects for at least "by_period", "by_organization", "by_author"
+[2018-05-23 17:01:37] <aswanipranjal> Yeah, okay!
+[2018-05-23 17:02:00] <jgbarah> and for some filter as well, for example "period" (which would filter for a certain time period)
+[2018-05-23 17:02:17] <aswanipranjal> I also want to start working on visualisations, if you don't mind.
+[2018-05-23 17:02:29] <jgbarah> For a start, you decide the parameters to the functions, we can discuss that in the issue/pr
+[2018-05-23 17:03:08] <aswanipranjal> Okay
+[2018-05-23 17:03:14] <jgbarah> Then, please open one ticket for all of this functions, and implement them, for now, in the notebook. We can later start porting the code to manuscripts
+[2018-05-23 17:03:37] <jgbarah> Yes, II see no problem in working in visualization, but just a second, to finish with 3...
+[2018-05-23 17:04:28] <jgbarah> I would also propose 3b, which would be just a try at how to write a class hierarccy for representing the above,
+[2018-05-23 17:04:43] <jgbarah> having in mind efficiency and easy to use.
+[2018-05-23 17:05:24] <jgbarah> For example, some metrics can be obtained with the same query (eg, when you want, for two metrics, the same exact query for two different fields in the index)
+[2018-05-23 17:05:41] <jgbarah> and all of the above should be composable, in chainable objects or similar
+[2018-05-23 17:05:47] <aswanipranjal> Yeah, like open and closed issues and PRs
+[2018-05-23 17:05:59] <aswanipranjal> Okay, i see no problem in that.
+[2018-05-23 17:06:02] <jgbarah> you could just start describing how the classes would be (only specification),
+[2018-05-23 17:06:07] <jgbarah> and how those could be used.
+[2018-05-23 17:07:12] <jgbarah> If you agree, let's use an issue for tracking this, and a .py file for the implementation proposal (can be a pr, so that we can comment on it easily)
+[2018-05-23 17:07:31] <jgbarah> All the stuff for 3, in your repo
+[2018-05-23 17:07:33] <jgbarah> OOK?
+[2018-05-23 17:08:32] <jgbarah> And with respect to visualization, did you have any idea in mind?
+[2018-05-23 17:08:48] <aswanipranjal> a .py file for the chainable functions, right?
+[2018-05-23 17:09:08] <jgbarah> aswanipranjal: yes, it would include:
+[2018-05-23 17:09:22] <jgbarah> the declaration (not implementation) of classes, with their methods etc.
+[2018-05-23 17:09:31] <jgbarah> examples of how they would be used
+[2018-05-23 17:09:41] <jgbarah> and that would be it
+[2018-05-23 17:09:47] <aswanipranjal> Okay, sounds good.
+[2018-05-23 17:10:01] <jgbarah> OK, visualizations now
+[2018-05-23 17:10:07] <aswanipranjal> For visualizations: I was thinking of plotting the Open issues and PR and the Lines changed/added/removed and plotting them WRT the users or orgs
+[2018-05-23 17:10:34] <aswanipranjal> and then maybe applying filters for weeks/months/quarters and see the growth of Commits, for ex.
+[2018-05-23 17:14:20] <aswanipranjal> I'll experiment a bit and show some examples to you by friday if that is okay with you?
+[2018-05-23 17:14:50] <jgbarah> What were you considering to use to produce the charts? The same stuff Manuscripts is using now?
+[2018-05-23 17:16:43] <aswanipranjal> I can use plotly or d3js to create the charts
+[2018-05-23 17:17:04] <aswanipranjal> They can be interactive, Plotly supports interactive charts and graphs.
+[2018-05-23 17:17:25] <jgbarah> d3js is maybe too lowlevel, isnt't it?
+[2018-05-23 17:17:55] <aswanipranjal> yeah, it might be.
+[2018-05-23 17:18:24] <jgbarah> What about testing plotly and seaborn for non-interactive stuff?
+[2018-05-23 17:18:32] <aswanipranjal> https://plot.ly/python/ipython-notebook-tutorial/ charts similar to these
+[2018-05-23 17:19:37] <aswanipranjal> I was thinking of interactive charts for notebooks, Seaborn is a very good module for non-interactive as well. I can look into both.
+[2018-05-23 17:20:04] <jgbarah> If possible, I would like to keep the current functionality of having PDF output,
+[2018-05-23 17:20:25] <jgbarah> in additionn to having an actionable version
+[2018-05-23 17:20:37] <jgbarah> (maybe raw HTML, maybe notebook)
+[2018-05-23 17:20:50] <jgbarah> Seaborn/plotly could be options  for PDF
+[2018-05-23 17:21:03] <aswanipranjal> Oh yeah! I forgot about the HTML pages all together.
+[2018-05-23 17:21:12] <jgbarah> For intereactive, I would like to at least test plotly and some of the new Vega-related stuff
+[2018-05-23 17:21:40] <aswanipranjal> Cool, then seaborn and plotly for non interactive and Vega and plotly for HTML/Notebooks.
+[2018-05-23 17:22:08] <aswanipranjal> I'll update the Visualizations issue and create some samples.
+[2018-05-23 17:22:25] <jgbarah> For Vega, you may consider https://altair-viz.github.io/
+[2018-05-23 17:22:41] <jgbarah> From a preliminary analysis I did, it seems it could match our requirements,
+[2018-05-23 17:23:02] <aswanipranjal> Oh, okay.
+[2018-05-23 17:23:09] <jgbarah> although things are moving pretty quickly in the Vega area, so if you know of soemthig more appropriate, just let me know
+[2018-05-23 17:23:25] <jgbarah> Then, we can open an new line, 4, for visualization:
+[2018-05-23 17:23:51] <jgbarah> 4a: test plotly and seaborn for static visualization
+[2018-05-23 17:24:43] <jgbarah> Please, open an issue, and then produce two versions of the relevant parts of the notebooks, one with plotly, the other one with seaborn, and implement just a couple of viz,
+[2018-05-23 17:24:53] <jgbarah> so that we can start to evaluate which way to go
+[2018-05-23 17:25:01] <aswanipranjal> Okay, sure!
+[2018-05-23 17:25:25] <jgbarah> Ideally, I would like to have functions that are exactly the same, but implemented with both libraries, so that we can really define an API for visualizations,
+[2018-05-23 17:25:35] <jgbarah> so that anyone could implement later with yet another library
+[2018-05-23 17:25:40] <jgbarah> and
+[2018-05-23 17:25:58] <jgbarah> 4b, do the same with Altair and Plotly for interactive visualizations
+[2018-05-23 17:26:15] <jgbarah> Again, ideally, same profile for the functions.
+[2018-05-23 17:26:22] <jgbarah> ok??
+[2018-05-23 17:26:26] <aswanipranjal> Okay.
+[2018-05-23 17:26:42] <jgbarah> Great!!!!
+[2018-05-23 17:27:05] <jgbarah> So, I think I'm good. No more tech topics on my side.
+[2018-05-23 17:27:14] <aswanipranjal> I wanted to ask you this: Should we be aiming to get all the GD metrics into manuscripts for the first Phase?
+[2018-05-23 17:27:14] <jgbarah> Anything else from your side?
+[2018-05-23 17:27:17] <aswanipranjal> GMD*
+[2018-05-23 17:28:12] <jgbarah> aswanipranjal: what do you mean by first phase?
+[2018-05-23 17:28:34] <aswanipranjal> By Phase-1 I mean June-11 
+[2018-05-23 17:28:43] <aswanipranjal> That is when the Phase-1 evaluations start
+[2018-05-23 17:28:48] <jgbarah> ah,, ok. We can decide as we proceed
+[2018-05-23 17:29:21] <jgbarah> I think you're on a good track to have that, but I guess it would depend on how long does it take to implement what is not implementable yet because of gelk,
+[2018-05-23 17:29:34] <jgbarah> and the details about the metrics that need more definition
+[2018-05-23 17:30:13] <aswanipranjal> I said that because I am left with just one exam so i'll have some time on my hands after that.
+[2018-05-23 17:30:25] <aswanipranjal> But you are right, We can decide on this as we go along.
+[2018-05-23 17:30:28] <jgbarah> Phase-1 is mainly an administrative artifact, since we're having like weekly sprints, that shouldn't influcence much the progress
+[2018-05-23 17:30:40] <aswanipranjal> Yeah, that makes sense.
+[2018-05-23 17:30:41] <jgbarah> ok, I will have that into account.
+[2018-05-23 17:30:50] <jgbarah> Thanks for informing.
+[2018-05-23 17:31:22] <aswanipranjal> I had another question: We will be aiming for the other Metrics categories too right?
+[2018-05-23 17:31:24] <jgbarah> In any case, just for you to know, we have been told to evaluate Phase-1 based on the real progress during the whole phase
+[2018-05-23 17:31:41] <aswanipranjal> Ah, I see.
+[2018-05-23 17:32:09] <jgbarah> After we have an schema and all done (or in its track) with GMD, we cann decide if going on with some other category
+[2018-05-23 17:32:18] <jgbarah> (D&I is a clear objective there)
+[2018-05-23 17:32:32] <jgbarah> or go deeper with GMD,
+[2018-05-23 17:32:38] <aswanipranjal> Ah, Okay. Thanks for sharing this.
+[2018-05-23 17:32:39] <jgbarah> or implement other kinds of metrics
+[2018-05-23 17:32:54] <aswanipranjal> I can propose my own metrics right?
+[2018-05-23 17:33:11] <jgbarah> The main objective would be done, so I think we could explore exciting stuff ;-)
+[2018-05-23 17:33:38] <aswanipranjal> And I can comment on how I think  the metrics should be calculated?
+[2018-05-23 17:33:46] <jgbarah> aswanipranjal: yes, if you feel like that. But given that metrics are more subject to a consensus process, maybe we can explore oother areas,
+[2018-05-23 17:33:55] <aswanipranjal> Yay! More exciting stuff!! :)
+[2018-05-23 17:33:56] <jgbarah> such as how next gen reporting could be
+[2018-05-23 17:34:20] <aswanipranjal> Okay
+[2018-05-23 17:34:22] <jgbarah> But yes, if you want to go deeper in the definition and implemntation of the metrics themselves, just keep me informed, and we can walk that wayy
+[2018-05-23 17:34:34] <aswanipranjal> Coo, that works for me!
+[2018-05-23 17:34:38] <jgbarah> OK, I have a non-tech question for you:
+[2018-05-23 17:34:51] <jgbarah> How are things going from your point of view?
+[2018-05-23 17:35:19] <jgbarah> I mean, this is what you expected, you're easily finding the time, you find this exciting enough, etc?
+[2018-05-23 17:35:44] <jgbarah> (you're getting the mentoring you feel you need?)
+[2018-05-23 17:35:48] <aswanipranjal> I actually thought I didn't do much work this week. I was a little nervous about the meeting and about how you would like the blog.
+[2018-05-23 17:36:19] <aswanipranjal> I'd love it if you replied on the issues and PRs a bit faster 😅
+[2018-05-23 17:36:52] <aswanipranjal> That way i can act on the feedback faster and get more stuff done.
+[2018-05-23 17:36:55] <jgbarah> Well, I know some weeks you'll deliver more, some other less, the mean is important ;-)
+[2018-05-23 17:37:05] <aswanipranjal> haha, yeah!
+[2018-05-23 17:37:10] <jgbarah> I take not of your suggestion, fair enough: you're right
+[2018-05-23 17:37:41] <jgbarah> WRT effort, let's try to be more on track during the next weeks, and that's fine
+[2018-05-23 17:37:58] <aswanipranjal> Okay!
+[2018-05-23 17:38:18] <jgbarah> I liked how you organized your post, because it helped a lot to understand what you did, and we could skip the first part of this meeting what you did? ;-)
+[2018-05-23 17:38:31] <jgbarah> At the same time, everyone in CHAOSS may stay in the loop easily.
+[2018-05-23 17:38:37] <jgbarah> Just a suggestion:
+[2018-05-23 17:38:40] <aswanipranjal> Yeah, that was the plan.
+[2018-05-23 17:39:47] <jgbarah> at the very begining of each post, include the main lines in which you worked, along with the tickets and prs, and if you could not work in some of the lines, include it as well, just stating you could not progress on it, so that we don't forget about anything
+[2018-05-23 17:40:27] <jgbarah> And now, if you don't mind, summarize the results (the plan for the next week) at the end of the current post (list of lines and sublines, etc.)
+[2018-05-23 17:40:43] <jgbarah> And now, that's really all from my side ;-)
+[2018-05-23 17:40:54] <jgbarah> Anything else?
+[2018-05-23 17:40:58] <aswanipranjal> current post as in week 2 right?
+[2018-05-23 17:41:07] <jgbarah> valcos: Anythig from your side?
+[2018-05-23 17:41:21] <jgbarah> aswanipranjal: Yes
+[2018-05-23 17:41:41] <jgbarah> (I see valcos is busy right now, so that's all from our side ;-) )
+[2018-05-23 17:41:41] <aswanipranjal> Okay. That is it from my side as well.
+[2018-05-23 17:41:47] <aswanipranjal> Okay!
+[2018-05-23 17:41:55] <jgbarah> Great. Please do the usuual stuff with this log, etc.
+[2018-05-23 17:41:55] <aswanipranjal> Thank you for your time!
+[2018-05-23 17:42:00] <jgbarah> Read you next week!
+[2018-05-23 17:42:08] <jgbarah> Thanks for your work
+[2018-05-23 17:42:12] <aswanipranjal> I'll update you once on friday, if needed/
+[2018-05-23 17:42:36] <jgbarah> Good. I'll try to go through the tickers more frequently ;-) ;-)
+[2018-05-23 17:42:49] <aswanipranjal> Yes please😁
+[2018-05-23 17:42:57] <aswanipranjal> Bye!
+[2018-05-23 17:42:58] <jgbarah> Bye!
+[2018-05-23 17:47:52] → _acs_ joined (~acs@43.red-83-61-189.dynamicip.rima-tde.net)
