@@ -1,0 +1,123 @@
+[2018-05-31 16:33:29] <jgbarah> Hi, aswanipranjal, sorry for the dealy
+[2018-05-31 16:33:45] <aswanipranjal> Hey @jgbarah, No problem!
+[2018-05-31 16:34:11] <aswanipranjal> How was the conference?
+[2018-05-31 16:34:19] <jgbarah> Nice ;-)
+[2018-05-31 16:34:32] <jgbarah> I had some trouble with my flight back, but the usual stuff.
+[2018-05-31 16:34:40] <aswanipranjal> Ah
+[2018-05-31 16:34:55] <jgbarah> Good that we didn't have our meeting yesterday, I was stranded in an airport all the day long...
+[2018-05-31 16:35:10] <jgbarah> OK, let's go to the meatt
+[2018-05-31 16:35:20] <aswanipranjal> Okay
+[2018-05-31 16:35:30] <jgbarah> I saw your blog post. Nice thing. Thanks!
+[2018-05-31 16:35:47] <jgbarah> i just accepted your pr related to task #1
+[2018-05-31 16:35:56] <aswanipranjal> Sure! I wanted to add more to it but I was little short on time.
+[2018-05-31 16:36:01] <aswanipranjal> Yeah, I saw that. Thank you!
+[2018-05-31 16:36:03] <jgbarah> But please, address the comments wrt testing from valcos
+[2018-05-31 16:36:47] <aswanipranjal> Yes, should I add them to the PR for removing JSON ?
+[2018-05-31 16:37:34] <jgbarah> You better have two different prs...
+[2018-05-31 16:37:46] <jgbarah> It seems to me you're not used to work with parallel prs, is that right?
+[2018-05-31 16:37:53] <aswanipranjal> Okay.
+[2018-05-31 16:38:03] <aswanipranjal> No, I got a little confused there.
+[2018-05-31 16:38:19] <jgbarah> Look. There are two ways of doing that:
+[2018-05-31 16:38:37] <jgbarah> * Either you work in parallel branches, and you pr for each of them,
+[2018-05-31 16:39:12] <jgbarah> or you work in one branch, and then before pring, you create the new branch for the pr, and cherry-pick commits from your "working branch"
+[2018-05-31 16:39:26] <jgbarah> have a look at git cherry-pick
+[2018-05-31 16:39:40] <jgbarah> I some cases you have to complement with git rebase
+[2018-05-31 16:39:55] <aswanipranjal> Oh, Okay. Thanks!
+[2018-05-31 16:40:08] <aswanipranjal> I'll try it out on a dummy project
+[2018-05-31 16:41:34] <jgbarah> If you need help, let me know, I can find some references on the net about that
+[2018-05-31 16:42:39] <aswanipranjal> I actually read about cherry-pick, but I couldn't implement it as I thought that this next PR will conflict with the changes in the previous PR
+[2018-05-31 16:43:00] <aswanipranjal> But I'll try it out on a project and learn about it for sure
+[2018-05-31 16:43:11] <jgbarah> So, let's try to have these two parallel prs: one for fixing the testing stuff, and the other for the stuff on metrics that we are about to comment
+[2018-05-31 16:43:45] <aswanipranjal> Okay
+[2018-05-31 16:44:00] <jgbarah> Yes, cherry-pick may cause conflicts (depends on what you toouch), that's why maybe you need rebase (and merge) on the pr branch once the "other" pr is accepted
+[2018-05-31 16:44:24] <jgbarah> Same if you're using parallel branches of development, though
+[2018-05-31 16:44:52] <jgbarah> ok, anything else with #1 then?
+[2018-05-31 16:45:02] <aswanipranjal> No, nothing more.
+[2018-05-31 16:45:10] <jgbarah> OK, #2...
+[2018-05-31 16:45:53] <jgbarah> Your issues are ok, but I coudln't work on them. Feel free to also pr your own proposal for those metrics
+[2018-05-31 16:46:19] <jgbarah> For code review, I'lm finishing some notebooks analyzing some of them, maybe you cna have a look kat them when I upload them.
+[2018-05-31 16:46:26] <jgbarah> For the next week I think you could:
+[2018-05-31 16:46:37] <jgbarah> * Finish the issues with metrics still missing
+[2018-05-31 16:47:15] <jgbarah> * Make familiar with my notebooks when I upload them. they're for perceval, maybe you can try to rewrite them with enriched indexes, just tto make you familiar with the stuff
+[2018-05-31 16:48:18] <jgbarah> * Add all the missing metrics that are missing, if needed with your own interpretation of the metrics, to the notebooks, so that we have  first verion of your notebooks with everything needed
+[2018-05-31 16:48:57] <jgbarah> Is that ok??
+[2018-05-31 16:49:11] <jgbarah> Any other suggestion or feedback on #2?
+[2018-05-31 16:50:00] <aswanipranjal> Yeah, sounds good. I went through the comments Georg and you made and calculated percentiles and variance for closed issue resolution duration and open issue age
+[2018-05-31 16:50:54] <aswanipranjal> When you say that I have to add the missing metrics, they include the metrics which enriched indices do not currently have, right?
+[2018-05-31 16:51:11] <aswanipranjal> I'd have to add code to calculate those metrics
+[2018-05-31 16:52:41] <jgbarah> Right  including those not in the enriched indexes (when I refer to issues) and no, only those that you can actually implement with current indexes (when I refer to your notebooks)
+[2018-05-31 16:52:43] <jgbarah> More clear?
+[2018-05-31 16:53:26] <jgbarah> WRT thos that need code in Gelk, let's open a new task, #5, for that
+[2018-05-31 16:53:34] <aswanipranjal> Yes, thanks!
+[2018-05-31 16:53:59] <aswanipranjal> I'll try to make PRs for the the Gelk ones.
+[2018-05-31 16:54:12] <jgbarah> That way we can clarify and separate more #2 (issues for all the metrics that need discussion, and notebooks for all that can be implemented with current indexes),
+[2018-05-31 16:54:42] <jgbarah> from #5 (modifications to gelk that are needed to implement, in #2, the metrcis that you cannot implement now because there is missing info in the indexes.
+[2018-05-31 16:54:44] <jgbarah> OK?
+[2018-05-31 16:54:51] <aswanipranjal> Yeah
+[2018-05-31 16:55:30] <jgbarah> Perfect.
+[2018-05-31 16:55:34] <jgbarah> Let's move to #3
+[2018-05-31 16:56:12] <jgbarah> I like how you implemented the functions for the metrics class. I would need some examples of use, though, as I annotated in the issue
+[2018-05-31 16:56:37] <aswanipranjal> Yeah, I'll add them to the file
+[2018-05-31 16:56:48] <jgbarah> Good
+[2018-05-31 16:57:09] <jgbarah> In addition to that, we need to produce a pr for Manuscripts to propose this change
+[2018-05-31 16:57:28] <jgbarah> But for that, we also need to check that you can implement everything you need to produce the current reports.
+[2018-05-31 16:57:50] <aswanipranjal> I was thinking of creating classes such as Issues, Pull requests and so on which build on top of the Metric class
+[2018-05-31 16:57:53] <jgbarah> Do you think we're close to that, or maybe you need checking a bit more the details?
+[2018-05-31 16:58:03] <jgbarah> aswanipranjal: yes, that would be the idea
+[2018-05-31 16:59:16] <jgbarah> I was thinking about you making progress, for example with your own branch of manuscripts, and for example implement all for Issues and Pull Requests with your new Metrics hierarchy,
+[2018-05-31 16:59:29] <jgbarah> and testing that the reports are the same (I mean, their output)
+[2018-05-31 16:59:57] <jgbarah> That's where we can start to see if the implementation for Metrics is good enough
+[2018-05-31 17:00:05] <jgbarah> What do you think?
+[2018-05-31 17:00:24] <aswanipranjal> Okay, this sounds like a good idea
+[2018-05-31 17:00:41] <aswanipranjal> The Metric class that i implemented needs to be polished a bit more though
+[2018-05-31 17:00:47] <jgbarah> Good. Then, let's do that for #3 during the next week.
+[2018-05-31 17:01:07] <jgbarah> Yes, you need to polish it, and maybe adding some parameters to functions and the like,
+[2018-05-31 17:01:24] <aswanipranjal> I'll create an issue for this in chaoss/manuscripts
+[2018-05-31 17:01:25] <jgbarah> but we can discuss once you try with subclasing it, and reproducing the stuff in Manuscripts
+[2018-05-31 17:01:43] <aswanipranjal> okay
+[2018-05-31 17:01:45] <jgbarah> aswanipranjal: yes please. Referencee your branch in the issue, and we talk in the issue
+[2018-05-31 17:02:14] <jgbarah> Try to keep that branch updated (using rebase, or merge if you prefer in some cases) with the changes in master
+[2018-05-31 17:02:27] <aswanipranjal> Okay, i'll do that.
+[2018-05-31 17:03:09] <jgbarah> then, the goal for next week in #3 will be to create that new branch, and to have in it a version of manuscripts with your shinny new Metrics class, and subclassing for at least Issues and PRs,
+[2018-05-31 17:03:28] <aswanipranjal> sounds good!
+[2018-05-31 17:03:30] <jgbarah> and all changes needed to Manuscripts to work  with it (for issues and prs=
+[2018-05-31 17:03:36] <jgbarah> Perfect!
+[2018-05-31 17:03:43] <jgbarah> Anything else about #3 ?
+[2018-05-31 17:03:54] <aswanipranjal> No, that's it
+[2018-05-31 17:04:10] <jgbarah> Good. #4
+[2018-05-31 17:04:46] <jgbarah> For Plotly, you need to work "in local mode with notebook".
+[2018-05-31 17:04:57] <jgbarah> That way you're nnot asked for that annoying id.
+[2018-05-31 17:05:17] <aswanipranjal> I tried the offline mode but for some reason it still asked me for an id
+[2018-05-31 17:05:23] <aswanipranjal> I'll check again
+[2018-05-31 17:05:30] <jgbarah> What happens is that Plotly can work in a mode in which it tries to "sync" with the web API,
+[2018-05-31 17:05:39] <jgbarah> which means you're not in standalone mode
+[2018-05-31 17:06:20] <jgbarah> Let me check a moment, because I have some code for that...
+[2018-05-31 17:09:00] <jgbarah> OK, I found it....
+[2018-05-31 17:09:17] <jgbarah> Have you tried to include this line before the code for plotly?
+[2018-05-31 17:09:20] <jgbarah> po.init_notebook_mode(connected=True)
+[2018-05-31 17:10:10] <aswanipranjal> i did
+[2018-05-31 17:10:29] <aswanipranjal> i was trying to generate an image, save it locally and then show it in the notebook
+[2018-05-31 17:10:50] <aswanipranjal> but i guess that feature is not available in offline mode because it gave me an error: PlotlyRequestError: You must be authenticated to generate an image via json.
+[2018-05-31 17:11:08] <aswanipranjal> I may be wrong though, I'll go through the tutorial again.
+[2018-05-31 17:11:57] <jgbarah> Checkout this code: https://codeshare.io/G6DdvN
+[2018-05-31 17:12:04] <jgbarah> It is working for me in a notebook
+[2018-05-31 17:13:04] <aswanipranjal> Thanks!
+[2018-05-31 17:13:22] <jgbarah> I will be uploading that, or something similar, a GitHub repo later this week
+[2018-05-31 17:13:55] <jgbarah> But then, let's #4 stay as it is, and that's also work for this week, right?
+[2018-05-31 17:14:04] ⇐ dizquierdo quit (~dizquierd@188.pool62-37-83.dynamic.orange.es): Ping timeout: 256 seconds
+[2018-05-31 17:14:24] <aswanipranjal> Yeah, i'll try to test plotly, altair and seaborn
+[2018-05-31 17:14:28] <aswanipranjal> that's #4
+[2018-05-31 17:15:09] <jgbarah> Please, produce one notebook for each, if possible with data from GrimoireLab indexes,
+[2018-05-31 17:15:18] <jgbarah> and comment in the notebooks themselves your impressions.
+[2018-05-31 17:15:21] <jgbarah> OK?
+[2018-05-31 17:15:24] <aswanipranjal> Okay
+[2018-05-31 17:15:47] <jgbarah> Good!. So now we have #1 #2 #3 #4 and #5 in the works...
+[2018-05-31 17:16:02] <aswanipranjal> yeah 😅
+[2018-05-31 17:16:06] <jgbarah> I guess this is all from my side. Anything else?
+[2018-05-31 17:16:17] <aswanipranjal> No that is it, i think.
+[2018-05-31 17:17:09] <jgbarah> Good! Then we're done. Thanks for your time. Please do the usual stuff about annotating the blog post, producing the log of this meeting, etc.
+[2018-05-31 17:17:22] <jgbarah> Next week we stick to Wed. for the meeting, right?
+[2018-05-31 17:17:44] <aswanipranjal> Yeah, Next Wednesday. 
+[2018-05-31 17:18:21] <jgbarah> Perfect! see you!
+[2018-05-31 17:18:25] <aswanipranjal> Thankyou @jgbarah for your time.
+[2018-05-31 17:18:33] <aswanipranjal> see ya!
