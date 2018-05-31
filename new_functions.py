@@ -111,7 +111,7 @@ class Metric():
             try:
                 agg_list.append(buckets_to_df(aggregations[str(i)]['buckets']))
             except:
-                agg_list.append(buckets_to_df(aggregations[str(i)]['value']))
+                agg_list.append(aggregations[str(i)])
         return agg_list
 
     def by_authors(self):
@@ -146,10 +146,10 @@ class Metric():
     def by_period(self):
         try:
             agg = A("date_histogram", field="created_at", interval=self.period)
-            agg.metric.bucket(self.child_id, "cardinality", field="id_in_repo")
+            agg.metric(self.child_id, "cardinality", field="id_in_repo")
         except:
             agg = A("date_histogram", field="commit_date", interval=self.period)
-            agg.metric.bucket(self.child_id, "cardinality", field="hash")
+            agg.metric(self.child_id, "cardinality", field="hash")
         self.s.aggs.bucket(self.parent_id, agg)
         self.s = self.s.extra(size=0)
         self.increment_parent()
@@ -158,6 +158,10 @@ class Metric():
 
     def is_open(self):
         query = {"state":"open"}
+        self.add_query(query)
+
+    def is_closed(self):
+        query = {"state":"closed"}
         self.add_query(query)
 
 
@@ -173,8 +177,10 @@ def buckets_to_df(buckets):
     """
     cleaned_buckets = []
     for item in buckets:
-        temp = {}
+        if type(item)==str:
+            cleaned_buckets.append(item)
 
+        temp = {}
         for key, val in item.items():
             try:
                 value = val['value']
