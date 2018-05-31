@@ -32,10 +32,14 @@ What are GMD-metrics? How can we calculate them:
 - [chaoss/wg-gmd/issues/5](https://github.com/chaoss/wg-gmd/issues/5): What are abandoned issues? 
 - [chaoss/wg-gmd/issues/6](https://github.com/chaoss/wg-gmd/issues/6): should open issue age be calculated by averaging all the values or should they be used directly and visualised as a graph?
 - [chaoss/wg-gmd/issues/7](https://github.com/chaoss/wg-gmd/issues/7): How exactly is closed issue duration supposed to be described?
+- [chaoss/wg-gmd/issues/8](https://github.com/chaoss/wg-gmd/issues/8): First response to issue duration, what is considered as a first response to an issue?
+- [chaoss/wg-gmd/issues/9](https://github.com/chaoss/wg-gmd/issues/9): Who are considered as new contributors?
+- [chaoss/wg-gmd/issues/10](https://github.com/chaoss/wg-gmd/issues/10): Which are these new oranizations?
 
 ### Enhancing Manuscripts on the basis of the Metrics:
 - [chaoss/grimoirelab-manuscripts/issues/56](https://github.com/chaoss/grimoirelab-manuscripts/issues/56): The classes in github_issues and github_pr have been implemented using the master class of ITS data source as the parent class. That needs to be changed so that the code can be consistent.
 - [chaoss/grimoirelab-manuscripts/issues/59](https://github.com/chaoss/grimoirelab-manuscripts/issues/59): This issue is about updation of the current metrics and creation of new and better functions which provide more functionality to the users.
+- [chaoss/grimoirelab-manuscripts/issues/62](https://github.com/chaoss/grimoirelab-manuscripts/issues/62): Creating chainable functions and New Classes to calculate the Metrics.
 
 ### General correction to current Manuscripts structure and functions:
 These issues concern general maintainance and enhancements on manuscripts:
@@ -44,6 +48,7 @@ These issues concern general maintainance and enhancements on manuscripts:
 - [chaoss/grimoirelab-manuscripts/issues/48](https://github.com/chaoss/grimoirelab-manuscripts/issues/48): Manuscripts uses a 01-01-2015 as a date for calculating metrics if a start date is not given. This issue is regarding making that date into a more specific or related one.
 - [x] [chaoss/grimoirelab-manuscripts/issues/57](https://github.com/chaoss/grimoirelab-manuscripts/issues/57): converting the queries in esquery.py file into objects from the elasticsearch_dsl module.
 - [x] [chaoss/grimoirelab-manuscripts/pull/58](https://github.com/chaoss/grimoirelab-manuscripts/pull/58): PR adding the above functionality.
+- [chaoss/grimoirelab-manuscripts/issues/60](https://github.com/chaoss/grimoirelab-manuscripts/issues/60): Expand on the above PR to make manuscripts fully dependent on elasticsearch_dsl.py
 
 ---
 ## Blog Posts (Week wise):
@@ -51,3 +56,4 @@ These issues concern general maintainance and enhancements on manuscripts:
 - [Community Bonding](https://aswanipranjal.github.io/posts/communitybonding)
 - [Week-1](https://aswanipranjal.github.io/posts/week-1/)
 - [Week-2](https://aswanipranjal.github.io/posts/week-2/)
+- [Week-3](https://aswanipranjal.github.io/posts/week-3/)
