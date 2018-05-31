@@ -22,6 +22,12 @@ Name | Question | Implemented | Issue | PR
 [Code Review Efficiency](https://github.com/chaoss/metrics/tree/master/activity-metrics/code-review-efficiency.md) | What is the number of merged code changes/number of abandoned code change requests?
 [Maintainer Response to Merge Request Duration](https://github.com/chaoss/metrics/tree/master/activity-metrics/maintainer-response-to-merge-request-duration.md) | What is the duration of time for a maintainer to make a first response to a code merge request?
 [Code Review Iteration](https://github.com/chaoss/metrics/tree/master/activity-metrics/code-review-iteration.md) | What is the number of iterations that occur before a merge request is accepted or declined? 
+[Forks](activity-metrics/forks.md) | Forks are a concept in distributed version control systems like GitHub. It is a proxy for the approximate number of developers who have taken a shot at building and deploying the codebase *for development*.
+[Pull Requests Open](activity-metrics/pull-requests-open.md) | Number of open pull requests.
+[Pull Requests Closed](activity-metrics/pull-requests-made-closed.md) | Number of closed pull requests.
+[Pull Request Comment Duration](activity-metrics/pull-requests-comment-duration.md) | The difference between the timestamp of the pull request creation date and the most recent comment on the pull request.
+[Pull Request Comment Diversity](activity-metrics/pull-requests-comment-diversity.md) | Number of each people discussing each pull request.
+[Pull Request Comments](activity-metrics/pull-request-comments.md) | Number of comments on each pull request. 
 
 ### Community Growth
 Goal: Identify the size of the project community and whether it's growing, shrinking, or staying the same.
