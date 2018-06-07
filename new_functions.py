@@ -6,7 +6,7 @@
 # This file will also contain some helper functions which will be used
 # to analyse the data retrieved from elasticsearch and for visualization
 # purposes. 
-# We hope to eventually integrate the FOC in this file into the main
+# We hope to eventually integrate the FOCs in this file into the main
 # manuscripts branch.
 
 import sys
@@ -83,10 +83,10 @@ logger = logging.getLogger(__name__)
 # aggregation where we are getting the cardinality for 'field2' per user per organization
 # in which the users belong to. Ain't this fascinating? Just keep chaining along!!!!
 
-# --------------------------------DEVELOPER's NOTE---------------------------------#
+# --------------------------------------DEVELOPER's NOTE---------------------------------#
 # Some of the parameters for function definitions and functions have been referenced from 
 # the old esquery.py file, because they are the correct implementation for that function.
-# ---------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------------------#
 
 class Metric():
     """
@@ -100,15 +100,12 @@ class Metric():
     allow us to neatly add filters, create nested aggregations and such.
     """
 
-    def __init__(self, url=None, index=None, start=None, end=None, esfilters={},
-                 interval=None, offset=None):
+    def __init__(self, index=None, url=None,  esfilters={}, interval=None, offset=None):
         """Initialization of necessary parameters
     
         :client: the address/url of the elasticsearch instance to be used?
                  default: http://localhost:9200/ (optional)
         :index: name of the elasticsearch index that is to be queried (required)
-        :start: date to start looking at the fields (from date)
-        :end: date to stop looking at the fields (to date)
         :esfilters: TODO: this is still to be implemented
         :interval: interval to use for timeseries data
         :offset: TODO: this is still to be implemented
@@ -117,7 +114,7 @@ class Metric():
         self.child_id = 0.1 # starting child id (sub aggregation) to use
     
         if url:
-            self.es = Elasticsearch(url) # client to use
+            self.es = Elasticsearch(url) # This allows us to query _any_ elasticsearch instance
         else:
             logger.debug("No custom url provided, using default: http://localhost:9200/")
             self.es = Elasticsearch("http://localhost:9200/")
@@ -141,28 +138,25 @@ class Metric():
         self.size = 10000 # temporary hack to get all the data
         self.precision_threshold = 3000 # accuracy that we want when counting the number of items
 
-        self.start = start
-        self.end = end
+        self.start = None
+        self.end = None
         self.interval = interval if interval else "month"
         self.offset = offset
-
+        self.range = {}
+        
     def add_query(self, key_val={}):
-        """Add a es_dsl query object to the es_dsl Search object"""
+        """Add an es_dsl query object to the es_dsl Search object"""
 
         q = Q("match", **key_val)
         self.s = self.s.query(q)
         self.queries['must'].append(q)
 
     def add_inverse_query(self, key_val={}):
-        """Add a es_dsl inverse query object to the es_dsl Search object"""
+        """Add an es_dsl inverse query object to the es_dsl Search object"""
 
         q = Q("match", **key_val)
         self.s = self.s.query(~q)
         self.queries['must_not'].append(q)
-
-    def show_queries(self):
-        """Show the query dict containing _all_ the queries"""
-        return self.queries
 
     def increment_parent(self):
         """Increments the parent id by one"""
@@ -249,22 +243,38 @@ class Metric():
         self.aggregations['cardinality_' + field] = agg
         return self
 
-    def set_range(self, date_field=None, start=None, end=None):
-        """Add a range filter to the Search object
-        If no start or end date is provided, the initial values for start and 
-        end dates are used
+    def since(self, start, field=None):
+        """
+        :start: date to start looking at the fields (from date)
         """
 
-        start = start if start else self.start
-        end = end if end else self.end
+        if not field:
+            field = "grimoire_creation_date"
+        self.start = start
 
-        if not date_field:
-            date_field = "grimoire_creation_date"
-        start_end = {}
-        start_end["gte"] = "%s" % start.isoformat()
-        start_end["lte"] = "%s" % end.isoformat()
-        query_range = {date_field: start_end}
-        self.s = self.s.filter("range", **query_range)
+        date_dict = {"gte":"{}".format(self.start.isoformat())}
+
+        if field in self.range.keys():
+            self.range[field].update(date_dict)
+        else:
+            self.range[field] = date_dict
+        return self
+
+    def until(self, end, field=None):
+        """
+        :end: date to stop looking at the fields (to date)
+        """
+
+        if not field:
+            field = "grimoire_creation_date"
+        self.end = end
+
+        date_dict = {"lte":"{}".format(self.end.isoformat())}
+
+        if field in self.range.keys():
+            self.range[field].update(date_dict)
+        else:
+            self.range[field] = date_dict
         return self
 
     def by_authors(self, field=None):
@@ -277,7 +287,7 @@ class Metric():
         
         # here, for commits, should we bucket by committer or by author?
         # Parent aggregation
-        agg_field = field if field else "author_name"
+        agg_field = field if field else "author_uuid"
         agg = A("terms", field=agg_field, missing="others", size=self.size)
         # child aggregation is the last added aggregation
         child_agg = self.aggregations.popitem()
@@ -299,7 +309,7 @@ class Metric():
         # the git enrich index does not mention the user org anywhere.
         # TODO: open an issue after this?
         # this functions is currently only for issues and PRs
-        agg_field = field if field else "user_org"
+        agg_field = field if field else "author_org_name"
         agg = A("terms", field=agg_field, missing="others", size=self.size)
         child_agg = self.aggregations.popitem()
         agg.metric(self.child_id, child_agg[1])
@@ -311,12 +321,12 @@ class Metric():
         current object. Add this date_histogram aggregation into the aggregations Ordered
         Dict
         """
-        
         hist_period = period if period else self.interval
         time_zone = timezone if timezone else "UTC"
         start = start if start else self.start
         end = end if end else self.end
         bounds = self.get_bounds(start, end)
+
         date_field = field if field else "grimoire_creation_date"
         agg = A("date_histogram", field=date_field, interval=hist_period,
                 time_zone=time_zone, min_doc_count=0, **bounds)
@@ -329,15 +339,28 @@ class Metric():
     def get_bounds(self, start=None, end=None):
         """Get bounds for the date_histogram"""
 
-        # Extend bounds so we have data until start and end
-        start = start.replace(microsecond=0)
-        start_ts = start.replace(tzinfo=timezone.utc).timestamp()
-        start_ts_ms = start_ts * 1000  # ES uses ms
-        end = end.replace(microsecond=0)
-        end_ts = end.replace(tzinfo=timezone.utc).timestamp()
-        end_ts_ms = end_ts * 1000  # ES uses ms
-        bounds_data = {"min": start_ts_ms, "max": end_ts_ms}
-        bounds = {"extended_bounds": bounds_data}
+        bounds = {}
+        if start or end:
+            # Extend bounds so we have data until start and end
+            start_ts = None
+            end_ts = None
+            
+            if start:
+                start = start.replace(microsecond=0)
+                start_ts = start.replace(tzinfo=timezone.utc).timestamp()
+                start_ts_ms = start_ts * 1000  # ES uses ms
+            if end:
+                end = end.replace(microsecond=0)
+                end_ts = end.replace(tzinfo=timezone.utc).timestamp()
+                end_ts_ms = end_ts * 1000  # ES uses ms
+
+            bounds_data = {}
+            if start:
+                bounds_data["min"] = start_ts_ms
+            if end:
+                bounds_data["max"] = end_ts_ms
+
+            bounds["extended_bounds"] = bounds_data
         return bounds
 
     def get_results(self, dataframe=False):
@@ -351,6 +374,8 @@ class Metric():
             self.s.aggs.bucket(self.parent_id, val)
             self.increment_parent()
         
+        self.s = self.s.filter("range", **self.range)
+
         self.s = self.s.extra(size=0)
         response = self.s.execute()
         return response.to_dict()
@@ -359,7 +384,6 @@ class Metric():
         """Parse a date_histogram aggregation and return cleaned values"""
 
         res = self.get_results()
-
         ts = {"date": [], "value": [], "unixtime": []}
 
         if 'buckets' not in res['aggregations'][str(self.parent_id-1)]:
@@ -404,7 +428,6 @@ class Metric():
 
         return agg
 
-
     def get_trend(self):
         """Using gat_ts() compare the current Metric value with it's previous period's value
         Return the last period value and relative change.
@@ -431,6 +454,19 @@ class Metric():
         return self.s.to_dict()
 
 
+class PullRequests(Metric):
+
+    def __init__(self, url=None, index=None, esfilters={}, interval=None, offset=None):
+        super().__init__(url, index, esfilters, interval, offset)
+        super().add_query({"pull_request":"true"})
+
+class Issues(Metric):
+
+    def __init__(self, url=None, index=None, esfilters={}, interval=None, offset=None):
+        super().__init__(url, index, esfilters, interval, offset)
+        super().agg_query({"pull_request":"false"})
+
+
 # ------- Helper functions ------ #
 
 def calculate_bmi(closed, submitted):
@@ -450,6 +486,7 @@ def calculate_bmi(closed, submitted):
             ratios.append(x/y)
     dates = ["{}-{}".format(date[:4], date[5:7]) for date in dates]
     return {"Period":dates, "Closed/Submitted":ratios}
+
 
 def buckets_to_df(buckets):
     """ Takes in aggregation bucket objects and converts them into a pandas dataframe

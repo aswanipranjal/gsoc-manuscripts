@@ -1,0 +1,162 @@
+[2018-06-07 16:41:07] <jgbarah> Hi, aswanipranjal
+[2018-06-07 16:41:10] <jgbarah> Sorry for being late
+[2018-06-07 16:41:22] <jgbarah> Can we start?
+[2018-06-07 16:41:25] <aswanipranjal> Hey @jgbarah!
+[2018-06-07 16:41:36] <aswanipranjal> No, problem. Sure we can start
+[2018-06-07 16:41:43] <jgbarah> Great!
+[2018-06-07 16:41:51] <jgbarah> Let's go through your tasks...
+[2018-06-07 16:42:49] <jgbarah> Can we consider taask #1 closed?
+[2018-06-07 16:42:57] <jgbarah> From your side, I mean
+[2018-06-07 16:43:04] <aswanipranjal> yeah, I updated it so the tests are passing now
+[2018-06-07 16:44:00] <aswanipranjal> regarding the PR where I split the tests: as I explained - the dictionaries have the same values but the lists inside the dictionaries have values in different order
+[2018-06-07 16:44:09] <aswanipranjal> hence the test fails
+[2018-06-07 16:44:15] <jgbarah> OK, perfect.
+[2018-06-07 16:44:35] <jgbarah> I forgot about that PR about the order...
+[2018-06-07 16:44:45] <aswanipranjal> first we close #63
+[2018-06-07 16:44:48] <aswanipranjal> then #64
+[2018-06-07 16:44:56] <jgbarah> I will comment in the pr itself, but the solution is to order the dictionary,
+[2018-06-07 16:45:03] <jgbarah> or to compare the dictionaries
+[2018-06-07 16:45:13] <aswanipranjal> I am comparing dictionaries it self
+[2018-06-07 16:45:17] <jgbarah> But the test must be deterministic
+[2018-06-07 16:45:36] <jgbarah> If you're comparing the dictionaries, the order shoudln't matter...
+[2018-06-07 16:45:48] <jgbarah> Please, give a link to the #pr, I don't have it handy
+[2018-06-07 16:46:08] <aswanipranjal> https://github.com/chaoss/grimoirelab-manuscripts/pull/64
+[2018-06-07 16:46:46] <aswanipranjal> here are the tests: https://travis-ci.org/chaoss/grimoirelab-manuscripts/builds/389088334?utm_source=github_status&utm_medium=notification
+[2018-06-07 16:47:38] <jgbarah> I'm not sure, but my first impression is that you're comparing OrderedDict with dict
+[2018-06-07 16:48:15] <jgbarah> But I'm not sure.
+[2018-06-07 16:48:31] <jgbarah> Let me have a look at the code in more detail. I should have done that, but I forgot.
+[2018-06-07 16:48:42] <jgbarah> I will comment on the pr itself, right?
+[2018-06-07 16:48:58] <aswanipranjal> Yeah, that'll be okay
+[2018-06-07 16:49:33] <jgbarah> Then, that's all for #1. Let's finish the prs and it is done
+[2018-06-07 16:49:38] <jgbarah> Now, task #2
+[2018-06-07 16:50:08] <jgbarah> I see you have definitions, in terms of code, for (I guess) all the metrics that can be defined.
+[2018-06-07 16:50:22] <jgbarah> We also have the issues where we're discussing some of them
+[2018-06-07 16:50:37] <jgbarah> I think for now we can consider this task stalled, while:
+[2018-06-07 16:50:49] <aswanipranjal> Yep, the metrics which have definitions and fields in the enriched indices have been calculated for GMD
+[2018-06-07 16:50:56] <jgbarah> * I produce prs to the metrcis definition based on our discussion, until they are settled
+[2018-06-07 16:51:31] <jgbarah> * We work on the new classes etc. for starting implementing the metrics (that is, #3)
+[2018-06-07 16:51:39] <jgbarah> ok?
+[2018-06-07 16:51:49] <aswanipranjal> Yeah, sounds good
+[2018-06-07 16:51:57] <jgbarah> Good. Task #3 then...
+[2018-06-07 16:52:12] <jgbarah> Did you see my comments of yesterday on your issue?
+[2018-06-07 16:52:36] <aswanipranjal> Yeah, I've been working on creating sub classes and experimenting on how they might work
+[2018-06-07 16:53:15] <aswanipranjal> I fear that we might go into the similar design pattern that manuscripts is following currently
+[2018-06-07 16:53:34] <aswanipranjal> unless we add subclass specific functions 
+[2018-06-07 16:53:45] <jgbarah> Can you provided an example??
+[2018-06-07 16:54:06] <jgbarah> (provided->provide)
+[2018-06-07 16:54:27] <aswanipranjal> Right now also in manuscripts we use the Metrics class to derive the subclasses and then use them
+[2018-06-07 16:55:12] <aswanipranjal> PullRequests class, as you said, has only one thing different than the Metric class and that is the "pull_request":"true" Match query (in my implementation)
+[2018-06-07 16:55:48] <aswanipranjal> if we add some functions which are specific to PullRequests, I think then we should move forward and create a subclass PullRequests
+[2018-06-07 16:55:54] <aswanipranjal> Does this make sense?
+[2018-06-07 16:56:58] <jgbarah> My main concern is that when we want to work with pull requests, it makes sense to work with a class that deals with PullRequests, and not with a more general class which deals with other stuff, and you need to add a filter to deal with PRs...
+[2018-06-07 16:58:20] <aswanipranjal> Yeah, I get that. I am just proposing that we should look into adding more PR specific functions into that class
+[2018-06-07 16:58:22] <jgbarah> So, I think we should have a "generic" class, say "Items", that would have the methods that are general for all kinds of stuff (PullRequests, Issues, Commmits, etc,
+[2018-06-07 16:58:42] <aswanipranjal> Yes, and specific methods can come under the subclasses
+[2018-06-07 16:58:56] <jgbarah> and then, subclassing in for example PullRequests, Commits, etc.
+[2018-06-07 16:59:11] <jgbarah> Yes, if we havee specific methods, they would come in subclasses.
+[2018-06-07 16:59:29] <jgbarah> But we could also have specific implemenations of generic methods
+[2018-06-07 16:59:53] <aswanipranjal> > But we could also have specific implemenations of generic methods
+[2018-06-07 16:59:59] <aswanipranjal> what do you mean?
+[2018-06-07 17:00:25] <jgbarah> We can see how it works, but for example, I think that methods such as since(), until(), by_authors(), by_orgs(), by_period() should be in Items,
+[2018-06-07 17:00:34] <aswanipranjal> yeah
+[2018-06-07 17:00:45] <jgbarah> while for example filter_merge_commits() would be only in Commits
+[2018-06-07 17:01:17] <jgbarah> And I would change the name from Metrics to something else, such as Items, because the object is really representing a queery for a collection of items, not a metric,
+[2018-06-07 17:01:40] <aswanipranjal> Ah, yeah. This makes sense. I'll change the name
+[2018-06-07 17:01:41] <jgbarah> which is the result when we get the result of the object plus filters...
+[2018-06-07 17:01:56] <jgbarah> OK, let's move forward in that direction, then.
+[2018-06-07 17:02:24] <jgbarah> I agree with you that we better use a "new" source code. I was proposing to create a new directory in manuscripts for it.
+[2018-06-07 17:03:15] <jgbarah> You can start by pr'ing a file with the base class (say Items), and any auxxiliary class (say Index, if you agree with the comments I wrote yesterday)
+[2018-06-07 17:03:17] → dizquierdo joined (~dizquierd@195.57.146.130)
+[2018-06-07 17:03:48] <jgbarah> and another file with some subclass (say PullRequests)
+[2018-06-07 17:03:59] <jgbarah> And a readme with some examples of use
+[2018-06-07 17:04:06] <jgbarah> And of course, some tests
+[2018-06-07 17:04:18] <jgbarah> And we cand start from there
+[2018-06-07 17:04:22] <jgbarah> What do you think?
+[2018-06-07 17:04:30] <aswanipranjal> Do we have to create an Index class?
+[2018-06-07 17:04:56] <aswanipranjal> I think the subclasses(PullRequests) can be directly derived from the Items class
+[2018-06-07 17:05:27] <jgbarah> I prooposed that the Items  (Metrics) class, when instaantiated, accetps an index as parameter
+[2018-06-07 17:05:53] <jgbarah> It could be the info needed for an index (ES connection, index name), but I would rather use a class,
+[2018-06-07 17:06:11] <jgbarah> so that we can encode in the future more data related to how the index is, just in case we need it.
+[2018-06-07 17:06:20] <aswanipranjal> Okay
+[2018-06-07 17:06:35] <jgbarah> But that would be a separate hierarchy from Items
+[2018-06-07 17:06:48] <aswanipranjal> >And a readme with some examples of use. And of course, some tests.
+[2018-06-07 17:06:51] <aswanipranjal> sounds good!
+[2018-06-07 17:06:57] <aswanipranjal> > But that would be a separate hierarchy from Items
+[2018-06-07 17:06:59] <aswanipranjal> yeah
+[2018-06-07 17:07:04] <jgbarah> Now, you have the ES url and the index name, but that forces to open a new ES connection per class, which is really not needed
+[2018-06-07 17:07:40] <jgbarah> OK, then. Please, annotate the ticket with this info, and start producing that first PR, and we talk on it,
+[2018-06-07 17:07:41] <jgbarah> ok?
+[2018-06-07 17:09:10] <aswanipranjal> i'll refer this issue https://github.com/chaoss/grimoirelab-manuscripts/issues/59 in the PR?
+[2018-06-07 17:09:50] <jgbarah> Yes, please
+[2018-06-07 17:09:54] <aswanipranjal> Okay
+[2018-06-07 17:10:08] <jgbarah> WRT task #4 and #5, I see you couldn't progress much...
+[2018-06-07 17:10:43] <aswanipranjal> Yeah, most of my time went into thinking how the Metric class should be implemented so that the functions are chainable
+[2018-06-07 17:11:11] <jgbarah> ok, let's keep then #4 and #5 open, and in the plan for next week, ok?
+[2018-06-07 17:11:15] <aswanipranjal> Yeah
+[2018-06-07 17:11:35] <jgbarah> So in summary, it would be: #1 is on my side, just keep an eye on comments in the PR
+[2018-06-07 17:11:40] <aswanipranjal> I was able to calculate the current reports that manuscripts produces right now, though
+[2018-06-07 17:11:51] <aswanipranjal> Were they OK?
+[2018-06-07 17:11:54] <jgbarah> #2 is stalled until we have an approved definition of the missing metrics, and #3 is on its way
+[2018-06-07 17:12:20] <jgbarah> #3 you're starting by producing that pr, and then we follow on from there. Let's see if we can push it during the week,
+[2018-06-07 17:12:26] <jgbarah> since it is blocking #2
+[2018-06-07 17:12:44] <jgbarah> And the remaining time, pleaase work on #4 and #5.
+[2018-06-07 17:13:03] <jgbarah> And that's it with respect to the next week,, I guess... Do you agree?
+[2018-06-07 17:13:14] <aswanipranjal> yeah
+[2018-06-07 17:13:35] <aswanipranjal> for #3, should there be a file in the PR calculating the current report for manuscripts?
+[2018-06-07 17:13:53] <jgbarah> ok. A minor comment about the blog. I like the way you're documenting your progress, but please keep these sections:
+[2018-06-07 17:14:27] <jgbarah> * First of all, the schedule for the week (what you were supposed to do), which will be basically the same of the last section of the entry for the previous week
+[2018-06-07 17:15:18] ← andre__[m] left (acklapperm@gateway/shell/matrix.org/x-fqrlkmeoglbnllsy): "Kicked by @appservice-irc:matrix.org  : removing from IRC because user idle on matrix for 30+ days"
+[2018-06-07 17:15:19] <jgbarah> complemented with the current status (eg, "I could not work on this" or "the stated goals were fullfilled")
+[2018-06-07 17:15:44] <aswanipranjal> Okay
+[2018-06-07 17:16:10] <jgbarah> For each task, please include number and name, and links to the relevant issues and prs (those that you were working during the week), so that we can quickly follow them if needed
+[2018-06-07 17:16:46] <jgbarah> Then, that section with the details, which I love, with the structure you may want (but likely a section per task, like you are doing now, is a good idea)
+[2018-06-07 17:17:06] <jgbarah> And then, at the end, after the weekly meeting the plan for the next week,
+[2018-06-07 17:17:10] <aswanipranjal> Okay, I'll keep this in mind.
+[2018-06-07 17:17:14] <jgbarah> with a format similar to the first section
+[2018-06-07 17:17:34] <jgbarah> So, no big changes from your current reporting, which I find quite useful
+[2018-06-07 17:17:44] <aswanipranjal> Thanks!
+[2018-06-07 17:18:16] <aswanipranjal> > for #3, should there be a file in the PR calculating the current report for manuscripts?
+[2018-06-07 17:19:05] <jgbarah> And I think this is all on my side... Just a comment, that maybe you could try to push #3 as much as possible during the week and work with #4 and ~5
+[2018-06-07 17:19:31] <aswanipranjal> Okay
+[2018-06-07 17:20:08] <jgbarah> For #3, in the first version of the pr just compute one or two metrics, so that we can discuss on the schema,
+[2018-06-07 17:20:38] <jgbarah> and so you won't need to change a lot of code if we decide, for example, changes to the basic structure of the classes,
+[2018-06-07 17:20:53] <jgbarah> that would affect all the code calculating metrics...
+[2018-06-07 17:21:05] <aswanipranjal> okay
+[2018-06-07 17:21:15] <jgbarah> Once we have a solid class structure, you can start producing parallel prs for the different stuff
+[2018-06-07 17:21:32] <jgbarah> And I think I m done for today ;-)
+[2018-06-07 17:21:38] <jgbarah> Anything on your side?
+[2018-06-07 17:21:47] <aswanipranjal> You'll be making PRs for the issues in #2, right? The ones which have been settled on?
+[2018-06-07 17:21:59] <jgbarah> aswanipranjal: yes
+[2018-06-07 17:22:18] <aswanipranjal> > Anything on your side?
+[2018-06-07 17:22:37] <aswanipranjal> Nothing, apart from that the next week you have to review my performance
+[2018-06-07 17:23:02] <aswanipranjal> So I wanted to ask for some feedback, is there anything that you'd want me to change? 
+[2018-06-07 17:23:20] <aswanipranjal> How I work or communicate or how I provide updates?
+[2018-06-07 17:23:26] <jgbarah> Oh, I forgot to mention: if you can start with some pr to grimoire-elk on some of the metrics we already know we need, that would be great (but I'm not sure you can, beause most of them depend on the final definition of the metrcis)
+[2018-06-07 17:23:43] <aswanipranjal> That is #5 right?
+[2018-06-07 17:24:11] <aswanipranjal> I thought #5 is to create PRs and #2 was to create the issues
+[2018-06-07 17:24:20] <jgbarah> Ooops. Yes, you're right!
+[2018-06-07 17:24:42] <jgbarah> WRT the performance report, thanks for the heads-up. Yes, I think we have to produce it by 11
+[2018-06-07 17:24:48] <aswanipranjal> Some of them are directly implementable, I think
+[2018-06-07 17:25:06] <aswanipranjal> you can produce it between 11-15 I think, but please check it once
+[2018-06-07 17:25:07] <jgbarah> The feedback is all the one I provided in this and past meetings ;-)
+[2018-06-07 17:25:20] <aswanipranjal> Oh, okay! Thanks!
+[2018-06-07 17:25:52] <jgbarah> Overall, I'm happy with how you progress and how you report, although the pace during the past two weeks was maybe a bit too slow...
+[2018-06-07 17:26:01] <jgbarah> ...but due to perfectly understandable reasons,
+[2018-06-07 17:26:15] <jgbarah> so I'm sure you're recovering during the next weeks.
+[2018-06-07 17:26:29] <aswanipranjal> Yeah, I am sorry about that. My exams and college have ended so I'll pick up the pace now!
+[2018-06-07 17:26:54] <jgbarah> OK, no problem. Let's fix that during the next days, and all will be perfect ;-)
+[2018-06-07 17:26:59] <aswanipranjal> Great!
+[2018-06-07 17:27:04] <jgbarah> Thanks a lot, aswanipranjal. Anythig else ffrom your side?
+[2018-06-07 17:27:22] <aswanipranjal> WRT #5, I should start working on that once the issues have been rsolved right?
+[2018-06-07 17:27:40] <aswanipranjal> or should I make PRs with my understanding of how those metrics should be created?
+[2018-06-07 17:28:15] <jgbarah> For #5 if you identifty soemething that can be done, please do. But only for the metrcs that are not under discussion, to avoid doing work that then you need to redo again...
+[2018-06-07 17:28:34] <aswanipranjal> Okay, got it!
+[2018-06-07 17:28:54] <aswanipranjal> How is the conference, btw?
+[2018-06-07 17:29:11] <jgbarah> Great! Thanks for this meeting aswanipranjal. Please save the log and all that as usual.
+[2018-06-07 17:29:18] <aswanipranjal> yeah, will do!
+[2018-06-07 17:29:27] <jgbarah> (it was great, thanks!!!)
+[2018-06-07 17:29:44] <aswanipranjal> Awesome! Thank you for your time @jgbarah 
+[2018-06-07 17:29:57] <aswanipranjal> Read you next week!
+[2018-06-07 17:30:00] <jgbarah> OK, next week on Wed., at the usual time
+[2018-06-07 17:30:05] <jgbarah> Bye!
+[2018-06-07 17:30:12] <aswanipranjal> Yeah, Bye!

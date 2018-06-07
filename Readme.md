@@ -26,6 +26,12 @@ These tickets are concerning how to structure the code that is being generated a
 - [chaoss/grimoirelab/issues/106](https://github.com/chaoss/grimoirelab/issues/106): This issue is regarding exploring different visualisation techniques to describe the metrics so that the users can unserstand the analysis better.
 - [chaoss/grimoirelab/issues/108](https://github.com/chaoss/grimoirelab/issues/108): This issue is regarding setting up the documentation for GSoC.
 
+### ReDesigning Manuscripts:
+These tickets are related to designing new functions, classes and methods to calculate the metrics:
+
+- [chaoss/grimoirelab-manuscripts/issues/62](https://github.com/chaoss/grimoirelab-manuscripts/issues/62)
+- [chaoss/grimoirelab-manuscripts/issues/66](https://github.com/chaoss/grimoirelab-manuscripts/issues/66): issue describing implementation of the new functions.
+
 ### Understanding GMD metrics and related work:
 What are GMD-metrics? How can we calculate them:
 - [chaoss/wg-gmd/issues/1](https://github.com/chaoss/wg-gmd/issues/1): Some of the metrics in GMD need more descriptions and more elabotration on how to implement them.
@@ -35,6 +41,7 @@ What are GMD-metrics? How can we calculate them:
 - [chaoss/wg-gmd/issues/8](https://github.com/chaoss/wg-gmd/issues/8): First response to issue duration, what is considered as a first response to an issue?
 - [chaoss/wg-gmd/issues/9](https://github.com/chaoss/wg-gmd/issues/9): Who are considered as new contributors?
 - [chaoss/wg-gmd/issues/10](https://github.com/chaoss/wg-gmd/issues/10): Which are these new oranizations?
+- [chaoss/grimoirelab-elk/issues/364](https://github.com/chaoss/grimoirelab-elk/issues/364): Adding code to generate fields in enriched to calcualte the metrics under GMD 
 
 ### Enhancing Manuscripts on the basis of the Metrics:
 - [chaoss/grimoirelab-manuscripts/issues/56](https://github.com/chaoss/grimoirelab-manuscripts/issues/56): The classes in github_issues and github_pr have been implemented using the master class of ITS data source as the parent class. That needs to be changed so that the code can be consistent.
@@ -48,6 +55,8 @@ These issues concern general maintainance and enhancements on manuscripts:
 - [chaoss/grimoirelab-manuscripts/issues/48](https://github.com/chaoss/grimoirelab-manuscripts/issues/48): Manuscripts uses a 01-01-2015 as a date for calculating metrics if a start date is not given. This issue is regarding making that date into a more specific or related one.
 - [x] [chaoss/grimoirelab-manuscripts/issues/57](https://github.com/chaoss/grimoirelab-manuscripts/issues/57): converting the queries in esquery.py file into objects from the elasticsearch_dsl module.
 - [x] [chaoss/grimoirelab-manuscripts/pull/58](https://github.com/chaoss/grimoirelab-manuscripts/pull/58): PR adding the above functionality.
+- [chaoss/grimoirelab-manuscripts/pull/63](https://github.com/chaoss/grimoirelab-manuscripts/pull/63): adding to the above PR.
+- [chaoss/grimoirelab-manuscripts/pull/64](https://github.com/chaoss/grimoirelab-manuscripts/pull/64): Adding to the above PR
 - [chaoss/grimoirelab-manuscripts/issues/60](https://github.com/chaoss/grimoirelab-manuscripts/issues/60): Expand on the above PR to make manuscripts fully dependent on elasticsearch_dsl.py
 
 ---
@@ -57,3 +66,4 @@ These issues concern general maintainance and enhancements on manuscripts:
 - [Week-1](https://aswanipranjal.github.io/posts/week-1/)
 - [Week-2](https://aswanipranjal.github.io/posts/week-2/)
 - [Week-3](https://aswanipranjal.github.io/posts/week-3/)
+- [Week-4](https://aswanipranjal.github.io/posts/week-4/)
