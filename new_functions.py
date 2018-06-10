@@ -9,11 +9,23 @@
 # We hope to eventually integrate the FOCs in this file into the main
 # manuscripts branch.
 
+# TODO:
+# - Is popping from dict and then creating the nested aggregation the most 
+#   efficient way to do this?
+# - How do you parse 3 level nested aggregation?
+# 
+# 
+# 
+# 
+# 
+
+
 import sys
 import logging
 
-from collections import OrderedDict
+from collections import OrderedDict, defaultdict
 from datetime import datetime, timezone
+from dateutil import parser
 
 import pandas as pd
 from elasticsearch import Elasticsearch
@@ -33,7 +45,7 @@ logger = logging.getLogger(__name__)
 # This will add a author_uuid aggregation to the aggregations dict inside github 
 # object
 #
-# >> github.get_results()
+# >> github.fetch_aggregation_results()
 # This will return a response from elasticsearch in the form of a dictionary having
 # aggregations as one of the keys. The value for that(a dict itself) will have '0' 
 # as a key with the value containing the total number of unique authors in the repo 
@@ -44,7 +56,7 @@ logger = logging.getLogger(__name__)
 # agg) and seggregate the aggreagtion by user buckets. Here, by authors will create 
 # a nested aggregation with cardinality as child agg.
 # 
-# >> github.get_results()
+# >> github.fetch_aggregation_results()
 # This will loop through all the aggregations that have been added to the github object
 # and add them to the Search object in the sequence in which they were added. Then it'll 
 # query elasticsearch using the Search().execute() method and return a dict of the 
@@ -78,7 +90,7 @@ logger = logging.getLogger(__name__)
 # This will pop the by_authors aggregation from the dict and add it as a child aggregation 
 # to itself. Then it will be added back into the dict.
 # 
-# >> github.get_results()
+# >> github.fetch_aggregation_results()
 # Here we will have 2 aggregations, one a simple sum on 'field1' and another Double nested
 # aggregation where we are getting the cardinality for 'field2' per user per organization
 # in which the users belong to. Ain't this fascinating? Just keep chaining along!!!!
@@ -88,8 +100,33 @@ logger = logging.getLogger(__name__)
 # the old esquery.py file, because they are the correct implementation for that function.
 # ---------------------------------------------------------------------------------------#
 
-class Metric():
+
+class Index():
+    """Index class which will represent an index in elasticsearch"""
+
+    def __init__(self, index, url=None):
+        """
+        :url: the address/url of the elasticsearch instance to be used?
+                 default: http://localhost:9200/ (optional)
+        :index: name of the elasticsearch index that is to be queried (required)
+        """
+
+        self.url = url if url else None
+        self.index = index # index to query data from
+        if self.url:
+            self.es = Elasticsearch(self.url) # This allows us to query _any_ elasticsearch instance
+        else:
+            logger.debug("No custom url provided, using default: http://localhost:9200/")
+            self.es = Elasticsearch("http://localhost:9200/")
+
+
+class EQCC():
     """
+    E: Elasticsearch - creates elasticsearch_dsl objects
+    Q: Query - queries elasticsearch
+    C: Connection - provides a connection to elasticsearch
+    C: Compute - computes the basic data for a Metric
+
     The base class of all the necessary metrics that are going to be calculated.
     How is this different from the previously created metric classes?
     Good question, here is how: The previous classes used normal python data structures
@@ -100,33 +137,23 @@ class Metric():
     allow us to neatly add filters, create nested aggregations and such.
     """
 
-    def __init__(self, index=None, url=None,  esfilters={}, interval=None, offset=None):
+    def __init__(self, index_obj, esfilters={}, interval=None, offset=None):
         """Initialization of necessary parameters
-    
-        :client: the address/url of the elasticsearch instance to be used?
-                 default: http://localhost:9200/ (optional)
-        :index: name of the elasticsearch index that is to be queried (required)
+
+        :index_obj: An Index object containing the connection details
         :esfilters: TODO: this is still to be implemented
         :interval: interval to use for timeseries data
         :offset: TODO: this is still to be implemented
         """
-        self.parent_id = 0 # starting parent id to use
-        self.child_id = 0.1 # starting child id (sub aggregation) to use
-    
-        if url:
-            self.es = Elasticsearch(url) # This allows us to query _any_ elasticsearch instance
-        else:
-            logger.debug("No custom url provided, using default: http://localhost:9200/")
-            self.es = Elasticsearch("http://localhost:9200/")
-    
-        if not index:
-            logger.error("Please provide an index to query!")
-            sys.exit(1)
-        
-        self.index = index # index to query data from
+        self.es = index_obj.es
+        self.index = index_obj.index
+
         self.s = Search(using=self.es, index=self.index) # create the search object
         # this search object is the main thing differentiating this class from the
         # old classes and methods
+
+        self.parent_id = 0 # starting parent id to use
+        self.child_id = 0
         
         self.queries = {"must":[], "must_not":[]} # a query dict to store the queries
         self.filters = {} # to store the filters
@@ -143,6 +170,7 @@ class Metric():
         self.interval = interval if interval else "month"
         self.offset = offset
         self.range = {}
+        self.child_agg_counter_dict = defaultdict(int) # to keep a track of nested child aggregations
         
     def add_query(self, key_val={}):
         """Add an es_dsl query object to the es_dsl Search object"""
@@ -162,11 +190,6 @@ class Metric():
         """Increments the parent id by one"""
 
         self.parent_id += 1
-
-    def increment_child(self):
-        """Increments the child id by one"""
-
-        self.child_id += 0.1
 
     def is_open(self):
         """Add the 'state':'open' filter to the Search object"""
@@ -243,6 +266,19 @@ class Metric():
         self.aggregations['cardinality_' + field] = agg
         return self
 
+    def get_extended_stats(self, field=None):
+        """Create an extended_stats aggregation object and add it to the aggregation dict"""
+
+        if not field:
+            raise AttributeError("Please provide field to apply aggregation to!")
+        agg = A("extended_stats", field=field)
+        self.aggregations['extended_stats_' + field] = agg
+        return self
+
+    def add_custom_aggregation(self, agg, name=None):
+        agg_name = name if name else 'custom_agg'
+        self.aggregations[agg_name] = agg
+
     def since(self, start, field=None):
         """
         :start: date to start looking at the fields (from date)
@@ -284,18 +320,26 @@ class Metric():
         agg in the aggregations Ordered Dict.
         Reference: EXAMPLE:2
         """
-        
+
         # here, for commits, should we bucket by committer or by author?
         # Parent aggregation
         agg_field = field if field else "author_uuid"
-        agg = A("terms", field=agg_field, missing="others", size=self.size)
+        agg_key = "terms_" + agg_field
+
+        if agg_key in self.aggregations.keys():
+            agg = self.aggregations[agg_key]
+        else:
+            agg = A("terms", field=agg_field, missing="others", size=self.size)
+
+        child_agg_counter = self.child_agg_counter_dict[agg_key] # 0 if not present because defaultdict
         # child aggregation is the last added aggregation
-        child_agg = self.aggregations.popitem()
+        child_name, child_agg = self.aggregations.popitem()
         # add child agg to parent agg
-        agg.metric(self.child_id, child_agg[1])
+        agg.metric(child_agg_counter, child_agg)
         # insert this agg to the agg dict. This agg essentially replaces
         # the last agg that was in the agg dict
-        self.aggregations["terms_" + agg_field] = agg
+        self.aggregations[agg_key] = agg
+        self.child_agg_counter_dict[agg_key] += 1
         return self
 
     def by_organizations(self, field=None):
@@ -310,31 +354,50 @@ class Metric():
         # TODO: open an issue after this?
         # this functions is currently only for issues and PRs
         agg_field = field if field else "author_org_name"
-        agg = A("terms", field=agg_field, missing="others", size=self.size)
-        child_agg = self.aggregations.popitem()
-        agg.metric(self.child_id, child_agg[1])
-        self.aggregations["terms_" + agg_field] = agg
+        agg_key = "terms_" + agg_field
+
+        if agg_key in self.aggregations.keys():
+            agg = self.aggregations[agg_key]
+        else:
+            agg = A("terms", field=agg_field, missing="others", size=self.size)
+
+        child_agg_counter = self.child_agg_counter_dict[agg_key] # 0 if not present because defaultdict
+
+        child_name, child_agg = self.aggregations.popitem()
+        agg.metric(child_agg_counter, child_agg)
+        self.aggregations[agg_key] = agg
+        self.child_agg_counter_dict[agg_key] += 1
+
         return self
 
     def by_period(self, period=None, timezone=None, field=None, start=None, end=None):
         """Create a date histogram aggregation using the last added aggregation for the
-        current object. Add this date_histogram aggregation into the aggregations Ordered
-        Dict
+        current object. Add this date_histogram aggregation into the aggregations Dict
         """
         hist_period = period if period else self.interval
         time_zone = timezone if timezone else "UTC"
+
         start = start if start else self.start
         end = end if end else self.end
         bounds = self.get_bounds(start, end)
 
         date_field = field if field else "grimoire_creation_date"
+        agg_key = "date_histogram_" + date_field
+
         agg = A("date_histogram", field=date_field, interval=hist_period,
                 time_zone=time_zone, min_doc_count=0, **bounds)
 
-        child_agg = self.aggregations.popitem()
-        agg.metric(self.child_id, child_agg[1])
-        self.aggregations["date_histogram_" + child_agg[0]] = agg
+        child_agg_counter = self.child_agg_counter_dict[agg_key]
+
+        child_name, child_agg = self.aggregations.popitem()
+        agg.metric(child_agg_counter, child_agg)
+        self.aggregations[agg_key] = agg
+        self.child_agg_counter_dict[agg_key] += 1
+
         return self
+
+    def clear_aggregation(self):
+        self.aggregations = OrderedDict()
 
     def get_bounds(self, start=None, end=None):
         """Get bounds for the date_histogram"""
@@ -363,27 +426,62 @@ class Metric():
             bounds["extended_bounds"] = bounds_data
         return bounds
 
-    def get_results(self, dataframe=False):
+    def clean_agg_from_search(self):
+        """Remove all aggregations added to the search object"""
+        temp_search = self.s.to_dict()
+        if 'aggs' in temp_search.keys():
+            del temp_search['aggs']
+            self.s.update_from_dict(temp_search)
+            self.parent_id = 0
+
+    def fetch_aggregation_results(self, dataframe=False):
         """Loop though the aggregations dict and add them to the Search object
         in order in which they were created. Query elasticsearch with the Search
         object and return a dict containing the results
         dataframe: if true, return values as a pandas dataframe
         """
+        self.clean_agg_from_search()
 
         for key, val in self.aggregations.items():
             self.s.aggs.bucket(self.parent_id, val)
             self.increment_parent()
         
-        self.s = self.s.filter("range", **self.range)
+        if self.range:
+            self.s = self.s.filter("range", **self.range)
 
         self.s = self.s.extra(size=0)
         response = self.s.execute()
         return response.to_dict()
 
-    def get_ts(self):
-        """Parse a date_histogram aggregation and return cleaned values"""
+    def fetch_results_from_source(self, *fields, dataframe=False):
+        """Get all values for specific fields, from source"""
 
-        res = self.get_results()
+        if not fields:
+            raise AttributeError("Please provide the fields to get from elasticsearch!")
+
+        self.clean_agg_from_search()
+
+        if self.range:
+            self.s = self.s.filter("range", **self.range)
+
+        self.s = self.s.extra(_source=fields)
+        self.s = self.s.extra(size=self.size)
+
+        response = self.s.execute()
+        hits = response.to_dict()['hits']['hits']
+        data = [item["_source"] for item in hits]
+        if dataframe:
+            return pd.DataFrame.from_records(data)
+        else:
+            return data
+
+    def get_ts(self, dataframe=False):
+        """Get time series data for the specified fields and period of analysis
+
+        :dataframe: if dataframe=True, return a pandas.DataFrame obj
+        """
+
+        res = self.fetch_aggregation_results()
         ts = {"date": [], "value": [], "unixtime": []}
 
         if 'buckets' not in res['aggregations'][str(self.parent_id-1)]:
@@ -406,13 +504,15 @@ class Metric():
                 ts['value'].append(bucket['doc_count'])
             # unixtime comes in ms from ElasticSearch
             ts['unixtime'].append(bucket['key'] / 1000)
-
-        return ts
+        if dataframe:
+            return pd.DataFrame.from_records(ts, index="date")
+        else:
+            return ts
 
     def get_aggs(self):
-        """Return the values of single valued aggregations"""
+        """Compute the values for single valued aggregations"""
 
-        res = self.get_results()
+        res = self.fetch_aggregation_results()
         if 'aggregations' in res and 'values' in res['aggregations'][str(self.parent_id-1)]:
             try:
                 agg = res['aggregations'][str(self.parent_id-1)]['values']["50.0"]
@@ -449,22 +549,18 @@ class Metric():
 
         return (last, trend_percentage)
 
-    def show_search_object(self):
-        # This function is purely for debugging purposes
-        return self.s.to_dict()
 
+class PullRequests(EQCC):
 
-class PullRequests(Metric):
-
-    def __init__(self, url=None, index=None, esfilters={}, interval=None, offset=None):
-        super().__init__(url, index, esfilters, interval, offset)
+    def __init__(self, index_obj, esfilters={}, interval=None, offset=None):
+        super().__init__(index_obj, esfilters, interval, offset)
         super().add_query({"pull_request":"true"})
 
-class Issues(Metric):
+class Issues(EQCC):
 
-    def __init__(self, url=None, index=None, esfilters={}, interval=None, offset=None):
-        super().__init__(url, index, esfilters, interval, offset)
-        super().agg_query({"pull_request":"false"})
+    def __init__(self, index_obj, esfilters={}, interval=None, offset=None):
+        super().__init__(index_obj, esfilters, interval, offset)
+        super().add_query({"pull_request":"false"})
 
 
 # ------- Helper functions ------ #
@@ -496,15 +592,15 @@ def buckets_to_df(buckets):
     cleaned_buckets = []
     for item in buckets:
         if type(item)==str:
-            cleaned_buckets.append(item)
+            return item
 
         temp = {}
         for key, val in item.items():
             try:
-                value = val['value']
-                temp['value'] = value
+                temp[key] = val['value']
             except:
                 temp[key] = val
+
         cleaned_buckets.append(temp)
 
     if "key_as_string" in temp.keys():
@@ -513,8 +609,10 @@ def buckets_to_df(buckets):
         ret_df['key'] = pd.to_datetime(ret_df['key_as_string'])
         ret_df = ret_df.drop(["key_as_string", "doc_count"], axis=1)
         ret_df = ret_df.set_index("key")
-    else:
+    elif "key" in cleaned_buckets[0].keys():
         ret_df = pd.DataFrame.from_records(cleaned_buckets, index="key")
+    else:
+        ret_df = pd.DataFrame(cleaned_buckets)
 
     return ret_df
     
