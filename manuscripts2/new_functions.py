@@ -9,17 +9,6 @@
 # We hope to eventually integrate the FOCs in this file into the main
 # manuscripts branch.
 
-# TODO:
-# - Is popping from dict and then creating the nested aggregation the most 
-#   efficient way to do this?
-# - How do you parse 3 level nested aggregation?
-# 
-# 
-# 
-# 
-# 
-
-
 import sys
 import logging
 
@@ -32,73 +21,6 @@ from elasticsearch import Elasticsearch
 from elasticsearch_dsl import A, Q, Search
 
 logger = logging.getLogger(__name__)
-
-# ---------------------------------USAGE ------------------------------------- #
-# 
-# EXAMPLE: 1
-# ----------
-# from new_functions import Metric
-#
-# >> github = Metric(url, index, start, end)
-# 
-# >> github.get_cardinality("author_uuid") 
-# This will add a author_uuid aggregation to the aggregations dict inside github 
-# object
-#
-# >> github.fetch_aggregation_results()
-# This will return a response from elasticsearch in the form of a dictionary having
-# aggregations as one of the keys. The value for that(a dict itself) will have '0' 
-# as a key with the value containing the total number of unique authors in the repo 
-# who created an issue/pr.
-#
-# >> github.by_authors()
-# This will pop the last added aggregation from the aggregation list (here the 'cardinality'  
-# agg) and seggregate the aggreagtion by user buckets. Here, by authors will create 
-# a nested aggregation with cardinality as child agg.
-# 
-# >> github.fetch_aggregation_results()
-# This will loop through all the aggregations that have been added to the github object
-# and add them to the Search object in the sequence in which they were added. Then it'll 
-# query elasticsearch using the Search().execute() method and return a dict of the 
-# values that it gets from elasticsearch.
-# 
-# --------------------------------------------------------------------------------
-# 
-# EXAMPLE:2
-# ---------
-# The idea is that the user can use the chainability of functions to create nested aggs
-# and add queries seamlessly.
-# 
-# >> github = Metric(url, index, start_date, end_date) # initialize the object
-# >> github.add_query({"name1":"value1"}) # add query
-# >> github.add_inverse_query({"name2":"value2"}) # add inverse query
-# >> github.show_queries() # list all the queries that have been added to the Search object
-# {"must":[Match(name1=value1)], "must_not":[Match(name2=value2)]}
-# 
-# 
-# >> github.get_sum(field="field1") # here field is mandatory to customise the field to aggregate
-#s
-# >> github.get_cardinality(field="field2")
-# 
-# >> github.by_authors() 
-# This will pop cardinality agg from the OrderedDict of aggs and add it as a child agg       
-# under the authors aggregation then add the whole aggregation into the OrderedDict.
-# This functionality will allow us to keep on chaining methods to get levels of nested
-# aggregations!
-# 
-# >> github.by_organizations()
-# This will pop the by_authors aggregation from the dict and add it as a child aggregation 
-# to itself. Then it will be added back into the dict.
-# 
-# >> github.fetch_aggregation_results()
-# Here we will have 2 aggregations, one a simple sum on 'field1' and another Double nested
-# aggregation where we are getting the cardinality for 'field2' per user per organization
-# in which the users belong to. Ain't this fascinating? Just keep chaining along!!!!
-
-# --------------------------------------DEVELOPER's NOTE---------------------------------#
-# Some of the parameters for function definitions and functions have been referenced from 
-# the old esquery.py file, because they are the correct implementation for that function.
-# ---------------------------------------------------------------------------------------#
 
 
 class Index():
@@ -370,7 +292,7 @@ class EQCC():
 
         return self
 
-    def by_period(self, period=None, timezone=None, field=None, start=None, end=None):
+    def by_period(self, field=None, period=None, timezone=None, start=None, end=None):
         """Create a date histogram aggregation using the last added aggregation for the
         current object. Add this date_histogram aggregation into the aggregations Dict
         """
@@ -431,7 +353,7 @@ class EQCC():
         temp_search = self.s.to_dict()
         if 'aggs' in temp_search.keys():
             del temp_search['aggs']
-            self.s.update_from_dict(temp_search)
+            self.s.from_dict(temp_search)
             self.parent_id = 0
 
     def fetch_aggregation_results(self, dataframe=False):
@@ -482,13 +404,14 @@ class EQCC():
         """
 
         res = self.fetch_aggregation_results()
+
         ts = {"date": [], "value": [], "unixtime": []}
 
         if 'buckets' not in res['aggregations'][str(self.parent_id-1)]:
             raise RuntimeError("Aggregation results have no buckets in time series results.")
 
         for bucket in res['aggregations'][str(self.parent_id-1)]['buckets']:
-            ts['date'].append(bucket['key_as_string'])
+            ts['date'].append(parser.parse(bucket['key_as_string']))
             if str(self.child_id) in bucket:
                 # We have a subaggregation with the value
                 # If it is percentiles we get the median
@@ -550,19 +473,6 @@ class EQCC():
         return (last, trend_percentage)
 
 
-class PullRequests(EQCC):
-
-    def __init__(self, index_obj, esfilters={}, interval=None, offset=None):
-        super().__init__(index_obj, esfilters, interval, offset)
-        super().add_query({"pull_request":"true"})
-
-class Issues(EQCC):
-
-    def __init__(self, index_obj, esfilters={}, interval=None, offset=None):
-        super().__init__(index_obj, esfilters, interval, offset)
-        super().add_query({"pull_request":"false"})
-
-
 # ------- Helper functions ------ #
 
 def calculate_bmi(closed, submitted):
@@ -580,7 +490,7 @@ def calculate_bmi(closed, submitted):
             ratios.append(0)
         else:
             ratios.append(x/y)
-    dates = ["{}-{}".format(date[:4], date[5:7]) for date in dates]
+    dates = ["{}-{}".format(date.year, date.month, date.day) for date in dates]
     return {"Period":dates, "Closed/Submitted":ratios}
 
 
@@ -610,7 +520,7 @@ def buckets_to_df(buckets):
         ret_df = ret_df.drop(["key_as_string", "doc_count"], axis=1)
         ret_df = ret_df.set_index("key")
     elif "key" in cleaned_buckets[0].keys():
-        ret_df = pd.DataFrame.from_records(cleaned_buckets, index="key")
+        ret_df = pd.DataFrame.from_records(cleaned_buckets) #, index="key")
     else:
         ret_df = pd.DataFrame(cleaned_buckets)
 
