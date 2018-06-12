@@ -57,10 +57,10 @@ github.get_aggs()
 
 **Steps:**
 
-	- Create an `Index` object containing the elasticsearch connection information 
-	- Create an `EQCC` object using the `Index` object created
-	- Add an `author_uuid` aggregation to the aggregations dict inside github object
-	- Get the single valued aggregation (cardinality or number of author_uuids)
+- Create an `Index` object containing the elasticsearch connection information 
+- Create an `EQCC` object using the `Index` object created
+- Add an `author_uuid` aggregation to the aggregations dict inside github object
+- Get the single valued aggregation (cardinality or number of author_uuids)
 
 **Points to Note:**
 
