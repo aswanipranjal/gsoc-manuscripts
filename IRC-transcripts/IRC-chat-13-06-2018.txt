@@ -1,0 +1,224 @@
+[2018-06-13 16:30:19] <aswanipranjal> Hi @jgbarah!!
+[2018-06-13 16:30:33] <jgbarah> Hi, aswanipranjal!!
+[2018-06-13 16:30:45] <jgbarah> Just two minutes, please...
+[2018-06-13 16:30:54] <aswanipranjal> Yeah, sure!
+[2018-06-13 16:36:08] <jgbarah> OK, I'm here. Sorry for the delay aswanipranjal
+[2018-06-13 16:36:23] <aswanipranjal> It's not a problem :)
+[2018-06-13 16:36:24] <jgbarah> I was finishing a brief review of your pr for the new classes and that
+[2018-06-13 16:36:36] <jgbarah> Sorry, I couldn't do it before.
+[2018-06-13 16:36:43] <jgbarah> Now we talk about that in a moment.
+[2018-06-13 16:36:49] <aswanipranjal> yes please
+[2018-06-13 16:36:50] <jgbarah> Let's start task by taslk, ok?
+[2018-06-13 16:36:54] <aswanipranjal> Yeah
+[2018-06-13 16:37:28] <jgbarah> For those listening to this meeting, details about aswanipranjal are in https://aswanipranjal.github.io/posts/week-5/
+[2018-06-13 16:37:46] <jgbarah> OK, tassk #1...
+[2018-06-13 16:38:12] <jgbarah> Maybe you saw my answer to your new patch in the pr.
+[2018-06-13 16:38:32] <jgbarah> The issue would be doing the comparison in the tests, not ordering in the main code
+[2018-06-13 16:38:46] <aswanipranjal> Yeah, I actually created a fresh commit.
+[2018-06-13 16:39:17] <aswanipranjal> Did you see that I was using an OrderedDict to store the test filters ?
+[2018-06-13 16:39:31] <jgbarah> Good! I will go through it asap
+[2018-06-13 16:39:34] <aswanipranjal> Well, that should've made the tests pass
+[2018-06-13 16:39:56] <jgbarah> Let me check then... just a second
+[2018-06-13 16:41:00] <aswanipranjal> But it wasn't. The reason being that I was passing a dictionary to the OrderedDict and that dictionary itself reordered the key-val pairs. 
+[2018-06-13 16:42:03] <jgbarah> I'm going quckly though it, and I don't understand the problem you find, sorry.
+[2018-06-13 16:42:15] <jgbarah> I will go over it with some more time, and will comment in the pr.
+[2018-06-13 16:42:19] <aswanipranjal> Okay.
+[2018-06-13 16:42:39] <jgbarah> But in sort, the idea is that the needs of testing don't affect the implementation,
+[2018-06-13 16:42:57] <jgbarah> or at least not more than reasonable. For example, not impacting performance
+[2018-06-13 16:43:15] <aswanipranjal> Yeah, that is the correct implementation. I mis understood what you said, earlier.
+[2018-06-13 16:43:35] <jgbarah> If you need to order a data structure when you need to compare it, you need to do that in the testing code
+[2018-06-13 16:43:52] <jgbarah> and you can take advantage that you know what is expected, you only need to compare with that.
+[2018-06-13 16:43:57] <aswanipranjal> Yeah. Should I explain it in brief what the problem was?
+[2018-06-13 16:44:28] <jgbarah> For eexamplle, if the test is failing because some list nested deep in a data structure is ordered in a diffferent way,
+[2018-06-13 16:44:37] <jgbarah> but both orders are correct, you can either:
+[2018-06-13 16:45:05] <jgbarah> find that list in the data structure, and compare it with some code which is independent of the order, or
+[2018-06-13 16:45:24] <jgbarah> find that list in the data structure, order it, and compare it as a list
+[2018-06-13 16:45:35] <jgbarah> But in any of those case, tests should pass.
+[2018-06-13 16:45:40] <jgbarah> It seems now they are failing
+[2018-06-13 16:46:09] <aswanipranjal> https://github.com/chaoss/grimoirelab-manuscripts/pull/64
+[2018-06-13 16:46:21] <aswanipranjal> https://travis-ci.org/chaoss/grimoirelab-manuscripts/builds/391587655?utm_source=github_status&utm_medium=notification
+[2018-06-13 16:46:28] <aswanipranjal> they do pass @jgbarah 
+[2018-06-13 16:46:54] <jgbarah> Oppps. My fault. You're right.
+[2018-06-13 16:47:16] <jgbarah> Let me give a look at it, but very likely I will just approve it. Sorry for the mistake.
+[2018-06-13 16:47:31] <jgbarah> Then, I think #1 is done, right?
+[2018-06-13 16:47:42] <aswanipranjal> Yeah!
+[2018-06-13 16:48:42] <jgbarah> OK, #2. I have no comments about the metrics you already implemented in the notebooks (but I still need to go through them in some more detail),
+[2018-06-13 16:49:04] <jgbarah> One of "my" prs is already in its way, and I expect to submit the other today.
+[2018-06-13 16:49:15] <aswanipranjal> Oh, Cool!
+[2018-06-13 16:49:35] <aswanipranjal> I'll go through it and improve my notebook, if needed!
+[2018-06-13 16:49:56] <jgbarah> Issuue #10 is waiting for #9, I think, so ok...
+[2018-06-13 16:50:48] <jgbarah> Issue #9 is waiting for your change proposal to elk, I thinkm right?
+[2018-06-13 16:51:45] <jgbarah> And I think that's all for task #2, right?
+[2018-06-13 16:52:03] <aswanipranjal> I am still working on it. I was going through the els source code and will make PRs this week
+[2018-06-13 16:52:08] <aswanipranjal> elk*
+[2018-06-13 16:52:19] <jgbarah> ok
+[2018-06-13 16:52:26] <jgbarah> Let's move to #3 then...
+[2018-06-13 16:52:31] <aswanipranjal> Yeah, but please go through the notebook describing the metrics once
+[2018-06-13 16:52:50] <jgbarah> Yes, I will, thanks for the heads-up
+[2018-06-13 16:52:58] <aswanipranjal> Sure!
+[2018-06-13 16:53:09] <jgbarah> In #3 my main concern is the implementation you're using for the classes
+[2018-06-13 16:53:37] <jgbarah> I see you're like trying to create a data structure mimicking the json produced for the query, or something like that...
+[2018-06-13 16:54:19] <jgbarah> I would expect a data structure reproducing the graph (tree) of chained calls to es_dsl...
+[2018-06-13 16:54:41] <aswanipranjal> Can you expand on it a bit more, please?
+[2018-06-13 16:55:11] <jgbarah> I was about to do that in the pr, but an unexpected meeting prevented me to do that, sorry.
+[2018-06-13 16:55:23] <aswanipranjal> Oh, no problem
+[2018-06-13 16:55:44] <aswanipranjal> You should do it on the PR itself then
+[2018-06-13 16:56:06] <aswanipranjal> because we can refer the code and talk specifics
+[2018-06-13 16:57:10] <jgbarah> In short, I would expect that almost the only propireties of the "main" class were the query you are building
+[2018-06-13 16:57:40] <jgbarah> Now I see some other propierties that I still not fully understand why they are needed
+[2018-06-13 16:58:01] <aswanipranjal> Oh, I see. I can remove the functions get_aggs, get_ts, get_trend from the "main" class and let them be functions of the file.
+[2018-06-13 16:58:03] <jgbarah> But yeah, let me go though all the code in more detail, and we talk from there, in the pr itself
+[2018-06-13 16:58:29] <aswanipranjal> That would be great!
+[2018-06-13 16:58:32] <jgbarah> Let me check, maybe I can understand the reason why you're including them there...
+[2018-06-13 16:58:41] <jgbarah> ...because I'm sure there is a reason ;-)
+[2018-06-13 16:58:48] <aswanipranjal> haha, yeah
+[2018-06-13 16:59:05] <jgbarah> If you have time, you could have a look at the comments about the names,
+[2018-06-13 16:59:10] <aswanipranjal> it is just easier to calculate them if they are part of the object it self.
+[2018-06-13 16:59:26] <jgbarah> and for sure, we are going to need to implement each derived class in its own file
+[2018-06-13 16:59:56] <aswanipranjal> Yeah I'll come up with some thing better than EQCC
+[2018-06-13 17:00:03] ⇐ shaunm quit (~shaunm@dsl-208-102-166-69.fuse.net): Quit: shaunm
+[2018-06-13 17:00:08] <aswanipranjal> > and for sure, we are going to need to implement each derived class in its own file
+[2018-06-13 17:00:10] <aswanipranjal> Okay
+[2018-06-13 17:00:23] → shaunm joined (~shaunm@dsl-208-102-166-69.fuse.net)
+[2018-06-13 17:00:33] <jgbarah> (instead of in the "neww_clases.py" file, I mean
+[2018-06-13 17:00:46] <jgbarah> OK, something else for #3?
+[2018-06-13 17:01:09] <jgbarah> (on the rest, yes, the idea to implement in #3 is what you implemented, so we're on the same page here)
+[2018-06-13 17:01:41] <jgbarah> Can we move to #4 ?
+[2018-06-13 17:01:55] <aswanipranjal> Just that please read the Readme.md because I feel that I have explained why I am using certain data structures and what exactly is happening with the classes.
+[2018-06-13 17:02:03] <aswanipranjal> > (on the rest, yes, the idea to implement in #3 is what you implemented, so we're on the same page here)
+[2018-06-13 17:02:06] <aswanipranjal> I am glad!
+[2018-06-13 17:04:26] <jgbarah> OK, I will, thanks
+[2018-06-13 17:04:32] <jgbarah> Let's go to #4 then...
+[2018-06-13 17:04:36] ⇐ shaunm quit (~shaunm@dsl-208-102-166-69.fuse.net): Client Quit
+[2018-06-13 17:04:40] <aswanipranjal> yes please!
+[2018-06-13 17:04:44] <jgbarah> I liked the exercises you ddid with plotly.
+[2018-06-13 17:04:53] → shaunm joined (~shaunm@dsl-208-102-166-69.fuse.net)
+[2018-06-13 17:05:12] <jgbarah> and yes, for most of the stuff, plotly will be appropriate, because we want to display simple data
+[2018-06-13 17:05:18] <aswanipranjal> Thanks!
+[2018-06-13 17:05:56] <jgbarah> The idea of using Altair is to see if we can mix several of these variables, or even data coming directly from the indexes,
+[2018-06-13 17:05:57] <aswanipranjal> Yeah. I've not ruled out the others yet, I am reading about how to convert data into a better format for display purposes
+[2018-06-13 17:06:07] <jgbarah> and do the calculus with the chart itself, dynamically
+[2018-06-13 17:06:13] <aswanipranjal> Yeah
+[2018-06-13 17:06:22] <jgbarah> But to focus, let's do it this way:
+[2018-06-13 17:06:25] <aswanipranjal> @jgbarah look at this if you have time: http://nbviewer.jupyter.org/github/jfpuget/Tidy-Data/blob/master/Tidy-Data.ipynb
+[2018-06-13 17:06:51] <aswanipranjal> We can use something like this to wrangle the data
+[2018-06-13 17:07:11] <jgbarah> * Follow on with #4, just for playing
+[2018-06-13 17:07:44] <jgbarah> Let's open a new task, I guess it is #6, for implementing with plotly the metrics you can, once #3 start to produce results,
+[2018-06-13 17:07:59] <aswanipranjal> Okay, sounds good.
+[2018-06-13 17:08:05] <jgbarah> and then, after some more experimentation with Altair, we can decide if it makes sense to have a new task for it
+[2018-06-13 17:08:15] <jgbarah> > ook at this if you have time
+[2018-06-13 17:08:19] <jgbarah> I will, thanks
+[2018-06-13 17:08:41] <jgbarah> For the visualizations wiith plotly that you already did, yeah, that's what I expected
+[2018-06-13 17:09:00] <jgbarah> I see that you're becoming familiar with the library, so great.
+[2018-06-13 17:09:24] <aswanipranjal> Yeah, we just have to read the docs thoroughly :P
+[2018-06-13 17:09:47] <jgbarah> Yo need to explore a bit how to produce static charts (PNG, JPEG, PDF, or somethign like that)
+[2018-06-13 17:09:54] <jgbarah> I don't know if that's possible with plotly
+[2018-06-13 17:10:04] <aswanipranjal> I think we can. I'll look into it.
+[2018-06-13 17:10:04] <jgbarah> but we still need to produce PDF output somehow...
+[2018-06-13 17:10:25] <aswanipranjal> Yeah, we can convert to png i think so it won't be a problem
+[2018-06-13 17:10:32] <jgbarah> Try to do that in #4, so that we remove that uncertainty
+[2018-06-13 17:10:39] <aswanipranjal> Will do!
+[2018-06-13 17:10:42] <jgbarah> (yes, I also think that's easy)
+[2018-06-13 17:11:19] <jgbarah> And in task #5, maybe you're a bit stuck?
+[2018-06-13 17:11:41] <aswanipranjal> I am a bit unsure as to what should be calculated and how,
+[2018-06-13 17:11:43] <jgbarah> If you are just trying to understand elk,, that's fine, I know it is complex, and not well documented
+[2018-06-13 17:12:02] <jgbarah> You have some tickets in #2 for that...
+[2018-06-13 17:12:58] <jgbarah> What do you thin if for the next week you try to focus on https://github.com/chaoss/wg-gmd/issues/8
+[2018-06-13 17:13:27] <aswanipranjal> >If you are just trying to understand elk,, that's fine, I know it is complex, and not well documented
+[2018-06-13 17:13:55] <aswanipranjal> That is not a major problem, I am fine for now but I'll ask you when I have doubts.
+[2018-06-13 17:14:01] <jgbarah> To begin with, you could explore how to include as a metric in the index, for each github issue, the time to the first reaction,
+[2018-06-13 17:14:30] <jgbarah> being that a comment or reaction by somebody who is not the person who opened the issue
+[2018-06-13 17:15:15] <aswanipranjal> Oh, okay. That is a start
+[2018-06-13 17:15:17] <jgbarah> Then, we will need to find ways of finding the category for the person reactioning, to know if he/she is a developer or not
+[2018-06-13 17:15:41] <jgbarah> For that, likely we will need major changes, includingn maybe modirifcations to Perceval.
+[2018-06-13 17:15:55] <aswanipranjal> There are 5 categories in for the users
+[2018-06-13 17:16:06] <jgbarah> We can discuss what is needed to implement that part in an issue in elk, to refine the problem and divide it in tasks
+[2018-06-13 17:16:15] <aswanipranjal> The metrics heavily rely on the comments on the Issues and PRs
+[2018-06-13 17:16:37] <jgbarah> yes, but afaik, there that information about the categories is not produced by elk yet
+[2018-06-13 17:16:47] <jgbarah> and I'm not sure it is produced by perceval either...
+[2018-06-13 17:16:52] <aswanipranjal> We need a way to parse that whole blob of data in the github raw index so that I can be broken down and other metrics can be calculated
+[2018-06-13 17:17:06] <jgbarah> yes, that's the idea
+[2018-06-13 17:17:26] <aswanipranjal> Where should the `forks` metric go?
+[2018-06-13 17:17:30] <jgbarah> so, you can start with just identifying the first comment or reaction by somebody who is not the author, and we move from there
+[2018-06-13 17:17:40] <aswanipranjal> because its just one number, I think.
+[2018-06-13 17:17:53] <aswanipranjal> > so, you can start with just identifying the first comment or reaction by somebody who is not the author, and we move from there
+[2018-06-13 17:17:55] <aswanipranjal> okay
+[2018-06-13 17:18:00] <jgbarah> For forks, I think we need to also add that functionality to perceval,
+[2018-06-13 17:18:19] <aswanipranjal> We just query github-api.
+[2018-06-13 17:18:24] <jgbarah> It would be a recurring metric: going to GitHub and for example, retrieving it once per day, or something like that...
+[2018-06-13 17:18:35] <aswanipranjal> Ah, yeah
+[2018-06-13 17:18:58] <jgbarah> Yes, we should queryy the github API. And that's the job of Perceval. That's why we would need to include that unctionarily there.
+[2018-06-13 17:19:14] <aswanipranjal> A general question: who is considered a maintainer for a project?
+[2018-06-13 17:19:39] <jgbarah> We have a discussion about that in https://github.com/chaoss/wg-gmd/issues/8
+[2018-06-13 17:20:04] <jgbarah> We can start with Owner, Collaborator, Contributor and Member
+[2018-06-13 17:20:06] <aswanipranjal> I remember writing it in my proposal that we need to find a way to say that this person is a maintainer
+[2018-06-13 17:20:28] <aswanipranjal> I don't think that is appropriate
+[2018-06-13 17:20:36] <jgbarah> What do you mean?
+[2018-06-13 17:20:39] <aswanipranjal> You are a maintainer for Manuscripts, I am not
+[2018-06-13 17:20:54] <aswanipranjal> because you have Push privilidges
+[2018-06-13 17:20:57] <aswanipranjal> for example
+[2018-06-13 17:21:15] <aswanipranjal> So all of those cannot be considered as a maintainer for a project
+[2018-06-13 17:21:32] <jgbarah> But that depends on what you want to do. For example, you're now developer, because yoru prs are in the code,
+[2018-06-13 17:21:45] <jgbarah> that's a difference wrt those who only submmit bug reports, but never code.
+[2018-06-13 17:22:21] <jgbarah> However, tha'ts a high level discussion worth having. You can open that in the wg-gmd repo, since that's a very interesting point
+[2018-06-13 17:22:33] <aswanipranjal> But isn't a maintainer a user who keeps making patches to the project over time and not only once?
+[2018-06-13 17:23:06] <aswanipranjal> For example, the people who made PRs to manuscripts before GSoC, will they be considered as maintainers as well?
+[2018-06-13 17:23:11] <jgbarah> But from the point of view of gelk, I think the thing to do would be to label each item with the "author_association" for it,
+[2018-06-13 17:23:23] <aswanipranjal> > However, tha'ts a high level discussion worth having. You can open that in the wg-gmd repo, since that's a very interesting point
+[2018-06-13 17:23:25] <aswanipranjal> Okay
+[2018-06-13 17:23:34] <jgbarah> then when actually producing the metric, we can easily decid whiich kinds of associations are a maintainer
+[2018-06-13 17:23:46] <aswanipranjal> Okay
+[2018-06-13 17:23:54] <jgbarah> The definition of maintainer depends on what you want it for
+[2018-06-13 17:24:07] <jgbarah> I think that most people would agree, for most purposes, with what you say
+[2018-06-13 17:24:32] <jgbarah> and that would amount, i guuess, to Owner and Member, likely,
+[2018-06-13 17:24:43] <aswanipranjal> Yeah, exactly
+[2018-06-13 17:24:55] <jgbarah> but if the code for manuscripts is well done, that would mean just tweaking a single filter in the code...
+[2018-06-13 17:25:02] <jgbarah> It could even be a parameter...
+[2018-06-13 17:25:18] <aswanipranjal> What do you mean?
+[2018-06-13 17:25:21] <jgbarah> So, i think it is better not to worry too much about that, implementationwise, for now
+[2018-06-13 17:25:25] <aswanipranjal> Okay
+[2018-06-13 17:25:28] <aswanipranjal> got it
+[2018-06-13 17:25:45] <jgbarah> I mean that you can have a parameter for the metric, say you call it like
+[2018-06-13 17:26:31] <jgbarah> Issues.First:_Response(maintainers=['Owner', 'Memberr'])
+[2018-06-13 17:26:39] <jgbarah> ok?
+[2018-06-13 17:26:45] <aswanipranjal> Yeah!
+[2018-06-13 17:26:53] <jgbarah> well, I think this is all from my side...
+[2018-06-13 17:27:05] <jgbarah> For the next week, it would be:
+[2018-06-13 17:27:31] <jgbarah> Closing task #1 (on my side now), advance what can be advanced in #2, depennding on prs and stuff,
+[2018-06-13 17:27:54] <jgbarah> Advancing on #3 (I will comment on your pr), trying to have a first implemengation during the week,
+[2018-06-13 17:28:13] <jgbarah> go on playing with #4, including maybe some Altair visualizaitons, static charts, and that,
+[2018-06-13 17:28:25] <jgbarah> moving on in #5 as commented above,
+[2018-06-13 17:28:31] <jgbarah> and starting #6.
+[2018-06-13 17:28:34] <jgbarah> OK?
+[2018-06-13 17:28:44] <jgbarah> Anything else from your side?
+[2018-06-13 17:28:50] <aswanipranjal> Yeah, sounds good!
+[2018-06-13 17:29:23] <aswanipranjal> I wanted to ask: we are going to look at other metrics too right?
+[2018-06-13 17:29:27] <aswanipranjal> apart from GMD?
+[2018-06-13 17:29:54] <jgbarah> At some point, but I would rather have at least GMD fully implemented, and working,
+[2018-06-13 17:30:00] <aswanipranjal> And what about the metrics that are calculated using other data sources(apart from git and github)
+[2018-06-13 17:30:03] <aswanipranjal> Ah
+[2018-06-13 17:30:10] <jgbarah> than some parts of everything, half-backed ;-)
+[2018-06-13 17:30:23] <aswanipranjal> Okay
+[2018-06-13 17:30:37] <jgbarah> My idea is that once we have an schema fully tested, we could advance much quicker
+[2018-06-13 17:30:58] <aswanipranjal> Okay.
+[2018-06-13 17:31:16] <jgbarah> And you need to implement also all the current metrics that manuscripts already support
+[2018-06-13 17:31:40] <aswanipranjal> Yeah, for now only git and github.
+[2018-06-13 17:31:53] <aswanipranjal> I'd need to look at how other data sources work too
+[2018-06-13 17:32:07] <aswanipranjal> For the current metrics, I mean
+[2018-06-13 17:32:50] <aswanipranjal> Also, Please read the Readme.md first for the new_functions and comment on the PR so that I can provide additional description.
+[2018-06-13 17:34:14] <aswanipranjal> And that is it, from my side too.
+[2018-06-13 17:35:52] → dzin joined (dzin@linaro/dzin)
+[2018-06-13 17:37:11] <aswanipranjal> Also, please fill the GSoC review for my performance for the first month.
+[2018-06-13 17:37:20] <aswanipranjal> If you haven't already
+[2018-06-13 17:45:13] <jgbarah> Yes, i did.
+[2018-06-13 17:45:26] <aswanipranjal> Oh, thankyou!
+[2018-06-13 17:45:58] <aswanipranjal> All good things I hope :P
+[2018-06-13 17:46:37] <jgbarah> Evrything is ok fromt that point of view...
+[2018-06-13 17:47:34] <aswanipranjal> Ah, thanks!
+[2018-06-13 17:47:58] <aswanipranjal> Okay, I'll read you next Wednesday then?
+[2018-06-13 17:49:15] <jgbarah> Yes, next wed, same hour
+[2018-06-13 17:49:20] <jgbarah> Thanks!!!
+[2018-06-13 17:49:32] <jgbarah> We follow on in the usseus and prs
+[2018-06-13 17:49:40] <jgbarah> Bye!
+[2018-06-13 17:49:48] <aswanipranjal> yes please!
+[2018-06-13 17:49:51] <aswanipranjal> Bye!
