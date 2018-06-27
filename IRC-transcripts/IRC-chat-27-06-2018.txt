@@ -1,0 +1,184 @@
+[2018-06-27 16:32:16] <jgbarah> Hi, aswanipranjal!
+[2018-06-27 16:32:26] <aswanipranjal> hey @jgbarah !
+[2018-06-27 16:34:00] <jgbarah> Can we start our weekly meeting?
+[2018-06-27 16:34:09] <aswanipranjal> Yes please
+[2018-06-27 16:34:53] <jgbarah> OK, let's go then
+[2018-06-27 16:35:35] <jgbarah> Frist of all, welcome back, I see you came with a lot of energies. I'm sorry for your loss, and I just hope you're coming back to normal. I know that's difficult
+[2018-06-27 16:35:53] <jgbarah> Then, coming to the meat, task by task
+[2018-06-27 16:36:08] <jgbarah> I agree #1 is closed, so great, no need to talk about it ;-)
+[2018-06-27 16:36:09] <aswanipranjal> Thank you!
+[2018-06-27 16:36:25] <aswanipranjal> Yeah, that is done.
+[2018-06-27 16:36:52] <jgbarah> #2 we're discussing, so I'm afraaid we still need to wait for a while
+[2018-06-27 16:37:03] <jgbarah> Please feel free to participate in the discussion as much as you can
+[2018-06-27 16:37:14] <aswanipranjal> Yeah, I am eager about the meeting on Thursday
+[2018-06-27 16:37:29] <jgbarah> #3, I couldn't add some comments until just a few minutes ago, sorry about that
+[2018-06-27 16:37:37] <aswanipranjal> I couldn't follow the discussion on the mailinglists, but i got the gist of it.
+[2018-06-27 16:38:11] <aswanipranjal> for #3 I understood what you are saying.
+[2018-06-27 16:38:20] <aswanipranjal> I am concerned about the nested aggregations
+[2018-06-27 16:38:37] <aswanipranjal> Did you have time to see how i've implemented the aggregations?
+[2018-06-27 16:38:57] <jgbarah> My main concern is described in the comment that starts with "My main concern..."
+[2018-06-27 16:39:25] <jgbarah> Which functions do you refer to?
+[2018-06-27 16:39:27] <aswanipranjal> I agree that we can add queries directly to the search object
+[2018-06-27 16:40:22] <aswanipranjal> I refer to `get_sum`, `get_cardinality` and all those, which can be chained together with `by_authors` and `by_period`
+[2018-06-27 16:41:04] <jgbarah> OK, let me see that again... I'm not sure what you're referring to.
+[2018-06-27 16:41:23] <aswanipranjal> What I have here right now allows us to get nested aggregations easily
+[2018-06-27 16:41:36] <aswanipranjal> Example:
+[2018-06-27 16:42:27] <aswanipranjal> issues = Issues(github_index)
+[2018-06-27 16:42:27] <aswanipranjal> issues.get_cardinality("id_in_repo").by_authors()
+[2018-06-27 16:42:47] <aswanipranjal> This will add a nested aggregation to the issue object
+[2018-06-27 16:43:39] <jgbarah> First of all, I think we have like two kinds of methods here:
+[2018-06-27 16:44:14] <jgbarah> * Some of them are for producing the query (such as add_query)
+[2018-06-27 16:44:33] <jgbarah> * Some others are for extractiing specific data from the response
+[2018-06-27 16:45:28] <aswanipranjal> Yes, correct
+[2018-06-27 16:46:13] <jgbarah> First thing to do would be to clearly separate them. Now  it is a bit difficult to know what a method will do, from its name
+[2018-06-27 16:47:01] <jgbarah> For those producing the query, do you see any problem in using directly the Search object (self.search) alone, with no auxiliary variable?
+[2018-06-27 16:47:35] <jgbarah> (using auxiliary variables is not a big problem, however if we can get rid of them, much better, code would be more simple).
+[2018-06-27 16:48:14] <aswanipranjal> We can eliminate the query variable, no problem in that
+[2018-06-27 16:48:58] <jgbarah> No, I mean the aggregations variable, for example.
+[2018-06-27 16:49:13] <jgbarah> For example, in the case of get_cardinality,
+[2018-06-27 16:49:29] <jgbarah> you're adding the caardinality aggregation to the dictionary aggregations
+[2018-06-27 16:50:13] <jgbarah> Is there any problem in adding it directly to self.search?
+[2018-06-27 16:50:43] <aswanipranjal> I am using the OrderedDictionary so that creating nested aggregations becomes easy
+[2018-06-27 16:51:10] <aswanipranjal> example: first we call the get_cardinality method and add that to the OrderedDict
+[2018-06-27 16:52:19] <jgbarah> It is the need of that OrderedDict what I'm worried about. At first glance, i would think that you can just add the aggregations to the self.search variable
+[2018-06-27 16:52:25] <aswanipranjal> then when we call by_authors method on the object, It'll pop the `cardinality` aggregation from the dict and add it as a nested aggregation under a `terms` aggregation
+[2018-06-27 16:52:59] <jgbarah> Since you're using the OrderedDict, I think you realized you can't do that directly, and that's why you're using the OrderedDict, and that's what I donn't understand
+[2018-06-27 16:54:52] <jgbarah> In the example you mentiion, I would expect that you produce that query as:
+[2018-06-27 16:55:24] <jgbarah> Query().by_authors().get_cardinality()
+[2018-06-27 16:55:37] <jgbarah> (you first defiine the binning, then how to aggregate it)
+[2018-06-27 16:55:55] <aswanipranjal> Ah!
+[2018-06-27 16:56:12] <jgbarah> Maybe your implementation is because you want to allow Query().get_cardinality().by_authors() or something like that?
+[2018-06-27 16:56:25] <aswanipranjal> Yeah, that is what i am aiming for
+[2018-06-27 16:57:25] <aswanipranjal> and we can keep on chaining them: Query().get_cardinality().by_authors().by_period()
+[2018-06-27 16:59:00] <aswanipranjal> > Query().by_authors().get_cardinality()
+[2018-06-27 16:59:46] <aswanipranjal> using this, if we directly apply the aggregation to the search object, then we won't be able to reuse the Query object, imo
+[2018-06-27 17:00:25] <jgbarah> I think it would be enough if we can work with a pre-defined order, and that simplifies the implementation, that would (maybe) make the implementation simpler
+[2018-06-27 17:01:01] <jgbarah> But maybe I'm not familiar enough with the query language...
+[2018-06-27 17:01:14] <jgbarah> Let's do one thing:
+[2018-06-27 17:01:30] <jgbarah> Try to change the stuff so that methods are really chainable
+[2018-06-27 17:01:38] <jgbarah> (eg, they return the self object)
+[2018-06-27 17:01:48] <jgbarah> as they are now
+[2018-06-27 17:02:03] <jgbarah> (for methods producing the query)
+[2018-06-27 17:02:13] <jgbarah> And we can work from there.
+[2018-06-27 17:02:40] <jgbarah> If there is no way of simplifying the code, we're done. If we find it can be simplified by eg specifying some order, we can work on that
+[2018-06-27 17:03:00] <jgbarah> But you could also start to work on actually using the classes to produce reports
+[2018-06-27 17:03:12] <jgbarah> which in the end is what we need ;-)
+[2018-06-27 17:03:37] <aswanipranjal> I'll look into elasticsearch_dsl once more and try to use the self.search object directly.
+[2018-06-27 17:03:40] <jgbarah> Do you think that's feasible?
+[2018-06-27 17:04:33] <jgbarah> I was suggesting that we wait for a while for trying to use only self.search, and meanwhile complete a workable versionn of the classes... ;-)
+[2018-06-27 17:04:37] <jgbarah> What do you think?
+[2018-06-27 17:04:58] <aswanipranjal> Sounds good!
+[2018-06-27 17:05:15] <aswanipranjal> >But you could also start to work on actually using the classes to produce reports
+[2018-06-27 17:05:15] <aswanipranjal> The metrics under GMD which can be calculated right now, I am able to calculate them with the new functions
+[2018-06-27 17:05:51] <jgbarah> Yes, I know. What we would need is to produce the rest of the code for producing the reports.
+[2018-06-27 17:06:11] <aswanipranjal> In a PDF format?
+[2018-06-27 17:06:16] <jgbarah> But if you agree with the strategy above, let's consider this for #3, and let's go on with the other tasks
+[2018-06-27 17:06:27] <jgbarah> Then  we can talk about the reports themselves.
+[2018-06-27 17:06:39] <aswanipranjal> Okay, sounds good
+[2018-06-27 17:06:57] → travis-ci joined (~travis-ci@ec2-23-20-192-84.compute-1.amazonaws.com)
+[2018-06-27 17:06:58] <travis-ci> chaoss/grimoirelab-sortinghat#326 (master - 7509189 : Alvaro del Castillo): The build was broken.
+[2018-06-27 17:06:58] <travis-ci> Change view : https://github.com/chaoss/grimoirelab-sortinghat/compare/5dfcada45ae5...7509189b85f5
+[2018-06-27 17:06:58] <travis-ci> Build details : https://travis-ci.org/chaoss/grimoirelab-sortinghat/builds/397304160
+[2018-06-27 17:06:58] ← travis-ci left (~travis-ci@ec2-23-20-192-84.compute-1.amazonaws.com): 
+[2018-06-27 17:06:59] <jgbarah> "> In a PDF format": I would like to have at least PDF and HTML. Let's talk about that in a little whiile
+[2018-06-27 17:07:13] <jgbarah> OK, #4...
+[2018-06-27 17:09:11] <jgbarah> I saw the notebooks...
+[2018-06-27 17:09:36] <jgbarah> What's your impresion about Altair and Seaborn?
+[2018-06-27 17:10:03] <aswanipranjal> If we want to use them, We'll seriously need to change the way our data is formatted
+[2018-06-27 17:10:35] <aswanipranjal> In the notebooks, I've tried to bend the data into a specific format otherwise we cannot use these libraries
+[2018-06-27 17:11:03] <jgbarah> Yeah, I saw that
+[2018-06-27 17:11:20] <jgbarah> But besides that, what's your impresion?
+[2018-06-27 17:11:43] <aswanipranjal> They are good. Provide us with alot of variety in very less code
+[2018-06-27 17:12:06] <aswanipranjal> We can use Altair along with Plotly for interactive visualisations
+[2018-06-27 17:12:47] <aswanipranjal> Using Altair, we can compare different metrics too
+[2018-06-27 17:12:47] <jgbarah> Did you produce any Altair interactive visualization?
+[2018-06-27 17:13:36] <aswanipranjal> All the initial visualisations were supposed to be interactive. NBviewer didn't render them, so maybe i did something wrong
+[2018-06-27 17:13:50] <jgbarah> OK, I see.
+[2018-06-27 17:14:25] <jgbarah> I was having a look to Altair by myself, and my impression is that we maybe could use it for a kind of HTML reports, but as you said,
+[2018-06-27 17:14:52] <jgbarah> the infrasctruture for querying the database, and massaging the data, would be different from what the current manuscripts does
+[2018-06-27 17:15:24] <jgbarah> Could you produce static versions (eg PNG) with Altair?
+[2018-06-27 17:15:40] <aswanipranjal> I can
+[2018-06-27 17:15:50] <jgbarah> I seems to be what it does by default, right?
+[2018-06-27 17:16:04] <aswanipranjal> but it requires the user to download selenium and chrome/geko drivers 
+[2018-06-27 17:16:13] <aswanipranjal> It's not done by default, no
+[2018-06-27 17:16:28] <aswanipranjal> https://altair-viz.github.io/user_guide/saving_charts.html?highlight=png
+[2018-06-27 17:16:31] <jgbarah> OK, I probably misread, I dind't have a look at that specially
+[2018-06-27 17:17:15] <jgbarah> I  see. Thanks for the pointer!!
+[2018-06-27 17:17:23] <aswanipranjal> I was thinking, maybe we can use matplotlib, pandas visualisation and seaborn for static visualisations
+[2018-06-27 17:17:36] <aswanipranjal> Sure
+[2018-06-27 17:18:31] <jgbarah> I would like to stick to as few viz libraries as possible, to avoid spreading thin, but yes, those three options could be a sgtgtarting point for static...
+[2018-06-27 17:18:53] <jgbarah> Maybe we could do a simple test for finishing this evaluation of libraries:
+[2018-06-27 17:19:26] <jgbarah> Use Altair to produce a very simple report with a couple of charts, both in HTML (interactive) and PDF
+[2018-06-27 17:20:16] <aswanipranjal> Do we want to use Altair for pdf reports too?
+[2018-06-27 17:20:42] <jgbarah> For example: Have two charts, one with commits per month for a whole project, and antoher one a scatterplot, with commits and authors (for example) in X and Y
+[2018-06-27 17:21:21] <jgbarah> Let the uuser, in the interactive version, select time periods in the first chart, which would affect the set of data to represent in the second chart
+[2018-06-27 17:21:52] <jgbarah> and if possible, by clicking on a specific repo in the second chart, change the commits per month in the first chart to only that repo
+[2018-06-27 17:22:10] ⇐ _acs_ quit (~acs@154.229.226.185.dyn.akiwifi.com): Ping timeout: 260 seconds
+[2018-06-27 17:22:20] <jgbarah> For the HTML intereactive version, we would use Altair as you did in the notebook, but now producing a simple HTML.
+[2018-06-27 17:22:52] <aswanipranjal> @jgbarah I have a correction to make, Altair is interactive as in we can zoom in and out of the charts. Not like Plotly
+[2018-06-27 17:23:02] <jgbarah> If that's doable in some hours, you could try to do the same in PDF
+[2018-06-27 17:23:54] <jgbarah> aswanipranjal: Have you checked this one, for example??
+[2018-06-27 17:23:55] <jgbarah> https://altair-viz.github.io/gallery/selection_layer_bar_month.html
+[2018-06-27 17:24:12] <jgbarah> It allows you to select the sample you're calculating the man, by selecting a time period
+[2018-06-27 17:24:32] <jgbarah> And in this one
+[2018-06-27 17:24:34] <jgbarah> https://altair-viz.github.io/gallery/interactive_layered_crossfilter.html
+[2018-06-27 17:24:54] <jgbarah> you can select time periods in one of the charts, and with that control what you show in the others
+[2018-06-27 17:25:11] <jgbarah> That's the kind of interaction I was describing above for the test...
+[2018-06-27 17:25:15] <aswanipranjal> Oh, I am sorry. I might have missed them altogether
+[2018-06-27 17:26:04] <jgbarah> OK, then, if you want start with something easier, if you want. The aim would be to produce in HTML what I commment above.
+[2018-06-27 17:26:18] <jgbarah> And then, once that is done, try to do the same in PDF.
+[2018-06-27 17:26:47] <jgbarah> For the second, we could try different strategies, but the key would be to produce those static PNG files.
+[2018-06-27 17:27:43] <jgbarah> we could declare #4 done, and start a new #6 with this specification
+[2018-06-27 17:27:48] <jgbarah> aswanipranjal: is that ok with you?
+[2018-06-27 17:28:03] <aswanipranjal> yeah, that works
+[2018-06-27 17:28:24] <jgbarah> Perfect.
+[2018-06-27 17:29:27] <jgbarah> In parallel, we can have #7, with the aim of producing more "traditional" charts using as you suggested, matplotlib and seaborn
+[2018-06-27 17:29:57] <jgbarah> We could define for a start something simple, such as the metrics that are already implemented by manuscripts.
+[2018-06-27 17:30:44] <jgbarah> This #7 could start by selecting just a very small sample of them, and building all the toolchain, using your new code in manuscripts2 (once you could implemnt the chainable methods)
+[2018-06-27 17:31:13] <jgbarah> Or you could do it with some of the GMD mettrics for which we already have clear definitions
+[2018-06-27 17:31:33] <aswanipranjal> I'd prefer the latter
+[2018-06-27 17:31:40] <jgbarah> Maybe repoducing manuscripts is better for a start, since we know exactly what we're looking for.
+[2018-06-27 17:31:52] <jgbarah> But I prefer you decide. If you want the latter, let's go that way.
+[2018-06-27 17:32:07] <jgbarah> I just want to avoid mixing the discussionn of what to present and how to present it.
+[2018-06-27 17:32:28] <aswanipranjal> @jgbarah what do you mean by *building all the toolchain*?
+[2018-06-27 17:33:22] <jgbarah> Having a very simple manuscripts2 that produces at least the charts that we would like to include in the PDF report when the rest of the machinery is completed
+[2018-06-27 17:33:42] <aswanipranjal> Oh, okay. That makes sense. Thanks!
+[2018-06-27 17:33:54] <jgbarah> Say you run "manuscripts2" with the needed options, and you get a bunch of PNG files, one for eachh chart that would go in the PDF report
+[2018-06-27 17:34:01] <jgbarah> (well, a subset of them, for a start)
+[2018-06-27 17:34:32] <jgbarah> This way we start to test the whole process, and we can more easily start to have discussions about the overall architecture,
+[2018-06-27 17:34:40] <jgbarah> which up to now, we skipped.
+[2018-06-27 17:34:45] <jgbarah> OK then?
+[2018-06-27 17:34:48] <aswanipranjal> yeah, that sounds good!
+[2018-06-27 17:34:52] <jgbarah> Good.
+[2018-06-27 17:35:25] <jgbarah> Then, please describe #6 and #7, and start working on them during this week, in addition to work on #3, as we discussed...
+[2018-06-27 17:35:37] <jgbarah> For #5, I saw your PR was accepted (great!)
+[2018-06-27 17:36:03] <aswanipranjal> >Then, please describe #6 and #7, and start working on them during this week, in addition to work on #3, as we discussed...
+[2018-06-27 17:36:03] <aswanipranjal> will do
+[2018-06-27 17:36:09] <jgbarah> So, let's go on keeping it open, and you producing new PRs when the metrics are well defined, and you feel you need more data in the enriched indexes
+[2018-06-27 17:36:47] <aswanipranjal> Yeah, once I have a clearer picture, I'll make the PRs for the remaining metrics
+[2018-06-27 17:36:47] <jgbarah> And I think this is all from my side. I guess the most important think is to push #3. I will try to help you, until we have a workable version of the classes
+[2018-06-27 17:37:29] <aswanipranjal> for #3, right now I have to remove the query variables and directly use self.search 
+[2018-06-27 17:37:33] <aswanipranjal> and that is it, right?
+[2018-06-27 17:37:37] <jgbarah> Any commment about the overrall progress? Are you happy with what you're doing, etc.?
+[2018-06-27 17:37:57] <aswanipranjal> We are holding on to the way aggregations are currently being added, right?
+[2018-06-27 17:38:36] <jgbarah> (for #3, it would be more like khaving methods returning self, so that we can really chain them, and if you can explore if they can be simplified using less auxiliary variables,
+[2018-06-27 17:38:39] <jgbarah> or maybe none.
+[2018-06-27 17:38:52] <aswanipranjal> Okay, got it
+[2018-06-27 17:38:58] <jgbarah> But the latter is less important for now: we need a working version for #7...
+[2018-06-27 17:39:09] <aswanipranjal> yeah
+[2018-06-27 17:39:12] <jgbarah> Any commment about the overrall progress? Are you happy with what you're doing, etc.?
+[2018-06-27 17:39:21] <aswanipranjal> >Any commment about the overrall progress? Are you happy with what you're doing, etc.?
+[2018-06-27 17:39:21] <aswanipranjal> I personally think i am going a bit slow
+[2018-06-27 17:39:33] <aswanipranjal> So I'll try to pick up the pace a little
+[2018-06-27 17:40:36] <aswanipranjal> And it'll be of great help to me if you can review my work a little more frequently..
+[2018-06-27 17:41:04] <jgbarah> Yeah, I know not reviewing quick enough is slowing you down. Sorry about that.
+[2018-06-27 17:41:34] <aswanipranjal> No problem
+[2018-06-27 17:41:36] <jgbarah> Well, now that we're entering the equator of the project, let's try both of us to increase the pace (and in may case, the frequency ;-) )
+[2018-06-27 17:41:51] <jgbarah> ok, that's all from my side. Thanks! Anything else?
+[2018-06-27 17:41:56] <aswanipranjal> yes sir
+[2018-06-27 17:42:08] <aswanipranjal> No, that is all from my side too!
+[2018-06-27 17:42:20] <aswanipranjal> Thank you for your time!
+[2018-06-27 17:42:45] <jgbarah> Good! Please do the usual stuff after our meetings. Thanks a lot, and let's talk next Wed as usual
+[2018-06-27 17:42:57] <jgbarah> (and meanwhile, in issues, prs and all that ;-) )
+[2018-06-27 17:43:01] <jgbarah> Bye!
+[2018-06-27 17:43:09] <aswanipranjal> Yes, thanks once again! Bye!
