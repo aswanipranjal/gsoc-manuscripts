@@ -1,0 +1,145 @@
+[2018-07-04 16:29:42] <valcos> Hi Pranjal!
+[2018-07-04 16:30:14] <aswanipranjal> hey valcos !!
+[2018-07-04 16:30:20] <aswanipranjal> how have you been?
+[2018-07-04 16:30:41] <valcos> fine, and you?
+[2018-07-04 16:30:53] <aswanipranjal> I am okay too. Thanks
+[2018-07-04 16:31:06] <valcos> nice!
+[2018-07-04 16:31:37] <valcos> I was checking how to add github pull request data to ELK
+[2018-07-04 16:31:48] <aswanipranjal> Oh
+[2018-07-04 16:32:59] <jgbarah1> Hi, valcos aswanipranjal
+[2018-07-04 16:33:08] <aswanipranjal> hey @jgbarah1 !
+[2018-07-04 16:33:40] <valcos> I'm not sure about the path to take (I still have to discuss it with @_acs_ and @jgabarh1)
+[2018-07-04 16:33:59] <valcos> but we can start and see how things go
+[2018-07-04 16:34:06] <jgbarah1> OK, let's start if you both are ready
+[2018-07-04 16:34:19] <jgbarah1> Let's follow the order in your blog post, right?
+[2018-07-04 16:34:26] <aswanipranjal> yes, okay.
+[2018-07-04 16:34:45] <jgbarah1> Task #2 still under discussion. Sorry about the slow move here :-(
+[2018-07-04 16:34:57] <jgbarah1> I'll try to push the other people involved
+[2018-07-04 16:35:01] <aswanipranjal> It's all right. We can finish the others till then
+[2018-07-04 16:35:21] <aswanipranjal> Once the infrastructure is complete, then we can keep on adding the metrics even after GSoC ends
+[2018-07-04 16:36:30] <jgbarah1> OK. Let's hope we can do it before it finishes ;-)
+[2018-07-04 16:36:38] <aswanipranjal> haha, yes!
+[2018-07-04 16:37:02] <jgbarah1> Task #3. I saw your changes, but I couldn't test them. Hopefully I'll do it this afternoon
+[2018-07-04 16:37:14] <jgbarah1> It's ok with me if you send a separate pr with more tests
+[2018-07-04 16:37:25] <aswanipranjal> Great!
+[2018-07-04 16:37:30] <jgbarah1> Let's finish this one so that we can move on...
+[2018-07-04 16:37:51] <aswanipranjal> Yes, I'll target to complete it by tomorrow, max
+[2018-07-04 16:38:26] <jgbarah1> Once this is done, you can start porting the main manuscripts code to use this new schema of classes,
+[2018-07-04 16:38:36] <jgbarah1> or do it for the CHAOSS metrics, whatever you prefer
+[2018-07-04 16:38:40] <jgbarah1> (or both ;-) )
+[2018-07-04 16:38:55] <jgbarah1> Because in the end, we need a report with both the current and the CHAOSS metrics
+[2018-07-04 16:39:12] <jgbarah1> Maybe using a flag for selecting CHAOSS, "traditional", or both
+[2018-07-04 16:39:19] <aswanipranjal> Yes, you mentioned adding a --chaoss argument to manuscripts
+[2018-07-04 16:39:43] <aswanipranjal> Okay
+[2018-07-04 16:40:05] <jgbarah1> Please open a ticket with that, and start working on it once we have the pr accepted, ssome more tests, and that stuff...
+[2018-07-04 16:40:17] <aswanipranjal> Yes, okay
+[2018-07-04 16:40:28] <jgbarah1> Task #5.
+[2018-07-04 16:40:35] <jgbarah1> Here is where we need valcos
+[2018-07-04 16:40:35] <aswanipranjal> can I work on that and add the tests PR in parallel?
+[2018-07-04 16:40:45] <jgbarah1> aswanipranjal: yes, please
+[2018-07-04 16:40:56] <aswanipranjal> Okay
+[2018-07-04 16:41:28] <valcos> if you want to add prs data to elk, you should start looking at: https://github.com/chaoss/grimoirelab-elk/blob/master/grimoire_elk/raw/github.py
+[2018-07-04 16:41:39] <jgbarah1> I was commenting with valcos to start (in #5) by producing a raw index, with grimoire-elk, for the data from "pull-requests" category from perceval github
+[2018-07-04 16:41:57] <valcos> and https://github.com/chaoss/grimoirelab-elk/blob/master/grimoire_elk/enriched/github.py
+[2018-07-04 16:42:22] <aswanipranjal> Will that have a different file?
+[2018-07-04 16:42:29] <jgbarah1> Then, you would produce an enriched index from that one and the current github index (which gets data from the issues API)
+[2018-07-04 16:42:51] <aswanipranjal> Like grimoire_elk/raw/github_prs.py?
+[2018-07-04 16:43:01] <jgbarah1> aswanipranjal: For now, you could start with opening both issues (for raw and enriched indexes),
+[2018-07-04 16:43:28] <jgbarah1> If there is some suuggestion about which files to use, or whatever, valcos or sduenas can annotate that ticket.
+[2018-07-04 16:43:40] <valcos> for the moment, I would try to do everything in the same files
+[2018-07-04 16:43:49] <jgbarah1> You can also ask your questions in it, so that any decision gets documented...
+[2018-07-04 16:44:06] <jgbarah1> And if you don't get answers, just start with your pr, and we discuss the pr
+[2018-07-04 16:44:10] <aswanipranjal> Okay.
+[2018-07-04 16:44:21] <jgbarah1> My impresion is we need something concrete to discuss
+[2018-07-04 16:44:28] <jgbarah1> (except that valcos thinks otherwise)
+[2018-07-04 16:44:47] <aswanipranjal> I was thinking, that maybe we can integrate the issues and PRs and the fields which are missing in issues (specific to a PR) can be set as None
+[2018-07-04 16:45:07] <aswanipranjal> > My impresion is we need something concrete to discuss
+[2018-07-04 16:45:07] <aswanipranjal> as in?
+[2018-07-04 16:45:38] <valcos> I totally agree with jgbarah1
+[2018-07-04 16:46:10] <valcos> not sure if we should have issue and pr data in the same index
+[2018-07-04 16:46:46] <jgbarah1> Let´s recap: for the raw index, it should have what you get from perceval, so we need a separate index for the prs category
+[2018-07-04 16:46:56] <aswanipranjal> yes, correct
+[2018-07-04 16:47:14] <jgbarah1> for the enriched index, we could enrich the current enriched index, produced from the issues api, with the new data,
+[2018-07-04 16:47:33] <jgbarah1> but at least for now I would prefer a separate index, with all the data relevant to prs,
+[2018-07-04 16:47:45] <jgbarah1> either coming from the issues or the prs raw indexes
+[2018-07-04 16:48:02] <jgbarah1> If we later see it makes sense to merge both, that would be easieer than the other way around
+[2018-07-04 16:48:16] <aswanipranjal> Yes, that seems right
+[2018-07-04 16:48:20] <valcos> ok
+[2018-07-04 16:48:36] <jgbarah1> And my feeling is that we need separate enriched indexes, with probably data in the current github index being *only* for issues, not issues and prs as it is now
+[2018-07-04 16:48:45] <jgbarah1> But that's a different story
+[2018-07-04 16:49:01] <jgbarah1> ok then. All clear in #5, aswanipranjal ?
+[2018-07-04 16:49:11] <aswanipranjal> A question: The data which has to be added to the enriched PR index
+[2018-07-04 16:49:35] <aswanipranjal> that data will be based on the `code development` metrics under GMD?
+[2018-07-04 16:50:07] <jgbarah1> It will be all the relevant info in the current github enriched index, plus anything else needed for GMD
+[2018-07-04 16:50:18] <aswanipranjal> Okay, got it
+[2018-07-04 16:50:24] <jgbarah1> But you can start with a part of that, and go incrementally
+[2018-07-04 16:50:36] <aswanipranjal> Okay
+[2018-07-04 16:50:43] <jgbarah1> Becauses a part of the problem is the very  architecture of setting up a new enriched index.
+[2018-07-04 16:51:06] <jgbarah1> Once this is done in grimoire-elk, we will need changes to Mordred, but we can leave that to later on
+[2018-07-04 16:51:25] <jgbarah1> All clear in #5 now, aswanipranjal?
+[2018-07-04 16:51:29] <aswanipranjal> yes
+[2018-07-04 16:51:41] <aswanipranjal> thank you
+[2018-07-04 16:52:50] <jgbarah1> OK.. #6 is done for now, I think. Or do you feel you need to experiment more with Altair??
+[2018-07-04 16:53:15] <aswanipranjal> Depends, do you have any other charts that we should test it on?
+[2018-07-04 16:53:21] <jgbarah1> Once we have #7 well advanced, I would like a version of it with Altair ;-)
+[2018-07-04 16:53:37] <aswanipranjal> I couldn't think of any more other than the ones you told me about
+[2018-07-04 16:53:45] <jgbarah1> aswanipranjal: anything you may think could be useful for an Altair version of the reports...
+[2018-07-04 16:53:55] <aswanipranjal> > Once we have #7 well advanced, I would like a version of it with Altair ;-)
+[2018-07-04 16:53:55] <aswanipranjal> Yes sir!
+[2018-07-04 16:54:04] <jgbarah1> ok then. LEt's consider #7 closed then
+[2018-07-04 16:54:13] <aswanipranjal> Okay
+[2018-07-04 16:54:24] <jgbarah1> Oooops. #6 I meant
+[2018-07-04 16:54:30] <aswanipranjal> If I come up with any other diagram, I'll let you know
+[2018-07-04 16:54:41] <jgbarah1> ok, thanks!
+[2018-07-04 16:54:47] <aswanipranjal> Sure!
+[2018-07-04 16:55:01] <jgbarah1> For #7a, great, I think that's done too
+[2018-07-04 16:55:09] <aswanipranjal> Yeah
+[2018-07-04 16:55:28] <aswanipranjal> The diagrams are a bit bland, I mean they need some more color
+[2018-07-04 16:55:34] <aswanipranjal> but they are working, for now
+[2018-07-04 16:55:40] <jgbarah1> And for #7b, that's what we talked above about starting use the new functions for producing the new version of manuscripts in manuscripts2, right?
+[2018-07-04 16:55:47] <aswanipranjal> yeah
+[2018-07-04 16:55:57] <aswanipranjal> I was thinking about how to go about implementing that
+[2018-07-04 16:56:06] <jgbarah1> yes, don't worry about the colors, we should work on the style later...
+[2018-07-04 16:56:13] <aswanipranjal> Should we follow the current approach?
+[2018-07-04 16:56:34] <aswanipranjal> We have to make manuscripts2 work like manuscripts right?
+[2018-07-04 16:56:44] <jgbarah1> If you want, just to simplify things, you could star by using the current structure of manuscripts,
+[2018-07-04 16:56:53] <jgbarah1> and once it is working, we can refactor it.
+[2018-07-04 16:57:16] <aswanipranjal> Okay, so create classes for each of the data source and build the structure of the report as done in reports.py?
+[2018-07-04 16:57:18] <jgbarah1> I would like an implementation which is not dependent on LateX, too (maybe a Markdown implmentaation, for example)
+[2018-07-04 16:57:31] <jgbarah1> aswanipranjal: if you agree, yes, for a start
+[2018-07-04 16:57:38] <aswanipranjal> Okay
+[2018-07-04 16:57:47] <jgbarah1> the goal would be to reproduce the current manuscripts with your new functions,
+[2018-07-04 16:58:08] <jgbarah1> with an extra option --chaoss, that would generate the CHAOSS sections of the report
+[2018-07-04 16:58:23] <aswanipranjal> > I would like an implementation which is not dependent on LateX, too (maybe a Markdown implmentaation, for example)
+[2018-07-04 16:58:38] <aswanipranjal> We'll have to convert the whole structure to markdown then
+[2018-07-04 16:58:43] <jgbarah1> But you can start by producing the current report, so it is easier to test that it is working, and then implement chaoss...
+[2018-07-04 16:58:52] <aswanipranjal> I mean the templates used to produce the reports currently
+[2018-07-04 16:59:04] <aswanipranjal> >But you can start by producing the current report, so it is easier to test that it is working, and then implement chaoss...
+[2018-07-04 16:59:06] <aswanipranjal> okay
+[2018-07-04 16:59:11] <jgbarah1> aswanipranjal: only the text: cvs and charts could be the same
+[2018-07-04 16:59:24] <jgbarah1> aswanipranjal: yes, the templates, completely
+[2018-07-04 16:59:38] <aswanipranjal> Okay, I'll look into markdown
+[2018-07-04 16:59:44] <jgbarah1> ok
+[2018-07-04 16:59:54] <jgbarah1> Well, I think we're done from my side...
+[2018-07-04 17:00:01] <aswanipranjal> haha, yeah
+[2018-07-04 17:00:07] <aswanipranjal> this was quick
+[2018-07-04 17:00:08] <jgbarah1> Anything else, valcos aswanipranjal ?
+[2018-07-04 17:00:14] <jgbarah1> (yes ;-) )
+[2018-07-04 17:00:23] <valcos> no from my side
+[2018-07-04 17:00:25] <aswanipranjal> we'll try to close #3 today/tomorrow?
+[2018-07-04 17:00:30] <jgbarah1> BTW, great that you submited that talk!
+[2018-07-04 17:00:36] <jgbarah1> ok.
+[2018-07-04 17:00:36] <aswanipranjal> Thank you!
+[2018-07-04 17:00:46] <aswanipranjal> You both help me a ton
+[2018-07-04 17:00:50] <jgbarah1> Thanks to both of you. Please, do the usual stuff, aswanipranjal
+[2018-07-04 17:00:58] <jgbarah1> (no, you did it ;-)  )
+[2018-07-04 17:01:09] <aswanipranjal> It's still not selected though, i'll tell you if it goes through
+[2018-07-04 17:01:13] <jgbarah1> See you!!! (well, "read you" ;-) ;-) )
+[2018-07-04 17:01:21] <valcos> eheh
+[2018-07-04 17:01:22] <aswanipranjal> Yeah, read you later!
+[2018-07-04 17:01:30] <aswanipranjal> thank you @jgbarah1 valcos!
+[2018-07-04 17:01:42] ← jgbarah1 left (~jgb@163.117.247.85): 
+[2018-07-04 17:01:48] <valcos> you're welcome!
+[2018-07-04 17:01:56] <aswanipranjal> :)
+[2018-07-04 17:01:57] ⇐ valcos quit (~valcos@pct-empresas-185.uc3m.es): Quit: Leaving
+[2018-07-04 17:02:13] → jgbarah joined (~jgb@163.117.247.85)
