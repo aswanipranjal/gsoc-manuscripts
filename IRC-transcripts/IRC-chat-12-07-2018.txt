@@ -1,0 +1,187 @@
+[2018-07-12 13:08:11] <jgbarah> Hi, aswanipranjal!
+[2018-07-12 13:08:22] <jgbarah> Sorry for my delay. Finally I'm here ;-)
+[2018-07-12 13:08:39] <aswanipranjal> Hey @jgbarah! No issues!
+[2018-07-12 13:09:06] <jgbarah> Ooook. Let'st start then, right?
+[2018-07-12 13:09:11] <aswanipranjal> Yeah
+[2018-07-12 13:09:49] <jgbarah> Interesting this stoicist quote you had in your blog post ;-)
+[2018-07-12 13:09:59] <jgbarah> I saw it raised interest in the mailing list
+[2018-07-12 13:10:19] <jgbarah> Well, wrt tasks...
+[2018-07-12 13:10:28] <aswanipranjal> Yeah, I should be careful about what I write
+[2018-07-12 13:10:38] <jgbarah> #2 is slow, yes. I'll try to push it a bit
+[2018-07-12 13:11:07] <jgbarah> Oh, on the contrary, aswanipranjal I think people appreciate the context of your posts. Not everything under the sun is technical
+[2018-07-12 13:11:35] <jgbarah> (for the record, that was a bad joke for patent attorneys)
+[2018-07-12 13:11:41] <aswanipranjal> Ah, haha. I didn't look at it that way
+[2018-07-12 13:12:09] <jgbarah> ok, #3...
+[2018-07-12 13:12:38] <jgbarah> Yes, I agree tests need to be completed
+[2018-07-12 13:12:52] <jgbarah> I also opened an issue about the names for files, classes, functions...
+[2018-07-12 13:13:08] <aswanipranjal> Yes, the names are not at all great now
+[2018-07-12 13:13:11] <jgbarah> I suggest that we keep it open, for improving this stuff
+[2018-07-12 13:13:32] <jgbarah> If we have time today, we can talk a bit about names at the end of our meeting...
+[2018-07-12 13:13:39] <aswanipranjal> Do you have any thing specific in mind regarding the names?
+[2018-07-12 13:14:02] <jgbarah> But now, except that you have other comment for #3, let's follow on with the other tasks, just in case...
+[2018-07-12 13:14:05] <aswanipranjal> > I suggest that we keep it open, for improving this stuff
+[2018-07-12 13:14:05] <aswanipranjal> okay
+[2018-07-12 13:14:32] <jgbarah> (yes, i have, but should we have no time today, I will elaborate in the issue)
+[2018-07-12 13:14:39] <aswanipranjal> Okay
+[2018-07-12 13:15:32] <jgbarah> Task #5... Yes, I think it is close to complete. I can say little here, except for: let me know if Valerio or Alvaro are too slow with the reviews, so that I bug them a bit...
+[2018-07-12 13:15:54] <aswanipranjal> I am co-ordinating with them on the PR itself
+[2018-07-12 13:16:02] <jgbarah> In any case, I see you're starting to have appropriate indexes for the metrics, right?
+[2018-07-12 13:16:19] <aswanipranjal> yeah, the pull requests have their own index now
+[2018-07-12 13:16:23] <jgbarah> I saw valerio was proposing a new schema for having like subsections in mordred config file
+[2018-07-12 13:16:39] <aswanipranjal> Yes, he did. We are using that only for now
+[2018-07-12 13:16:54] <aswanipranjal> what I proposed was a new connector by the name of github_prs
+[2018-07-12 13:17:04] <aswanipranjal> but that was inefficient
+[2018-07-12 13:18:00] <aswanipranjal> There are some metrics in GMD code development for which I need some more clarification
+[2018-07-12 13:18:08] <aswanipranjal> I mentioned them in the blog post
+[2018-07-12 13:18:20] <jgbarah> Yes, I saw. In any case, I'm confident on what Valerio and Alvaro propose and review, so I'm just trying to ensure they remain involved
+[2018-07-12 13:18:39] <aswanipranjal> Oh, okay.
+[2018-07-12 13:19:19] <jgbarah> Yes, I saw your commennt about those metrics. Let's go one by one.
+[2018-07-12 13:19:34] <jgbarah> First of all, in the case of GitHub, code review is basically pull request.
+[2018-07-12 13:19:34] <aswanipranjal> Code Reviews
+[2018-07-12 13:19:48] <jgbarah> So, number of code review is number of pull requests.
+[2018-07-12 13:20:00] <aswanipranjal> Ah, okay
+[2018-07-12 13:20:14] <jgbarah> We can refine it, but for now, I would say that's number of pull requests opened during a certain period
+[2018-07-12 13:20:14] <aswanipranjal> I thought code reviews were how many reviews the PR gets
+[2018-07-12 13:20:21] <aswanipranjal> Okay, got it
+[2018-07-12 13:20:50] <aswanipranjal> that clears *code Review Efficiency* too
+[2018-07-12 13:20:54] <jgbarah> CR efficiency: for this we can use the discussion we had on efficiency for issues
+[2018-07-12 13:20:57] <jgbarah> Yessss
+[2018-07-12 13:21:24] <aswanipranjal> *Maintainer Response to Merge Request Duration*: this is the first time a review was made on the PR, right?
+[2018-07-12 13:21:43] <aswanipranjal> because in case of pull requests, we are not taking the comment_data into account
+[2018-07-12 13:22:19] <jgbarah> Mantainer response: yes, I think we can consider anything labeled as review as the time when a "maintainer" first reacts to a pull request (CR)
+[2018-07-12 13:22:52] <aswanipranjal> okay
+[2018-07-12 13:22:54] <jgbarah> But I wonder why we're not using "comment_data" for PRs?
+[2018-07-12 13:23:23] <aswanipranjal> perceval doesnot generate it for items of `pull_request` category 
+[2018-07-12 13:23:57] <aswanipranjal> should I start looking into adding that into perceval?
+[2018-07-12 13:23:59] <jgbarah> Hmmm. That's weird...
+[2018-07-12 13:24:15] <jgbarah> But it gets that ffrom the issues API, doesn't it?
+[2018-07-12 13:24:41] <aswanipranjal> yeah, when we get the data normally for GitHub data source using perceval, we get the comments data as well
+[2018-07-12 13:24:47] <aswanipranjal> for issues as well as prs
+[2018-07-12 13:25:09] <jgbarah> Then, we have the data from Perceval...
+[2018-07-12 13:25:32] <jgbarah> What you mean is that we're not using it to enrich the new index for PRs in grimoire-elk, right?
+[2018-07-12 13:26:46] <aswanipranjal> No, at the time of enrichment for `pull_request` data, we are using only the data available at that time. And it doesnot include `comments_data`, only number of comments
+[2018-07-12 13:28:01] <aswanipranjal> We can add a fetch comments_data for `pull_request` as well, we'll have to add that to perceval GitHub 
+[2018-07-12 13:28:38] <jgbarah> Pleasse, open an issue with that in grimoire-elk.
+[2018-07-12 13:28:56] <jgbarah> The enriched index for pull requests should be complete, and that includes comment, of course...
+[2018-07-12 13:29:09] <aswanipranjal> the enriched indices for `pull_request` and `issues + pr` (using perceval github, without using the category param) are generated differently
+[2018-07-12 13:29:13] <jgbarah> Fortunately, for now we don't need them, I think
+[2018-07-12 13:29:40] <aswanipranjal> >The enriched index for pull requests should be complete, and that includes comment, of course...
+[2018-07-12 13:29:40] <aswanipranjal> Yes. Should I open an issue in Perceval instead?>
+[2018-07-12 13:30:10] <jgbarah> Yes, I know that, but I had missed that in prs only the data from the prs API is present. I'm still not sure we really need to annotate it with data from the issues API,
+[2018-07-12 13:30:20] <jgbarah> since we could also combine the indexes.
+[2018-07-12 13:30:30] <jgbarah> But please open the issue, and we discuss in it.
+[2018-07-12 13:30:53] <aswanipranjal> I am sorry, I am a little confused here.
+[2018-07-12 13:30:54] <jgbarah> No, I think it would be grimoire-elk. Perceval is fine, it is a matter of how to enrich the data, I think
+[2018-07-12 13:31:33] <aswanipranjal> Are we planning on combining the enriched indices for `pull_request` only data and `issues + prs` data generated?
+[2018-07-12 13:32:32] <jgbarah> I think that's a possibility, at leaast in some cases. In Elasticsearch you can combine indexes pretty easy
+[2018-07-12 13:32:39] <jgbarah> (index alises is the name it uses=)
+[2018-07-12 13:32:58] <aswanipranjal> Oh, okay. I'll read a bit about aliases
+[2018-07-12 13:33:02] <jgbarah> But for now, I thinnk it would better to have all the data about prs in the prs index...
+[2018-07-12 13:33:10] <jgbarah> We can discuss in the issue.
+[2018-07-12 13:33:13] <aswanipranjal> I'll open an issue in gelk
+[2018-07-12 13:33:21] <jgbarah> Thanks!
+[2018-07-12 13:33:24] <jgbarah> OK, next one
+[2018-07-12 13:33:36] <jgbarah> Code Review Iteration
+[2018-07-12 13:33:50] <aswanipranjal> the comments are important because the last 3 metrics I wanted to discuss depend  on PR comments
+[2018-07-12 13:33:51] <jgbarah> In the case of Gerrit for example there is a clear meaning for "iteration"
+[2018-07-12 13:34:01] <aswanipranjal> > Code Review Iteration
+[2018-07-12 13:34:03] <aswanipranjal> yes
+[2018-07-12 13:34:16] <jgbarah> In our case, we can use the number of new versions of the code that was uploaded
+[2018-07-12 13:34:33] <aswanipranjal> How do you suggest that we calculate that?
+[2018-07-12 13:34:51] <jgbarah> We could use also the number of new versions of the code with at least one review between versions, which would be more accurate
+[2018-07-12 13:35:28] <jgbarah> Since if the developer just decides to upload a new version of the proposed code, that's not really a new iteration
+[2018-07-12 13:35:43] <aswanipranjal> yes, i agree
+[2018-07-12 13:36:08] <jgbarah> Now as I write this, I'm wondering if we have the data about uploaded versions of code in the pr api, as retrieved by Perceval
+[2018-07-12 13:36:15] <jgbarah> I think we have, am I right??
+[2018-07-12 13:36:33] <aswanipranjal> I am looking into it, give me 2 min please
+[2018-07-12 13:37:16] <jgbarah> Please, go ahead
+[2018-07-12 13:38:53] <jgbarah> (while you can look at that...) For the rest of the metrics, as you said, all of them are related to comments
+[2018-07-12 13:38:59] <aswanipranjal> yes
+[2018-07-12 13:39:26] <jgbarah> So, we have two options: either retrieve that info from the current issues index (either because it is merged with PRs, or standalone)
+[2018-07-12 13:39:39] <jgbarah> or we include that data in the PRs index
+[2018-07-12 13:39:56] <jgbarah> I prefer the second, but let's discuss in that index that I commented.
+[2018-07-12 13:40:22] <aswanipranjal> The gelk issue that i am going to open?
+[2018-07-12 13:40:31] <jgbarah> Yes
+[2018-07-12 13:40:31] <aswanipranjal> discuss it in that, right?
+[2018-07-12 13:40:38] <jgbarah> Yes
+[2018-07-12 13:40:38] <aswanipranjal> > if we have the data about uploaded versions of code in the pr api, as retrieved by Perceval
+[2018-07-12 13:40:38] <aswanipranjal> I don't see any data that is available directly. We have the reviews and their comments in the `review_comments_data`
+[2018-07-12 13:41:11] <jgbarah> When you mean "directly" yoy mean in the enriched iindex?
+[2018-07-12 13:41:39] <jgbarah> Oh, i see you mean in the raw index, as retrieved by Perceval, right?
+[2018-07-12 13:41:44] <aswanipranjal> Yes
+[2018-07-12 13:42:13] <jgbarah> OK, then we need a new task, let's call it #8
+[2018-07-12 13:42:39] <jgbarah> To find out in which GitHub API you can check when developers upload new versions of the code to be reviewed
+[2018-07-12 13:42:49] <aswanipranjal> Okay
+[2018-07-12 13:43:10] <aswanipranjal> sounds good
+[2018-07-12 13:43:12] <jgbarah> Could you open a new issue in Perceval for this? Maybe Valerio or Santi already know
+[2018-07-12 13:43:22] <aswanipranjal> I'll open an issue
+[2018-07-12 13:43:23] <jgbarah> They know the GitHub API much better than I do
+[2018-07-12 13:43:28] <jgbarah> Thanks!
+[2018-07-12 13:43:31] <aswanipranjal> Sure!
+[2018-07-12 13:43:48] <jgbarah> If they don't answer, pleaase try to research yourself. I will try to have a look too, if they don't know
+[2018-07-12 13:43:59] <aswanipranjal> Maybe we can figure it out using that huge review comment data blob
+[2018-07-12 13:44:15] <aswanipranjal> yes, I'll try to figure it out
+[2018-07-12 13:44:40] <jgbarah> Then, let's leave that metric depending on code uploads waiting until we're done with this #8, which likely will include a Perceval backend, I think...
+[2018-07-12 13:44:53] <jgbarah> Maybe it is there...
+[2018-07-12 13:44:56] <aswanipranjal> Okay!
+[2018-07-12 13:45:06] <jgbarah> Well, whatever, let's talk in that issue that you're about to open
+[2018-07-12 13:45:13] <aswanipranjal> Yes
+[2018-07-12 13:45:42] <jgbarah> WRT metrics for comments, let´s wait also until lthe discussion on which index to enrich is done
+[2018-07-12 13:46:01] <aswanipranjal> okay, that works
+[2018-07-12 13:46:04] <jgbarah> And I think that's all for the missing memtrics that you had in your blog post, right?
+[2018-07-12 13:46:16] <aswanipranjal> yeah that is all
+[2018-07-12 13:46:28] <jgbarah> ok, let's go now to #7...
+[2018-07-12 13:46:41] <aswanipranjal> I am working on 7B
+[2018-07-12 13:46:50] <jgbarah> What's your problem with it?
+[2018-07-12 13:47:45] <aswanipranjal> I was having troubles figuring out how to realise the metrics and create CSV files without creating a bunch of Classes like before
+[2018-07-12 13:48:02] <aswanipranjal> like it has it being done currently
+[2018-07-12 13:48:45] <jgbarah> Let's start without classes.
+[2018-07-12 13:49:20] <jgbarah> Just have a function for each metric, and call the needed (new) code to produce it and the CSV
+[2018-07-12 13:49:20] <aswanipranjal> So just to generate the csv files  directly then?
+[2018-07-12 13:49:29] <jgbarah> Then, we find the common code, and refactor
+[2018-07-12 13:49:34] <jgbarah> Yes.
+[2018-07-12 13:49:53] <aswanipranjal> Okay, that'll be a good start
+[2018-07-12 13:49:55] <aswanipranjal> thanks!
+[2018-07-12 13:49:59] <jgbarah> That way, we can start writing tests, and we can check that the code is working. At the same time we understand what makes sense to reuse
+[2018-07-12 13:50:10] <jgbarah> Then, we can refactor, should be easy
+[2018-07-12 13:50:14] <jgbarah> Is that ok then?
+[2018-07-12 13:50:26] <aswanipranjal> yeah, that sounds great
+[2018-07-12 13:50:33] <jgbarah> Great!
+[2018-07-12 13:50:52] <aswanipranjal> I was trying to directly use the classes, that i got stuck there
+[2018-07-12 13:50:53] <jgbarah> Then I think we only have the thing about the names missing, except that you want to raise any other issue...
+[2018-07-12 13:51:15] <aswanipranjal> No, that is it i think 
+[2018-07-12 13:51:19] <aswanipranjal> we can talk about the names
+[2018-07-12 13:51:29] <jgbarah> aswanipranjal: if you produce some code (eg, for a couple of metrics) quickly, i will try to review it tomorrow or over the weekend
+[2018-07-12 13:51:44] <aswanipranjal> yeah, I am working on it.
+[2018-07-12 13:51:53] <aswanipranjal> I'll make a PR by tomorrow at the latest
+[2018-07-12 13:53:00] <jgbarah> ok
+[2018-07-12 13:53:17] <jgbarah> WRT names, if yoou don´ t mind, let's talk in the issue, I'm running short of time
+[2018-07-12 13:53:23] <aswanipranjal> oh, okay
+[2018-07-12 13:53:24] <aswanipranjal>  sorry
+[2018-07-12 13:53:29] <aswanipranjal> One last thing
+[2018-07-12 13:53:30] <jgbarah> But I was just thinking about using meaningful names for stuff
+[2018-07-12 13:53:43] <jgbarah> Like if a class is for searches, call it Search or something like that
+[2018-07-12 13:53:50] <aswanipranjal> I'll try to think of something
+[2018-07-12 13:53:57] <aswanipranjal> okay
+[2018-07-12 13:54:11] <jgbarah> if a file is for everything related to getting data, call it get_data, or maybe a better name...
+[2018-07-12 13:54:24] <jgbarah> If you can make some suggestions in the issue, we can discuss there
+[2018-07-12 13:54:26] <jgbarah> OK?
+[2018-07-12 13:54:33] <aswanipranjal> yes,
+[2018-07-12 13:54:39] <aswanipranjal> I just wanted to ask you if you had submitted my second review?
+[2018-07-12 13:54:40] <jgbarah> Great!
+[2018-07-12 13:54:58] <jgbarah> Yes, I did ;-) I assume you submitted your part
+[2018-07-12 13:55:01] <aswanipranjal> And if you have any feedback for me
+[2018-07-12 13:55:12] <aswanipranjal> >Yes, I did ;-) I assume you submitted your part
+[2018-07-12 13:55:12] <aswanipranjal> yes i did
+[2018-07-12 13:55:23] <jgbarah> I wrote some feedback in the review itself, which I think will be sent to you tomorrow
+[2018-07-12 13:55:30] <aswanipranjal> Okay, great!
+[2018-07-12 13:55:33] <aswanipranjal> Thank you
+[2018-07-12 13:55:47] <jgbarah> In short, we're on track (that's my impression), but now we need to focus on delivering, since the project is in its last stage...
+[2018-07-12 13:56:03] <aswanipranjal> Yeah, I agree. I am on it.
+[2018-07-12 13:56:05] <jgbarah> I hope you're still happy with this project, and finding it interesting
+[2018-07-12 13:56:26] <aswanipranjal> Yeah, i get to experiment with stuff so that's great!
+[2018-07-12 13:56:31] <jgbarah> Great!
+[2018-07-12 13:56:41] <jgbarah> I need to leave now. See you next wed!
+[2018-07-12 13:56:45] <jgbarah> Bye!
+[2018-07-12 13:56:47] <aswanipranjal> Yeah
+[2018-07-12 13:56:54] <aswanipranjal> thank you for your time! Bye!
