@@ -1,0 +1,142 @@
+[2018-07-18 16:31:22] <jgbarah> Hi, aswanipranjal!
+[2018-07-18 16:31:36] <jgbarah> How are you?
+[2018-07-18 16:31:46] <aswanipranjal> Hey @jgbarah!
+[2018-07-18 16:32:02] <aswanipranjal> I am fine, Thanks. How are you?
+[2018-07-18 16:32:31] <jgbarah> Fine too, thanks!
+[2018-07-18 16:32:39] <jgbarah> Can we start our weekly meeting?
+[2018-07-18 16:33:05] <aswanipranjal> Yes, please
+[2018-07-18 16:34:14] <jgbarah> OK, let s go
+[2018-07-18 16:34:34] <jgbarah> Thanks for the blog post, as usual
+[2018-07-18 16:34:43] <aswanipranjal> Sure!
+[2018-07-18 16:35:39] <jgbarah> I checked your text about #5. Could you summarize what are you missing?
+[2018-07-18 16:36:50] <jgbarah> Is it if we're enriching the pr index with everything needed, or if we're sticking in the pr index to what comes from the pr perceval backend,
+[2018-07-18 16:37:05] <jgbarah> and then we use that *and* the issues index for producing the metrics needed?
+[2018-07-18 16:37:52] <aswanipranjal> It's the latter one for now I think @jgbarah 
+[2018-07-18 16:38:37] <aswanipranjal> because as Valerio said, querying for comments when using perceval for `pull_request` category will deplete the token faster
+[2018-07-18 16:38:40] <aswanipranjal> that is one proble
+[2018-07-18 16:38:44] <aswanipranjal> problem*
+[2018-07-18 16:40:00] <aswanipranjal> So we can use the pull_request *and* the issues index simultaneously to calculate the metrics when we create the report
+[2018-07-18 16:40:34] <jgbarah> I think we're talking about two separate issues here, and that's causing some confusion
+[2018-07-18 16:41:06] <jgbarah> One thing is how Perceval indexes should be. Valerio says that it should be as it is (in short), and I agree with that.
+[2018-07-18 16:41:25] <jgbarah> But then we have the enriched indexes, which are built on top of the raw (Perceval) indexes.
+[2018-07-18 16:42:04] <jgbarah> For those, now we have a single "github" index. What I propose is to have a "girhubpr" index, with everything needed for pull requests,
+[2018-07-18 16:42:16] <jgbarah> be it coming from the issues API or the pull requests API
+[2018-07-18 16:42:56] <jgbarah> and then, a "githubissues" with everything needed for issues (and not PRs, only issues), retrieved from whatever the API
+[2018-07-18 16:43:22] <aswanipranjal> Okay, maybe I am missing something
+[2018-07-18 16:43:28] <jgbarah> I'm going to clarify in the issue, because only now I realize we were having these two separate conversations...
+[2018-07-18 16:43:58] <aswanipranjal> AFAIK know we were already creating an enriched githubpr index 
+[2018-07-18 16:43:58] <jgbarah> What do you think you're missing?'
+[2018-07-18 16:44:08] <jgbarah> Ah, ok
+[2018-07-18 16:44:11] <jgbarah> Yes.
+[2018-07-18 16:44:37] <jgbarah> The thing is wether we include in it *only* data which is not in the current github index (that is, stuff specific to PRs),
+[2018-07-18 16:44:58] <jgbarah> or we include in it everything relevant to prs, whcih likely would include everything in the current github index
+[2018-07-18 16:45:02] <jgbarah> Am I right?'
+[2018-07-18 16:45:45] <aswanipranjal> Yes, correct
+[2018-07-18 16:46:10] <jgbarah> OK, good.
+[2018-07-18 16:46:24] <aswanipranjal> I think the  issue is how do we use the "githubIssues" raw index to generate enriched fields for "githubPR" index
+[2018-07-18 16:46:35] <aswanipranjal> "githubPR" enriched index*
+[2018-07-18 16:46:49] <jgbarah> I think it is Valerio who is a different page, because there is only a problem with depleting the GitHub token if we were to use Perceval once again
+[2018-07-18 16:47:23] <jgbarah> but that's not the case: the githubpr index would be done on top of existing Perceval (raw) indexes, so no new accesses to the API
+[2018-07-18 16:47:51] <aswanipranjal> That might be my fault @jgbarah, because it was one of my suggestions that we can just fetch the `comment_data` for the `pull_request` category
+[2018-07-18 16:48:18] <aswanipranjal> > but that's not the case: the githubpr index would be done on top of existing Perceval (raw) indexes, so no new accesses to the API
+[2018-07-18 16:48:18] <aswanipranjal> Oh, okay!
+[2018-07-18 16:48:43] <jgbarah> Assuming we all agree that we have two raw data, "github" (with stuff from the GitHub issues API) and "githubpr" (with stuff
+[2018-07-18 16:48:53] <jgbarah> from the GitHub pr API),
+[2018-07-18 16:49:17] <jgbarah> We would be producing a *new* enriched index, githubpr, with all the data needed to deal with PRs
+[2018-07-18 16:49:33] <aswanipranjal> yes, that is correct
+[2018-07-18 16:49:44] <jgbarah> That would include data coming from both the  "github" and the "githubpr" raw indexes
+[2018-07-18 16:50:02] <jgbarah> OK then. I'm going to clarify that in the issue.
+[2018-07-18 16:50:26] <aswanipranjal> I have a query though, what if only "githubpr" raw data is available and "github" raw data is missing?
+[2018-07-18 16:50:28] <jgbarah> Pllease, start a PR in this direction, and let's discuss in it. I think Valerio, and later Santi, would agree
+[2018-07-18 16:50:47] <jgbarah> aswanipranjal: What do you mean?
+[2018-07-18 16:51:14] <jgbarah> I think the only case for that is that the tookchain is not working, and not all indexes needed were produced.
+[2018-07-18 16:51:36] <jgbarah> We could have options, just in case we want not to have that data in some case, but otherwise...
+[2018-07-18 16:52:43] <aswanipranjal> > I think the only case for that is that the tookchain is not working, and not all indexes needed were produced.
+[2018-07-18 16:52:43] <aswanipranjal> is there some documentation for this?
+[2018-07-18 16:53:35] <aswanipranjal> I am unaware how we can generate all the required indices automatically
+[2018-07-18 16:53:45] <jgbarah> No, afaik, because the new backend for PRs is rather new. I think this would be the first use of it in GELK, if I'm not wrong
+[2018-07-18 16:54:04] <jgbarah> The generation of indexes is a combined work of GELK and Mordred.
+[2018-07-18 16:54:19] <aswanipranjal> Ah! 
+[2018-07-18 16:54:29] <aswanipranjal> Okay, I'll look into that.
+[2018-07-18 16:54:30] <jgbarah> We need to include code so that, if the enriched index for prs is included, both raw indexes are produced.
+[2018-07-18 16:54:45] <jgbarah> For now, we can stick to GELK, and assume both indexes are produced.
+[2018-07-18 16:54:55] <jgbarah> In fact, it is GELK who controls most of it...
+[2018-07-18 16:55:16] <aswanipranjal> > purple We need to include code so that, if the enriched index for prs is included, both raw indexes are produced.
+[2018-07-18 16:55:16] <aswanipranjal> Okay, that code has to be included in `Mordred` right?
+[2018-07-18 16:55:19] <jgbarah> Have a look at the code, and ask us if you need explanation. The code is likely not very clear...
+[2018-07-18 16:55:39] <jgbarah> We need to start with GELK, and later work on Mordred.
+[2018-07-18 16:55:44] <aswanipranjal> Okay
+[2018-07-18 16:55:48] <jgbarah> But for now GELK is enough...
+[2018-07-18 16:56:02] <jgbarah> Do you need more specific directions in this?
+[2018-07-18 16:56:30] <aswanipranjal> Let me dig around a bit, If i get lost I'll ask you or Valerio
+[2018-07-18 16:57:06] <jgbarah> Yes, please.
+[2018-07-18 16:57:16] <jgbarah> So, I think this is all for #5, right?
+[2018-07-18 16:57:43] <aswanipranjal> No, I have another doubt
+[2018-07-18 16:58:14] <aswanipranjal> What is the difference between `New Contributors of Reviews for Code` and `New Contributors of Initiated Code Reviews`?
+[2018-07-18 16:58:39] <aswanipranjal> I couldn't find any documentation regarding these
+[2018-07-18 17:00:50] <jgbarah> I think there is an error in how they are written... Let me check... Where are you looking?
+[2018-07-18 17:01:00] <aswanipranjal> In the GMD repo
+[2018-07-18 17:01:15] <aswanipranjal> https://github.com/chaoss/wg-gmd/blob/master/2_Growth-Maturity-Decline.md#community-growth
+[2018-07-18 17:03:14] <jgbarah> The first one is about any kind of first time contributors to anything related to code review (eg, people uploading, but also people commenting or reviewing),
+[2018-07-18 17:03:35] <jgbarah> the second one is about people initiating code review (that is, proposing code to be reviewed).
+[2018-07-18 17:03:56] <aswanipranjal> Oh, okay
+[2018-07-18 17:04:16] <jgbarah> The wording is bad... and I think the former would be quite similar to the later, since it is unlikely that people comment if they have not even submitted...
+[2018-07-18 17:04:29] <aswanipranjal> Yes
+[2018-07-18 17:06:06] <aswanipranjal> That's it for #5
+[2018-07-18 17:06:58] <jgbarah> OK!
+[2018-07-18 17:07:24] <jgbarah> Task #7
+[2018-07-18 17:07:31] <jgbarah> I think this is progressing...
+[2018-07-18 17:07:39] <aswanipranjal> I know it's slow
+[2018-07-18 17:07:55] <jgbarah> I saw no activity in my issue about changing the names, so I just added a comment with a proposal
+[2018-07-18 17:08:09] <aswanipranjal> I took some time to figure out how to generate the Overview section
+[2018-07-18 17:08:14] <jgbarah> Have a look at it, and if you find it appropriate, please pr along those lines.
+[2018-07-18 17:08:22] <jgbarah> Yes, i also feel it is a bit slow...
+[2018-07-18 17:08:37] <aswanipranjal> Yeah, I completely agree with the names you suggested.
+[2018-07-18 17:08:39] <jgbarah> I was thinking about having an specific session for this tomorrow, if you have time
+[2018-07-18 17:08:46] <jgbarah> so that maybe we can push it a bit.
+[2018-07-18 17:08:50] <jgbarah> What do you think??
+[2018-07-18 17:09:03] <aswanipranjal> > Yes, i also feel it is a bit slow...
+[2018-07-18 17:09:03] <aswanipranjal> I am figuring out how to write tests for the methods
+[2018-07-18 17:09:16] <aswanipranjal> > so that maybe we can push it a bit.
+[2018-07-18 17:09:16] <aswanipranjal> I don't mind at all
+[2018-07-18 17:09:39] <jgbarah> Are you available tomorrow at 10:00 my time (I guess that's 13:30 your time)
+[2018-07-18 17:09:47] <jgbarah> ?
+[2018-07-18 17:09:58] <aswanipranjal> Okay, yeah. That'll work I think
+[2018-07-18 17:11:01] <jgbarah> Great! Let's meet in this channel at that time, then.
+[2018-07-18 17:11:05] <aswanipranjal> Okay.
+[2018-07-18 17:11:19] <jgbarah> Please, try to have the changes in file name and the rest in that issue done, so that we can start from there.
+[2018-07-18 17:11:36] <aswanipranjal> Yeah, i'll make those changes today
+[2018-07-18 17:11:44] <jgbarah> One of the things I would like to discuss is this structure you have, where functions are returning a lot of stuff.
+[2018-07-18 17:11:52] <jgbarah> Very JavaScript like, I find it ;-)
+[2018-07-18 17:12:12] <jgbarah> I think we could define methods for each of the metrcis, that can be tested separately,
+[2018-07-18 17:12:33] <jgbarah> and then if we need aggregators (functions returning a collection of metrics) we can do that separately,
+[2018-07-18 17:12:59] <jgbarah> maybe letting functions register themselves, using introspection, or just by hand.
+[2018-07-18 17:13:09] <jgbarah> We can talk about that tomorrow.
+[2018-07-18 17:13:27] <jgbarah> Anything about #7 besides this?'
+[2018-07-18 17:13:36] <aswanipranjal> >I think we could define methods for each of the metrcis, that can be tested separately,
+[2018-07-18 17:13:36] <aswanipranjal> Maybe I thought too much 
+[2018-07-18 17:13:55] <aswanipranjal> I was trying not to follow the format in the old process of creating the report
+[2018-07-18 17:14:07] <aswanipranjal> >We can talk about that tomorrow.
+[2018-07-18 17:14:07] <aswanipranjal> yes please! Thanks!
+[2018-07-18 17:14:22] <aswanipranjal> > Anything about #7 besides this?'
+[2018-07-18 17:14:22] <aswanipranjal> No, that is all, I think
+[2018-07-18 17:14:43] <jgbarah> ok good
+[2018-07-18 17:15:08] <jgbarah> In task #8 it seems you're stuck?
+[2018-07-18 17:15:57] <aswanipranjal> yeah, I couldn't figure out how to check if new code was proposed by the person making the PR
+[2018-07-18 17:16:49] <jgbarah> Couldn't you find some GitHub API with that information, you mean?
+[2018-07-18 17:17:38] <aswanipranjal> yeah, that and I also looked at the review comments to see if we can use them
+[2018-07-18 17:17:53] <aswanipranjal> but I couldn't find anything
+[2018-07-18 17:20:23] <jgbarah> Hmm. Weird. I'm not familiar enough with the GiHub API to know, sorry...
+[2018-07-18 17:20:29] <jgbarah> Do we have a ticket for that?
+[2018-07-18 17:20:41] <aswanipranjal> yeah, I opened one in Perceval
+[2018-07-18 17:20:50] <aswanipranjal> I'll look some more
+[2018-07-18 17:22:29] <jgbarah> OK, I'l l point Valerio to it. Thanks!
+[2018-07-18 17:22:39] <aswanipranjal> Sure!
+[2018-07-18 17:22:40] <jgbarah> And I think this is all for now, right?
+[2018-07-18 17:22:49] <aswanipranjal> Yes
+[2018-07-18 17:23:13] <jgbarah> Thanks a lot. Try to push forward as much as you can. We follow on tomorrow at 10:00 / 13:30.
+[2018-07-18 17:23:29] <jgbarah> Read you then!! Bye.
+[2018-07-18 17:23:35] <aswanipranjal> Yes, definately.
+[2018-07-18 17:23:47] <aswanipranjal> Thank you for your time @jgbarah 
+[2018-07-18 17:23:51] <aswanipranjal> read you tomorrow
+[2018-07-18 17:23:54] <aswanipranjal> bye!
