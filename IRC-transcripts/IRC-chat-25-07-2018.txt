@@ -1,0 +1,135 @@
+[2018-07-25 16:37:49] <jgbarah> Hi, aswanipranjal!
+[2018-07-25 16:38:05] <aswanipranjal> Hey, @jgbarah!
+[2018-07-25 16:38:16] <jgbarah> Sorry for being late...
+[2018-07-25 16:38:20] <jgbarah> Can we start?
+[2018-07-25 16:38:26] <aswanipranjal> It's not a problem. Yeah, sure!
+[2018-07-25 16:39:06] <jgbarah> OK
+[2018-07-25 16:39:52] <jgbarah> Letś start with your blog post, as usual...
+[2018-07-25 16:40:35] <aswanipranjal> Yes, please
+[2018-07-25 16:41:27] <jgbarah> Task #5 is showing some progress... Would you say that there is something blocking at you?
+[2018-07-25 16:41:50] <aswanipranjal> I took some help from Valerio yesterday
+[2018-07-25 16:42:04] <aswanipranjal> He explained to me how to call studies
+[2018-07-25 16:42:13] <aswanipranjal> since there is little documentation for gelk
+[2018-07-25 16:42:21] <aswanipranjal> I am still understanding how they work.
+[2018-07-25 16:42:45] <aswanipranjal> In the last meeting, you said that aliases weren't a good idea, may I know why?
+[2018-07-25 16:45:35] <jgbarah> OK, several issues here...
+[2018-07-25 16:45:55] <jgbarah> First one is how we produce the enriched indexes, and what info in in them
+[2018-07-25 16:46:13] <jgbarah> My feeling is that we need an enriched index for PRs, and another one for issues
+[2018-07-25 16:46:25] <aswanipranjal> Yes, correct
+[2018-07-25 16:46:43] <jgbarah> Currently we have one for PRs&issues, mixed together, and not with all the information (eg, there is no info from the GitHub PR API)
+[2018-07-25 16:47:24] <jgbarah> So, if we agree, first thing would be creating an enriched index with information about PRs, coming from the raw indexes with info coming from GitHub Issues API and GitHub PRs API
+[2018-07-25 16:47:29] <jgbarah> All right?
+[2018-07-25 16:47:39] <aswanipranjal> yes correct
+[2018-07-25 16:47:58] <jgbarah> OK. If why agree up to this point, what do we need aliases for?
+[2018-07-25 16:48:43] <aswanipranjal> I was thinking, we can have aliases for the raw indices for PR&issues and PRs only and then use that alias to get the enriched data for PRs only index
+[2018-07-25 16:49:40] <jgbarah> Hmmm. I see. If you think that's practical, we could try, but I would just read both indexes when needed...
+[2018-07-25 16:50:30] <jgbarah> Have in mind that both raw indexes will be updated at different times,
+[2018-07-25 16:50:55] <aswanipranjal> Oh, yes. I didn't account for that.
+[2018-07-25 16:51:01] <jgbarah> which mean that when you query the alias, even when it includes data from bot APIs, maybe iit is updated for some of them but not for the other
+[2018-07-25 16:51:51] <jgbarah> Just a second, I have an issue here...
+[2018-07-25 17:02:06] <jgbarah> OK, I'mm back
+[2018-07-25 17:02:13] <jgbarah> Then, summarizing...
+[2018-07-25 17:02:30] <jgbarah> I would not use aliases, and I would write a study, following the ideas above,
+[2018-07-25 17:02:53] <jgbarah> if you find aliases can be useful, just use them, and we can discuss later if it makes sense to use them or not,
+[2018-07-25 17:03:04] <jgbarah> I think most of the code is independent on whether you use aliases or not
+[2018-07-25 17:03:13] <jgbarah> Do you agree, aswanipranjal ?
+[2018-07-25 17:03:38] <aswanipranjal> yes, sure!
+[2018-07-25 17:03:46] <jgbarah> Good!
+[2018-07-25 17:03:57] <jgbarah> Then,, can we consider the way is open for #5?
+[2018-07-25 17:04:05] <aswanipranjal> Yes
+[2018-07-25 17:04:14] <jgbarah> Perfect!
+[2018-07-25 17:04:19] <aswanipranjal> Nothing is blocking it right now
+[2018-07-25 17:04:27] <jgbarah> #7A
+[2018-07-25 17:04:41] <jgbarah> Sorry, #7B
+[2018-07-25 17:04:51] <aswanipranjal> Yes, haha
+[2018-07-25 17:05:04] <aswanipranjal> I made the changes that you asked for
+[2018-07-25 17:05:14] <jgbarah> I'm going to write some comments in your prs, but I think that we're almost done
+[2018-07-25 17:05:24] <aswanipranjal> Great!
+[2018-07-25 17:05:32] <jgbarah> So, please go on implementing what you can using that schema
+[2018-07-25 17:05:37] <aswanipranjal> Okay
+[2018-07-25 17:05:52] <aswanipranjal> Valerio made another PR adding the tests which directly use the enriched indices
+[2018-07-25 17:05:52] <jgbarah> I hope to send you the comments during my afternoon
+[2018-07-25 17:06:02] <aswanipranjal> Please look at that too
+[2018-07-25 17:06:09] <jgbarah> Yess. That would be how to use the enriched indexes for the tests,
+[2018-07-25 17:06:13] <aswanipranjal> > I hope to send you the comments during my afternoon
+[2018-07-25 17:06:13] <aswanipranjal> Thanks!
+[2018-07-25 17:06:25] <jgbarah> so please from now on use that schema for the tests that need an index
+[2018-07-25 17:06:36] <aswanipranjal> > Yess. That would be how to use the enriched indexes for the tests,
+[2018-07-25 17:06:36] <aswanipranjal> Okay. I'll update all the tests to use the same schema then
+[2018-07-25 17:06:42] <aswanipranjal> Yeah
+[2018-07-25 17:06:43] <jgbarah> Any other thing to discuss about this #7B ?
+[2018-07-25 17:06:55] <aswanipranjal> No, I think it's okay for now
+[2018-07-25 17:07:21] <jgbarah> (I'll probably approve your prs as they are now, you can upgrade to this way of testiing in a separate pr later)
+[2018-07-25 17:07:25] <jgbarah> Good.
+[2018-07-25 17:07:38] <jgbarah> #8 is in your plate ;-)
+[2018-07-25 17:07:39] <aswanipranjal> Yes, that works
+[2018-07-25 17:07:54] <aswanipranjal> I cannot figure out how to proceed with 8 at all
+[2018-07-25 17:08:09] <jgbarah> Since we're close to the finish of the project, I would say that you focus, in this order, in #5, #7, #8
+[2018-07-25 17:08:13] <aswanipranjal> the thing is, if the user does a force push then all the previous data is gone
+[2018-07-25 17:08:27] <aswanipranjal> > Since we're close to the finish of the project, I would say that you focus, in this order, in #5, #7, #8
+[2018-07-25 17:08:27] <aswanipranjal> Okay
+[2018-07-25 17:08:33] <jgbarah> If the user does a force push, we need to retrieve all the data anywhay
+[2018-07-25 17:08:48] <jgbarah> So that's really a no-problem ;-)
+[2018-07-25 17:09:22] <jgbarah> Do you see the point?
+[2018-07-25 17:09:40] <aswanipranjal> How do we see the code iteration then?
+[2018-07-25 17:10:33] <jgbarah> aswanipranjal: the problem was that you couldn't figure out in any GitHub API how to learn that there is a nee version of the patch, right?
+[2018-07-25 17:11:47] <aswanipranjal> Yes
+[2018-07-25 17:12:10] <aswanipranjal> I was just checking what the metrics says exactly
+[2018-07-25 17:12:21] <aswanipranjal> `What is the number of iterations that occur before a merge request is accepted or declined?`
+[2018-07-25 17:14:14] <jgbarah> Valerio couldn't help here?
+[2018-07-25 17:14:44] <aswanipranjal> I did open an issue, I'll update everyone there that I was unable to progress much
+[2018-07-25 17:14:55] <aswanipranjal> So that they should also start looking
+[2018-07-25 17:16:13] <aswanipranjal> here's the issue: https://github.com/chaoss/grimoirelab-perceval/issues/408
+[2018-07-25 17:16:30] <jgbarah> OK, I will talk to Valerio
+[2018-07-25 17:16:42] <aswanipranjal> Awesome! Thank you!
+[2018-07-25 17:16:46] <jgbarah> My impression is that you can use the GitHub Events API https://developer.github.com/v3/activity/events/#list-repository-events
+[2018-07-25 17:16:52] <jgbarah> Please, have a look at it
+[2018-07-25 17:17:03] <aswanipranjal> Yes, thanks!
+[2018-07-25 17:17:12] <jgbarah> I'm not completely sure, but I think it includes every time a new commit is pushed to the repo
+[2018-07-25 17:17:23] <jgbarah> I will tell Valerio to check, anyway
+[2018-07-25 17:17:35] <aswanipranjal> Okay, I'll also look into it.
+[2018-07-25 17:17:44] <jgbarah> But you can consdier this the lowest priority, since we need to implement all the metrics that can be implemented...
+[2018-07-25 17:17:47] <jgbarah> Thanks!
+[2018-07-25 17:17:56] <aswanipranjal> Yeah, I'll keep it in mind
+[2018-07-25 17:17:58] <jgbarah> So, I think we're done on my side...
+[2018-07-25 17:18:03] <jgbarah> Anything else from yours?
+[2018-07-25 17:18:22] <aswanipranjal> We got an email from GSoC about the submission guidelines
+[2018-07-25 17:18:30] <aswanipranjal> I don't know if you know about it
+[2018-07-25 17:19:03] <aswanipranjal> So i wanted to ask you that `is there a specific format that you want the final project to be submitted to CHAOSS?`
+[2018-07-25 17:21:14] <jgbarah> Not specifically, we're doing continuously via PR
+[2018-07-25 17:21:21] <jgbarah> (PRs)
+[2018-07-25 17:21:27] <jgbarah> I wiill have a look at it.
+[2018-07-25 17:21:31] <aswanipranjal> Okay, great!
+[2018-07-25 17:21:40] <aswanipranjal> Should I forward you the email?
+[2018-07-25 17:21:52] <jgbarah> But the deadline for submitting is in early August, isn't it?
+[2018-07-25 17:22:03] <aswanipranjal> yeah, it's 14th August
+[2018-07-25 17:22:09] <aswanipranjal> we have exactly 3 weeks starting today
+[2018-07-25 17:22:16] <jgbarah> Yes, please, forward it to me just in case (I think I should have received a version of it, but just in case)
+[2018-07-25 17:22:23] <aswanipranjal> Will do!
+[2018-07-25 17:22:24] <jgbarah> Yes, that was my idea
+[2018-07-25 17:22:38] <jgbarah> We can talk about that in detail during our next meeting, if that suits you
+[2018-07-25 17:22:45] <aswanipranjal> Yes, please
+[2018-07-25 17:22:49] <jgbarah> OK, anything else?
+[2018-07-25 17:22:55] <aswanipranjal> No, that's it
+[2018-07-25 17:23:03] <jgbarah> Good!
+[2018-07-25 17:23:04] <aswanipranjal> Thank you for your time @jgbarah!
+[2018-07-25 17:23:17] <jgbarah> Next week, I cannot meet at the usual time
+[2018-07-25 17:23:23] <aswanipranjal> Oh
+[2018-07-25 17:23:32] <jgbarah> Would you mind delaying our meeting until Friday? Same time?
+[2018-07-25 17:23:59] <aswanipranjal> Sure, it shouldn't be a problem
+[2018-07-25 17:24:04] <jgbarah> In any case, I will talk to Valerio to deal with any issue you may have during that time
+[2018-07-25 17:24:16] <aswanipranjal> Great, thanks!
+[2018-07-25 17:24:47] <jgbarah> OK then, let's meet on Friday Aug 3rd, at 13:00 CEST, 16:30 IST, right?
+[2018-07-25 17:24:56] <aswanipranjal> yes sir
+[2018-07-25 17:25:24] <jgbarah> I will try to be on top of your prs during this time, but my availabiltiy is going to be limited. Valerio will back up me,
+[2018-07-25 17:25:33] <jgbarah> Thanks a lot, aswanipranjal!
+[2018-07-25 17:25:54] <jgbarah> Please, send the log, and all the usual stuff.
+[2018-07-25 17:25:57] <aswanipranjal> > I will try to be on top of your prs during this time, but my availabiltiy is going to be limited. Valerio will back up me
+[2018-07-25 17:25:57] <aswanipranjal> shouldn't be a problem
+[2018-07-25 17:26:03] <aswanipranjal> Yes
+[2018-07-25 17:26:06] <aswanipranjal> thanks again!
+[2018-07-25 17:26:18] <aswanipranjal> see you next friday!
+[2018-07-25 17:26:24] <aswanipranjal> read*
+[2018-07-25 17:27:00] <jgbarah> Bye!!
+[2018-07-25 17:27:03] <jgbarah> ;-)
+[2018-07-25 17:27:10] <aswanipranjal> bye!
