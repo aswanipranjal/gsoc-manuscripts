@@ -1,0 +1,90 @@
+[2018-08-03 16:29:31] <jgbarah> Hi aswanipranjal!
+[2018-08-03 16:29:49] <jgbarah> Ready for one of our latest GSoC meetings??
+[2018-08-03 16:31:11] <aswanipranjal> Yes sir!
+[2018-08-03 16:31:50] <aswanipranjal> Hi!
+[2018-08-03 16:32:24] <jgbarah> Great! I read your Vietnam blog post ;-)
+[2018-08-03 16:32:31] <aswanipranjal> Haha
+[2018-08-03 16:32:32] <aswanipranjal> Thanks
+[2018-08-03 16:32:49] <aswanipranjal> I was trying to pump everyone up!
+[2018-08-03 16:32:50] <jgbarah> I was just reading the PRs, I saw you and Valerio did a very good job during the weekç
+[2018-08-03 16:33:08] <aswanipranjal> Yeah, he was very helpful!
+[2018-08-03 16:33:24] <jgbarah> So, I think everything is on its way, let's see task by task...
+[2018-08-03 16:33:38] <jgbarah> OK, Task #5
+[2018-08-03 16:34:02] <jgbarah> It seems you're using Valerio's micromodred to run what you need
+[2018-08-03 16:34:12] <aswanipranjal> Yeah, p2o.py had some issues
+[2018-08-03 16:34:21] <jgbarah> Do you think you can already produce the indexes you need? Anything else on this front?
+[2018-08-03 16:34:37] <aswanipranjal> I'll update you on this by monday
+[2018-08-03 16:34:49] <aswanipranjal> I should be able to create the full github_prs index, I think
+[2018-08-03 16:34:52] <jgbarah> (BTW, maybe micromordred will be migrated to mordred, but that should not affect you)
+[2018-08-03 16:34:59] <jgbarah> Great!
+[2018-08-03 16:35:08] <jgbarah> Yes, please, keep me updated, please
+[2018-08-03 16:35:24] <jgbarah> So, it seems we're almost there with #5, right?
+[2018-08-03 16:35:35] <aswanipranjal> We will need to update the docs for Mordred
+[2018-08-03 16:35:42] <aswanipranjal> Yeah @jgbarah I think so
+[2018-08-03 16:36:30] <jgbarah> Perfect. So, keep me updated asap, and we´re all good with thiss
+[2018-08-03 16:36:36] <aswanipranjal> Yes
+[2018-08-03 16:37:05] <jgbarah> Now, #7. I wass reviewiing the prs, but I couldn't find time to run the stuff. Could you summarize the current functionality?
+[2018-08-03 16:37:30] <aswanipranjal> So we can not calculate the OVERVIEW and PROJECT ACTIVITY sections of the report.
+[2018-08-03 16:37:59] <aswanipranjal> I'll finish the PROJECT PROCESS section and then start with creating the actual report in PDF/MARKDOWN format
+[2018-08-03 16:38:13] <jgbarah> OK. That was to be my suggestion...
+[2018-08-03 16:38:22] <aswanipranjal> I've also added tests for these sections for the git, github_prs and github_issues data sources
+[2018-08-03 16:38:37] <jgbarah> ...ad whatever metrics you find are easy to add, and try to produce a complete version of the report asap
+[2018-08-03 16:38:56] <aswanipranjal> Yes. 
+[2018-08-03 16:38:59] <jgbarah> Ideally by Monday, so that we can interact on it, but having Wed. as an absolute deadline,
+[2018-08-03 16:39:17] <jgbarah> so we can polish whatever we need during the last week,
+[2018-08-03 16:39:17] <aswanipranjal> I am currently figuring out how to write the tests for the functions in the report.
+[2018-08-03 16:39:25] <jgbarah> and we ensure we have something useful to delier ;-)
+[2018-08-03 16:39:29] <jgbarah> (deliver)
+[2018-08-03 16:39:36] <aswanipranjal> Yes, that's the plan!
+[2018-08-03 16:40:04] <jgbarah> OK, perfect then
+[2018-08-03 16:41:01] <aswanipranjal> I can then add the GMD and the visualisations after GSoC ends?
+[2018-08-03 16:41:02] <jgbarah> And with #8, yes, it seems more difficult than it appeared too be. I think you can safely forget ab out it for now
+[2018-08-03 16:41:20] <aswanipranjal> > And with #8, yes, it seems more difficult than it appeared too be. I think you can safely forget ab out it for now
+[2018-08-03 16:41:20] <aswanipranjal> Yes sir
+[2018-08-03 16:41:30] <jgbarah> aswanipranjal: you can follow on working on this as much as you want. Yoy're welcome to follow on after GSoc, of course
+[2018-08-03 16:41:39] <aswanipranjal> Okay, Great!!
+[2018-08-03 16:42:04] <jgbarah> And it will be very important for us that you decide to keep contributing, at the pace that you may find confortable
+[2018-08-03 16:42:29] <jgbarah> Let's talk about this in our final meeting, to keep the GSoC period on its own goal, anyway
+[2018-08-03 16:42:39] <aswanipranjal> yeah, that sounds fair
+[2018-08-03 16:42:40] <jgbarah> OK, so I see we're on the same page:
+[2018-08-03 16:43:00] <jgbarah> * For Monday, you try to have #5 done, as much as possible, having your new index iin gelk
+[2018-08-03 16:43:32] <jgbarah> * For Monday / Wed. have a complete version (PDF and/or MD) of the complete report, using your code
+[2018-08-03 16:43:43] <jgbarah> (by complete, I mean the metrics you have implemented)
+[2018-08-03 16:44:06] <jgbarah> Last week will be for polishing the report, and for adding as much missing metrics as possible
+[2018-08-03 16:44:08] <jgbarah> OK?
+[2018-08-03 16:44:15] <aswanipranjal> Sounds good!
+[2018-08-03 16:45:17] <jgbarah> GReat!
+[2018-08-03 16:45:35] <jgbarah> I think we're done then... This was our shortest GSoC meeting!!! ;-)
+[2018-08-03 16:45:40] <aswanipranjal> Haha, yeah
+[2018-08-03 16:45:41] <jgbarah> Anything else on your side?
+[2018-08-03 16:46:04] <aswanipranjal> I sent you an email that I got from GSoC
+[2018-08-03 16:46:11] <aswanipranjal> about the submissions guidelines
+[2018-08-03 16:46:15] <aswanipranjal> please have a look at it?
+[2018-08-03 16:47:42] <jgbarah> Yeah, I looked at it. Since we have been using continuous delivery, via pull requests, etc. I think the thing is going to be ready without nothing else to do
+[2018-08-03 16:47:53] <aswanipranjal> Okay
+[2018-08-03 16:48:00] <jgbarah> I was planning to have some docs written during the last week too, on how to run the stuff, and all that
+[2018-08-03 16:48:13] <jgbarah> and of course completing the tests, but I know you're on it
+[2018-08-03 16:48:23] <aswanipranjal> Yeah, that's a good idea
+[2018-08-03 16:48:38] <jgbarah> We can go through the message in detail in our next neeting, if you want
+[2018-08-03 16:48:49] <aswanipranjal> I'll just submit the README.md containing information about all the PRs and Issues that I created
+[2018-08-03 16:48:58] <aswanipranjal> I think that should cover it?
+[2018-08-03 16:49:08] <aswanipranjal> >We can go through the message in detail in our next neeting, if you want
+[2018-08-03 16:49:08] <aswanipranjal> Sure
+[2018-08-03 16:49:41] <jgbarah> We can talk about that, but maybe even that is not needed. Everything in mnuscripts2 is yours, and then some other prs...
+[2018-08-03 16:49:55] <aswanipranjal> Yeah
+[2018-08-03 16:49:58] <jgbarah> We could just use git log to get the commits
+[2018-08-03 16:50:12] <aswanipranjal> That might also work
+[2018-08-03 16:50:25] <aswanipranjal> We can discuss the specifics in the next meeting
+[2018-08-03 16:50:32] <jgbarah> But since you directly contributed to the project, that's clear. My understunding of the rules is that they are for ensuring there is a contribution to the project
+[2018-08-03 16:50:37] <jgbarah> Yours was continuous
+[2018-08-03 16:50:42] <jgbarah> Yes, ok
+[2018-08-03 16:50:49] <jgbarah> Anything else?
+[2018-08-03 16:50:56] <aswanipranjal> No, that is it from my side too.
+[2018-08-03 16:51:29] <jgbarah> Good. Thanks for your time. And congratulations for the advances during this past week. Read you on Monday / Wed.
+[2018-08-03 16:51:38] <aswanipranjal> Thank you!
+[2018-08-03 16:51:40] <jgbarah> Next week, our meeting will be on Wed., as usual, ok?
+[2018-08-03 16:51:44] <aswanipranjal> And thank you for your time
+[2018-08-03 16:51:49] <aswanipranjal> yes, next wednesday.
+[2018-08-03 16:52:05] <aswanipranjal> I'll update you on Monday once
+[2018-08-03 16:52:14] <jgbarah> Thanks!! Bye
+[2018-08-03 16:52:25] <aswanipranjal> Bye @jgbarah !
