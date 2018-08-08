@@ -1,0 +1,161 @@
+[2018-08-08 16:28:01] <aswanipranjal> @jgbarah https://drive.google.com/file/d/1-3MHbHHWudLkT3rQyQlEsIfSLsogIplA/view?usp=sharing
+[2018-08-08 16:28:01] <aswanipranjal> first successful report.
+[2018-08-08 16:29:45] <jgbarah> G R E A T ! ! ! !
+[2018-08-08 16:29:51] <jgbarah> Congratulations, aswanipranjal
+[2018-08-08 16:30:02] <aswanipranjal> Thank you. To you too!
+[2018-08-08 16:30:03] <jgbarah> BTW, I'm ready to start our meeting. When you want...
+[2018-08-08 16:30:10] <aswanipranjal> We can start
+[2018-08-08 16:30:52] <jgbarah> OK. First thing, how can I produce the report?
+[2018-08-08 16:31:17] <jgbarah> (btw, I can reproduce your csv and charts perfectly, so that's working pretty well)
+[2018-08-08 16:31:21] <aswanipranjal> I have a working model of it, I'll clean up the code and push it after the meeting
+[2018-08-08 16:31:35] <jgbarah> ok, good. thanks
+[2018-08-08 16:31:47] <aswanipranjal> There is a bit of cleanup required, but this is automatic, so it works!
+[2018-08-08 16:31:48] <aswanipranjal> yay!
+[2018-08-08 16:32:00] <jgbarah> Could you write a draft for our meeting, or we just review the tasks?
+[2018-08-08 16:32:20] <aswanipranjal> We can refer to the previous blog post for the tasks
+[2018-08-08 16:32:36] <aswanipranjal> I'll share the links of the PRs that I made this week, so that you can go through them.
+[2018-08-08 16:33:40] <aswanipranjal> https://github.com/chaoss/grimoirelab-elk/pull/419
+[2018-08-08 16:33:40] <aswanipranjal> This PR adds the `enrich_pull_request` study to grimoire-elk
+[2018-08-08 16:33:57] <aswanipranjal> This study will allow us to calculate the remaining fields
+[2018-08-08 16:34:09] <aswanipranjal> So this completes task-5 I think.
+[2018-08-08 16:34:58] <jgbarah> OK. Yes, since you can produce the indexes (and Valerio and me, and hopefully anyone), yes, we could consider it as complete
+[2018-08-08 16:35:27] <jgbarah> I think you were still doing some tests?
+[2018-08-08 16:35:44] <aswanipranjal> I am using micro mordred for it, so once https://github.com/chaoss/grimoirelab-sirmordred/pull/190 is merged, then you can use the study too
+[2018-08-08 16:35:58] <aswanipranjal> Yes, I am going to write some tests for the study.
+[2018-08-08 16:36:16] <aswanipranjal> I couldn't because creating the Report was the priority
+[2018-08-08 16:36:50] <jgbarah> Yes, that's fine...
+[2018-08-08 16:37:09] <jgbarah> And for #7 (the report), I see you can produce a PDF...
+[2018-08-08 16:37:22] <aswanipranjal> Yeah, I just finished the code for the report.
+[2018-08-08 16:37:23] <jgbarah> Y checked csv and charts, and as I said, that worked for me
+[2018-08-08 16:37:39] <jgbarah> We would need some documentation, and if possible some testing
+[2018-08-08 16:37:48] <aswanipranjal> Yes, that is what I am going to do next
+[2018-08-08 16:37:53] <jgbarah> Are you planning to add some more metrics during the week?
+[2018-08-08 16:37:56] <aswanipranjal> testing and cleaning up and documentation
+[2018-08-08 16:37:59] <jgbarah> OK
+[2018-08-08 16:38:04] <aswanipranjal> mertics as in GMD?
+[2018-08-08 16:38:09] <jgbarah> Yes
+[2018-08-08 16:38:13] <aswanipranjal> I'll try to
+[2018-08-08 16:38:24] <jgbarah> OK. Let me know...
+[2018-08-08 16:38:40] <aswanipranjal> I have to discuss some things with you in this regard
+[2018-08-08 16:38:45] <jgbarah> Finally, you need to produce the report about what has been delivered, for GSoC
+[2018-08-08 16:39:00] <jgbarah> Oh, let's discuss those things first
+[2018-08-08 16:39:24] <aswanipranjal> Was I able to complete most of the work that we set out to complete?
+[2018-08-08 16:40:45] <jgbarah> Well, I was expecting to have a more complete report, doing some iterations after the first version,
+[2018-08-08 16:41:04] <jgbarah> exploring a bit more using Markdown, notebooks...
+[2018-08-08 16:41:08] <jgbarah> and new visualizations
+[2018-08-08 16:41:23] <jgbarah> But well, when you start, you never know what's going to happen
+[2018-08-08 16:41:33] <aswanipranjal> Yes, I still want to include those things
+[2018-08-08 16:41:48] <jgbarah> I'm happy with how you mastered the technologies involved, including GrimoireLab itself, which is not  an easy thing ;-)
+[2018-08-08 16:41:56] <aswanipranjal> Thanks!
+[2018-08-08 16:42:12] <jgbarah> I would be happy to follow on after the end of the GSoC, if you want. In fact, I think most of the fun would start now ;-)
+[2018-08-08 16:42:36] <jgbarah> But that's something you can consider freely starting next week, when we're done with GSoC
+[2018-08-08 16:42:38] <aswanipranjal> I was thinking that I keep contributing in the coming months so that whatever research I did in the month of June (visualizations and notebooks) I can add them to manuscripts
+[2018-08-08 16:43:00] <aswanipranjal> >I would be happy to follow on after the end of the GSoC, if you want. In fact, I think most of the fun would start now ;-)
+[2018-08-08 16:43:00] <aswanipranjal> I think exactly the same. 
+[2018-08-08 16:43:59] <jgbarah> That would be great.
+[2018-08-08 16:44:17] <aswanipranjal> I have a few more questions, if you don't mind?
+[2018-08-08 16:44:33] <jgbarah> Look, I m on vacation next week (although I will still be checking GitHub). What if we talk for a while the week after, and define a plan?
+[2018-08-08 16:44:38] <jgbarah> Yes, please
+[2018-08-08 16:44:51] <aswanipranjal> > Look, I m on vacation next week (although I will still be checking GitHub). What if we talk for a while the week after, and define a plan?
+[2018-08-08 16:44:51] <aswanipranjal> Sounds great!
+[2018-08-08 16:45:00] <aswanipranjal> I'd want a break for a while my self.
+[2018-08-08 16:45:08] <aswanipranjal> - What I think should get completed before GSoC ends is:
+[2018-08-08 16:45:08] <aswanipranjal>     - Good tests should be written
+[2018-08-08 16:45:08] <aswanipranjal>     - setup.py should be updated so that manusripts2 can be used properly
+[2018-08-08 16:45:08] <aswanipranjal>     - Documentation should be completed on what the functions are and how to use them
+[2018-08-08 16:45:08] <aswanipranjal>     - Instructions on how to contribute to the project should be added
+[2018-08-08 16:45:08] <aswanipranjal>     - Test the report generation on Linux system?
+[2018-08-08 16:45:08] <aswanipranjal>     - I want to add the Jupiter notebooks that I created for GMD metrics into the manuscripts2 folders too so that if the users want, they can get a hands on approach in calculating the GMD metrics
+[2018-08-08 16:45:31] <aswanipranjal> Do you agree/want to add something, in this list?
+[2018-08-08 16:45:56] <jgbarah> I think that's pretty much it.
+[2018-08-08 16:46:01] <aswanipranjal> Great!
+[2018-08-08 16:46:30] <jgbarah> WRT notebooks, please add a directory directly in the root of the repo, gmd-notebooks, and include them there,
+[2018-08-08 16:46:44] <jgbarah> with a README.md explaining the notebooks, and how to run them.
+[2018-08-08 16:47:05] <aswanipranjal> I'll send you and Valerio the link to the README.md describing the work done and how-tos by monday evening. Will that work?
+[2018-08-08 16:47:30] <jgbarah> Do you mean the one for GSoC?
+[2018-08-08 16:47:36] <aswanipranjal> Yeah
+[2018-08-08 16:47:50] <jgbarah> I had thought that you may write a final post for your blog (well, final for now ;-) )
+[2018-08-08 16:48:11] <aswanipranjal> I can do that, do you think that is a better approach?
+[2018-08-08 16:48:31] <jgbarah> It could include a summary of all you did, strutured in tasks, with links to all PRs and issues, and at the begining a summary with the
+[2018-08-08 16:48:42] <aswanipranjal> I can write a post from start to finish, I think. describing in brief the work done.
+[2018-08-08 16:48:55] <jgbarah> main results: the library, an example of a report, a description (high level) of what you did...
+[2018-08-08 16:49:19] <jgbarah> The important thing is that you have a first part of the post that makes it clear your overall contribution,
+[2018-08-08 16:49:33] <jgbarah> and then, structured in tasks, the links to everything you produced.
+[2018-08-08 16:50:00] <jgbarah> I thought about using a post because the work is the same, but that way you're going to have a pretty interesting set of blog posts,
+[2018-08-08 16:50:07] <jgbarah> including all the process and the final result
+[2018-08-08 16:50:25] <aswanipranjal> Yeah, that's right!
+[2018-08-08 16:51:05] <aswanipranjal> I'll try to finish it and send it to you by monday so that you can comment on how I can improve it
+[2018-08-08 16:51:38] <aswanipranjal> Should we have another meeting on Monday/Wednesday?
+[2018-08-08 16:52:38] <jgbarah> If you send it by monday, I will try to read it asap, but I'm not sure when I could. Likely Tuesday or Wednesday.
+[2018-08-08 16:52:45] <jgbarah> Please, CC Valerio too.
+[2018-08-08 16:53:02] <aswanipranjal> I wanted to get it reviewed by you before I submit it to google
+[2018-08-08 16:53:09] <jgbarah> And I think you can also send the link to it to the mailing list, even if it is still a draft
+[2018-08-08 16:53:18] <aswanipranjal> Yeah, that's a good idea
+[2018-08-08 16:53:27] <jgbarah> What's the limit you have to submit to Google?
+[2018-08-08 16:53:29] <aswanipranjal> Thanks! I'll do that only.
+[2018-08-08 16:53:38] <aswanipranjal> Tuesday 16:30 UTC
+[2018-08-08 16:54:05] <aswanipranjal> I'd prefer to submit it by tuesday noon, just to be safe.
+[2018-08-08 16:54:31] <jgbarah> OK. I'll do my best to have it reviewed by Tuesday morning UTC. But I cannot commit
+[2018-08-08 16:54:39] <aswanipranjal> No problem.
+[2018-08-08 16:55:12] <jgbarah> Please, try to submit it duuirng Monday, as soon as possible, and send me a DM in Twitter about that, so that I try to review asap
+[2018-08-08 16:55:32] <aswanipranjal> Will do. Now for some personal feedback, if you don't mind.
+[2018-08-08 16:55:50] <jgbarah> If you want, you can also include charts about your activity, using GrimoireLab. For example, this one shows very well your overall activity in prs, issues, commits, messages...
+[2018-08-08 16:56:55] <jgbarah> https://screenshots.firefox.com/QIl0hmDNYjRsQctV/localhost
+[2018-08-08 16:56:58] <jgbarah> This one
+[2018-08-08 16:57:30] <aswanipranjal> Nice! Thanks! This will be very handy.
+[2018-08-08 16:59:14] <aswanipranjal> I had some more questions, personal feedback basically:
+[2018-08-08 16:59:14] <aswanipranjal> What do I need to do to improve as a programmer?
+[2018-08-08 16:59:14] <aswanipranjal> Do you see any problems with the way I program?
+[2018-08-08 16:59:51] <jgbarah> What do you think if we talk about that in our first after-GSoC meeting?
+[2018-08-08 17:00:02] <aswanipranjal> I won't mind. 
+[2018-08-08 17:00:16] <jgbarah> A part of that is going to go in our final review report, so we could review it together,
+[2018-08-08 17:00:20] <aswanipranjal> Just please tell me about your availability.
+[2018-08-08 17:00:25] <jgbarah> and talk about anything else you may want
+[2018-08-08 17:00:32] <aswanipranjal> Sure!
+[2018-08-08 17:00:36] <jgbarah> I would prefer to skip next week,
+[2018-08-08 17:00:51] <jgbarah> the week after we could meet at this same time, on Wed. if that suits you
+[2018-08-08 17:00:53] <aswanipranjal> You will have to review the work that I did, starting tuesday next week
+[2018-08-08 17:01:03] <aswanipranjal> Okay, That'll be great!
+[2018-08-08 17:01:12] <jgbarah> Yes, I plan to do that during Wed-Fri
+[2018-08-08 17:01:19] <jgbarah> OK
+[2018-08-08 17:01:44] <jgbarah> I will be available for a meeting this Friday, too, if you feel you need it.
+[2018-08-08 17:02:41] <aswanipranjal> I'll email you if something comes up. But mostly I won't need it.
+[2018-08-08 17:02:52] <jgbarah> OK, great.
+[2018-08-08 17:02:56] <aswanipranjal> Tasks for this week:
+[2018-08-08 17:02:56] <aswanipranjal> - write tests for the report
+[2018-08-08 17:02:56] <aswanipranjal> - documentation
+[2018-08-08 17:02:56] <aswanipranjal> - write tests for the study
+[2018-08-08 17:02:56] <aswanipranjal> - write the final report.
+[2018-08-08 17:03:10] <aswanipranjal> - Add necessary files (notebooks) to the report
+[2018-08-08 17:03:19] <jgbarah> Yes. Above you have a more detailed list
+[2018-08-08 17:03:42] <jgbarah> Good tests should be written
+[2018-08-08 17:03:43] <jgbarah> (01:15:09 PM) aswanipranjal:     - setup.py should be updated so that manusripts2 can be used properly
+[2018-08-08 17:03:43] <jgbarah> (01:15:09 PM) aswanipranjal:     - Documentation should be completed on what the functions are and how to use them
+[2018-08-08 17:03:43] <jgbarah> (01:15:09 PM) aswanipranjal:     - Instructions on how to contribute to the project should be added
+[2018-08-08 17:03:43] <jgbarah> (01:15:09 PM) aswanipranjal:     - Test the report generation on Linux system?
+[2018-08-08 17:03:43] <jgbarah> (01:15:09 PM) aswanipranjal:     - I want to add the Jupiter notebooks that I created for GMD metrics into the manuscripts2 folders too so that if the users want, they can get a hands on approach in calculating the GMD metrics
+[2018-08-08 17:03:47] <jgbarah> And the report
+[2018-08-08 17:04:29] <aswanipranjal> I have just one last doubt
+[2018-08-08 17:04:37] <jgbarah> In Linux, I'm testing it, so if i can run your prs, you don't need to do that (althiugh it wouldn't harm)
+[2018-08-08 17:04:41] <jgbarah> Yes, please
+[2018-08-08 17:04:56] <aswanipranjal> > In Linux, I'm testing it, so if i can run your prs, you don't need to do that (althiugh it wouldn't harm)
+[2018-08-08 17:04:56] <aswanipranjal> Oh, cool! thanks!
+[2018-08-08 17:05:45] <aswanipranjal> Since we didn't have a very concrete plan on what we wanted to do, do you think it'll be okay to say that we "met almost all our goals"? Or did we "missed many goals"?
+[2018-08-08 17:06:23] <jgbarah> I think we can say we met almost all our goals
+[2018-08-08 17:06:38] <aswanipranjal> Awesome! That is so good to hear!
+[2018-08-08 17:06:48] <jgbarah> The main one, which is producing a PDF report with the new library you are writing, is clearly done
+[2018-08-08 17:07:02] <aswanipranjal> Yes, definately
+[2018-08-08 17:08:13] <jgbarah> OK. Anything else?
+[2018-08-08 17:08:49] <aswanipranjal> That's it from my side. I just wanted some more feedback, but we can do that in our next meeting, as you said.
+[2018-08-08 17:09:30] <jgbarah> Yes, please. Thanks!
+[2018-08-08 17:09:50] <aswanipranjal> Thank you @jgbarah 
+[2018-08-08 17:09:56] <aswanipranjal> For your time.
+[2018-08-08 17:10:14] <jgbarah> (BTW, I'm also interested in your view of this process, on what you think about the mentoship and help you got,etc. We can talk about that too in our next meeting, if you don't mind)
+[2018-08-08 17:10:19] <jgbarah> Thanks to you!!
+[2018-08-08 17:10:44] <aswanipranjal> >(BTW, I'm also interested in your view of this process, on what you think about the mentoship and help you got,etc. We can talk about that too in our next meeting, if you don't mind)
+[2018-08-08 17:10:44] <aswanipranjal> I look forward to it ;-)
+[2018-08-08 17:11:01] <aswanipranjal> Okay, so we meet next to next Wednesday, then?
+[2018-08-08 17:12:43] <jgbarah> Yes. Read you then! Bye!
+[2018-08-08 17:12:57] <jgbarah> (and please, produce the blog post for this last week as soon as you can)
+[2018-08-08 17:14:07] <aswanipranjal> Yes. Read you then. Bye!
+[2018-08-08 17:23:05] ⇐ jgbarah quit (~jgb@163.117.247.85): Ping timeout: 248 seconds
